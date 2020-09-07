@@ -26,7 +26,7 @@
 
                 <div class="form-group text-center m-t-40">
                     <div class="col-xs-12">
-                        <button class="btn btn-primary btn-lg w-lg waves-effect waves-light" type="button">Iniciar sesión</button>
+                        <button class="btn btn-primary btn-lg w-lg waves-effect waves-light" id="btnIniciarSesion" type="button">Iniciar sesión</button>
                     </div>
                 </div>
 
@@ -45,4 +45,3 @@
 <script src="<?php echo base_url(); ?>dist/assets/backboneJS/backbone.min.js" type="text/javascript"></script>
 
 <script src="<?php echo base_url(); ?>dist/js/login/login_view.min.js?v=<?php echo rand(); ?>" type="text/javascript"></script>
-<script src="<?php echo base_url(); ?>dist/js/login/login_model.min.js?v=<?php echo rand(); ?>" type="text/javascript"></script>

@@ -59,8 +59,7 @@ Date: Jun 2015
 
 
 /******** 1. General ********/
-html { 
-  background: url(../images/bg_home.jpg) no-repeat center center fixed; 
+html {   
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -1220,7 +1219,7 @@ lesshat-selector {
   position: relative;
   z-index: 1;
   width: 240px;
-  background: #317eeb;
+  background: #05274c;
 }
 .logo h1 {
   margin: 0px auto;
@@ -1230,7 +1229,7 @@ lesshat-selector {
 .navbar-default {
   border: none;
   margin-bottom: 0px;
-  background-color: #317eeb;
+  background-color: #05274c;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   border-radius: 0px;
 }

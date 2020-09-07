@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <!DOCTYPE html>
-<html>
+<html style="background: url(<?php echo base_url(); ?>dist/images/bg_home<?php echo rand(1,4); ?>.jpg) no-repeat center center fixed; ">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,7 +52,10 @@
         <script>
             var BASE_URL = '<?php echo base_url(); ?>';
         </script>
+        
         <script src="<?php echo base_url(); ?>dist/js/funciones.generales.min.js" type="text/javascript"></script>
+ 
+        
     </head>
     
     <body>

@@ -53,4 +53,11 @@ $route['default_controller'] = 'IniciarSesion';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+
+/***********************INICIAR SESIÓN*****************************************/
 $route['restaurar-password'] = 'IniciarSesion/restaurarPassword';
+$route['iniciar-sesion'] = 'IniciarSesion/procesarSesion';
+
+
+/**********************PANEL PRINCIPAL*****************************************/
+$route['panel-principal'] = 'Principal';
