@@ -5,7 +5,7 @@ class IniciarSesion extends MY_Controller {
     private $usuario = "", $password = "";
     public function __construct(){
         parent::__construct();
-        $this->load->model('iniciarSesion_model', 'mLogin', TRUE);        
+        $this->load->model('IniciarSesion_model', 'mLogin', TRUE);        
         if(isset($this->input->post('data')['usuario'])){
             $this->usuario = $this->input->post('data')['usuario'];
             $this->password = $this->input->post('data')['password'];            
