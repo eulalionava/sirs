@@ -32,7 +32,7 @@
 
                 <div class="form-group m-t-30">
                     <div class="col-sm-7">
-                        <a href="<?php echo base_url(); ?>restaurar-password"><i class="fa fa-lock m-r-5"></i> Olvidé mi contraseña?????</a>
+                        <a href="<?php echo base_url(); ?>restaurar-password"><i class="fa fa-lock m-r-5"></i> Olvidé mi contraseña</a>
                     </div>
                 </div>
             </form> 
