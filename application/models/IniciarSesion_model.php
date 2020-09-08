@@ -26,7 +26,16 @@ class IniciarSesion_model extends CI_Model {
                             personas_entidades.nombres,
                             personas_entidades.apellido_paterno,
                             personas_entidades.apellido_materno,
-                            personas_entidades.tipo_persona_entidad
+                            personas_entidades.tipo_persona_entidad,
+                            personas_entidades.ruta_foto, 
+                            CASE
+                                WHEN personas_entidades.tipo_persona_entidad = 1 THEN 'Reclutador'
+                                WHEN personas_entidades.tipo_persona_entidad = 2 THEN 'Seleccionador'
+                                WHEN personas_entidades.tipo_persona_entidad = 3 THEN 'Cliente'
+                                WHEN personas_entidades.tipo_persona_entidad = 4 THEN 'Welcome'
+                                WHEN personas_entidades.tipo_persona_entidad = 5 THEN 'Candidato'
+                                ELSE 'Administrador'
+                            END AS tipo_persona_desc
                         FROM 
                             usuarios 
                             INNER JOIN perfiles_accesos
@@ -36,7 +45,7 @@ class IniciarSesion_model extends CI_Model {
                             INNER JOIN personas_entidades
                                 ON(personas_entidades.id_persona_entidad = usuarios_personas_entidades.id_persona_entidad)
                         WHERE 
-                            (usuarios.status = 1) 
+                                (usuarios.status = 1) 
                             AND(UPPER(usuarios.usuario) = UPPER(?))";
             $statement = $this->db->query($ls_query, $la_where);
             if ($statement) {

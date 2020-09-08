@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Principal extends MY_Controller {    
     public function __construct(){
-        parent::__construct();
+        parent::__construct();        
     }
     
     /**
@@ -22,10 +22,34 @@ class Principal extends MY_Controller {
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
     public function index(){
-        $ls_contenido = $this->load->view('principal/panel_principal_view', array(), true);
+        $li_tipo_persona_entidad = $this->session->userdata['tipo_persona_entidad'];
+        
+        /*Tipos de vista para el panel principal:
+         * 0 = Administrador
+         * 1 = Reclutadores
+         * 2 = Seleccionadores
+         * 3 = Clientes
+         * 4 = Welcome
+         * 5 = Candidatos
+         */        
+        $la_tiposVista = array(
+            "principal/contenido_administrador_view",
+            "principal/contenido_reclutador_view",
+            "principal/contenido_seleccionador_view",
+            "principal/contenido_cliente_view",
+            "principal/contenido_welcome_view",
+            "principal/contenido_candidato_view"
+        );
+        
+        $la_contenidoPanelPrincipal = array(
+            "contenido" => $this->load->view($la_tiposVista[$li_tipo_persona_entidad], array(), true),
+            "data_usuario" => $this->session->userdata
+        );
+        $ls_vistaPanelGeneral = $this->load->view('principal/panel_principal_view', $la_contenidoPanelPrincipal, true);
+        
         $la_dataView = array(
             "title" => "Panel principal",
-            "content" => $ls_contenido
+            "content" => $ls_vistaPanelGeneral
         );
         $this->load->view('templates/header_panel_view', $la_dataView, false);        
         $this->load->view('templates/footer_panel_view');

@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 /***********************INICIAR SESIÓN*****************************************/
 $route['restaurar-password'] = 'IniciarSesion/restaurarPassword';
 $route['iniciar-sesion'] = 'IniciarSesion/procesarSesion';
+$route['finalizar-sesion'] = 'IniciarSesion/finalizarSesion';
 
 
 /**********************PANEL PRINCIPAL*****************************************/

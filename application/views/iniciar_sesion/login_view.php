@@ -14,13 +14,13 @@
             <form class="form-horizontal" action="#">
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <input class="form-control input-lg " type="text" id="usuario" required="" placeholder="Usuario" autofocus="">
+                        <input class="form-control input-lg input_login" type="text" id="usuario" required="" placeholder="Usuario" autofocus="">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input class="form-control input-lg" type="password" id="password" required="" placeholder="Contraseña">
+                        <input class="form-control input-lg input_login" type="password" id="password" required="" placeholder="Contraseña">
                     </div>
                 </div>
 
@@ -44,4 +44,5 @@
 <script src="<?php echo base_url(); ?>dist/assets/backboneJS/underscore.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>dist/assets/backboneJS/backbone.min.js" type="text/javascript"></script>
 
+<script src="<?php echo base_url(); ?>dist/js/login/login_model.min.js?v=<?php echo rand(); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>dist/js/login/login_view.min.js?v=<?php echo rand(); ?>" type="text/javascript"></script>

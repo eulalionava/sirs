@@ -117,20 +117,20 @@
                 <div class="sidebar-inner slimscrollleft">
                     <div class="user-details">
                         <div class="pull-left">
-                            <img src="<?php echo base_url(); ?>dist/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
+                            <img src="<?php echo base_url($this->session->userdata['ruta_foto']); ?>" alt="" class="thumb-md img-circle">
                         </div>
                         <div class="user-info">
                             <div class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Rafel Díaz <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><?php echo $this->session->userdata['usuario']; ?><span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Perfil<div class="ripple-wrapper"></div></a></li>
                                     <li><a href="javascript:void(0)"><i class="md md-settings"></i> Configuraciones</a></li>
                                     <li><a href="javascript:void(0)"><i class="md md-lock"></i> Bloquear</a></li>
-                                    <li><a href="javascript:void(0)"><i class="md md-settings-power"></i> Cerrar sesión</a></li>
+                                    <li><a href="<?php echo base_url(); ?>finalizar-sesion"><i class="md md-settings-power"></i> Cerrar sesión</a></li>
                                 </ul>
                             </div>
                             
-                            <p class="text-muted m-0">Administrador</p>
+                            <p class="text-muted m-0"><?php echo $this->session->userdata['tipo_persona_desc']; ?></p>
                         </div>
                     </div>
                     <!--- Divider -->
