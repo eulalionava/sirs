@@ -27,15 +27,6 @@
         </div>
         <!-- END wrapper -->
         
-        
-        
-        <script>
-            var resizefunc = [];
-        </script>
-
-        <!-- jQuery  -->
-        <script src="<?php echo base_url(); ?>dist/js/jquery.min.js"></script>
-        <script src="<?php echo base_url(); ?>dist/js/bootstrap.min.js"></script>
         <script src="<?php echo base_url(); ?>dist/js/waves.js"></script>
         <script src="<?php echo base_url(); ?>dist/js/wow.min.js"></script>
         <script src="<?php echo base_url(); ?>dist/js/jquery.nicescroll.js" type="text/javascript"></script>

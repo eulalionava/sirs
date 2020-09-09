@@ -3365,3 +3365,9 @@ div.dataTables_info {
     width: 1170px;
   }
 }
+
+
+/***************EXTRAS GENERLES***************************/
+.border-bottom-1px{
+    border-bottom: 1px solid #e4e4e4 !important;
+}

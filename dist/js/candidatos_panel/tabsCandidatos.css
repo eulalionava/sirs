@@ -1,0 +1,47 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 08-sep-2020, 15:28:32
+    Author     : Eulalio Vázquez
+*/
+
+.tab-nach{
+    margin-bottom: 0px;
+}
+.nav-nach{
+    background: #FFF !important;
+    border-right: 1px solid #F4F4F4;
+}
+
+.nav-nach li.tab{
+    border-bottom: 1px solid #F4F4F4;
+}
+
+.nav-nach li a span i.fa{
+    display: block;
+}
+
+.nav-nach li > a{        
+    padding: 5px;
+    padding-top: 10px;
+    transition: 0.7s;
+}
+
+.nav-nach li.active a{
+    background: #5a568e !important;
+    color: #FFF !important;
+    font-weight: bold;
+}
+
+.nav.tabs-vertical>li>a:focus {
+    background: #5a568e !important;
+    color: #FFF !important;
+}
+
+.nav-nach > .disabled{
+    opacity: 0.2;
+    cursor: not-allowed;
+}

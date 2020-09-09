@@ -38,6 +38,19 @@
 
         <script src="<?php echo base_url(); ?>dist/js/modernizr.min.js"></script>
         
+        
+        <script>
+            var resizefunc = [];
+        </script>
+
+        <!-- jQuery  -->
+        <script src="<?php echo base_url(); ?>dist/js/jquery.min.js"></script>
+        <script src="<?php echo base_url(); ?>dist/js/bootstrap.min.js"></script>
+        
+        <!--- BackboneJS -->
+        <script src="<?php echo base_url(); ?>dist/assets/backboneJS/underscore.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>dist/assets/backboneJS/backbone.min.js" type="text/javascript"></script>
+        
     </head>
 
 
