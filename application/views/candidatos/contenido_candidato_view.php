@@ -130,14 +130,16 @@
                                         <input type="text" class="form-control" id="numero_telefono" name="numero_telefono" placeholder="Número telefónico">
                                     </div>
                                     
-                                    <div class="form-group">
-                                        <label for="genero_sexual">Teléfono a 10 dígitos: </label>
-                                        <select class="form-control" id="genero_sexual" name="genero_sexual">
-                                            <option value="0">Sin definir</option>
-                                            <option value="1">Mujer</option>
-                                            <option value="2">Hombre</option>
-                                            <option value="3">Otro</option>
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a href="<?php echo base_url(); ?>archivos_generales/SOLICITUD_CC.pdf" target="_blank" class="btn btn-success btn-block">
+                                                <i class="fa fa-download"></i> Descargar solicitud
+                                            </a>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <button type="button" class="btn btn-primary btn-block">Subir archivo</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -195,7 +197,7 @@
                         
                         <form role="form">
                             <div class="container-audio">
-                                <audio controls  loop autoplay>
+                                <audio controls  loop>
                                     <source src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/new_year_dubstep_minimix.ogg" type="audio/ogg">
                                     Your browser dose not Support the audio Tag
                                 </audio>
@@ -232,7 +234,7 @@
                         
                         <form role="form">
                             <div class="container-audio">
-                                <audio controls  loop autoplay>
+                                <audio controls  loop>
                                     <source src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/9473/new_year_dubstep_minimix.ogg" type="audio/ogg">
                                     Your browser dose not Support the audio Tag
                                 </audio>
