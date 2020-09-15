@@ -45,3 +45,18 @@ and open the template in the editor.
     opacity: 0.2;
     cursor: not-allowed;
 }
+
+.subir_documento{
+    cursor: pointer;
+    opacity: 1;
+    transition: 0.5s;
+    display: block;
+}
+
+.subir_documento:hover{
+    opacity: 0.6;
+}
+
+.subir_documento input{
+    display: none;
+}

@@ -21,26 +21,7 @@ class Principal extends MY_Controller {
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-    public function index(){
-        $li_tipo_persona_entidad = $this->session->userdata['tipo_persona_entidad'];
-        $la_dataInfoExtra = array();
-        if($li_tipo_persona_entidad == 5){
-            $this->load->model('informacionCandidtos_model', 'mCandidato', true);
-            
-            $la_dataIn = array();            
-            if($this->mCandidato->obtenerCuestionario($la_dataIn, $la_dataCuestionario, $arg_mensaje) < 0){
-                echo $arg_mensaje;
-                return -1;
-            }
-            
-            $la_cuestionarioData = array(
-                "data" => $la_dataCuestionario
-            );
-            $ls_cuestionarioPrueba = $this->load->view('candidatos/cuestionario_candidato_view', $la_cuestionarioData, true);
-            
-            $la_dataInfoExtra["cuestionario"] = $ls_cuestionarioPrueba;
-        }
-        
+    public function index(){        
         /*Tipos de vista para el panel principal:
          * 0 = Administrador
          * 1 = Reclutadores
@@ -55,21 +36,15 @@ class Principal extends MY_Controller {
             "principal/contenido_seleccionador_view",
             "principal/contenido_cliente_view",
             "principal/contenido_welcome_view",
-            "candidatos/contenido_candidato_view"
-        );
+            "candidatos/panel_candidato_view"
+        );       
         
-        $la_contenidoVistaParticular = array("extras" => $la_dataInfoExtra);
-        $la_contenidoPanelPrincipal = array(
-            "contenido" => $this->load->view($la_tiposVista[$li_tipo_persona_entidad], $la_contenidoVistaParticular, true),
-            "data_usuario" => $this->session->userdata            
-        );
-        $ls_vistaPanelGeneral = $this->load->view('principal/panel_principal_view', $la_contenidoPanelPrincipal, true);
-        
+        $la_dataView = array();
+        $ls_vistaPanelGeneral = $this->load->view($la_tiposVista[$this->tipo_persona_entidad], $la_dataView, true); 
         $la_dataView = array(
-            "title" => "Panel principal",
-            "content" => $ls_vistaPanelGeneral
-        );
-        $this->load->view('templates/header_panel_view', $la_dataView, false);        
-        $this->load->view('templates/footer_panel_view');
+            "view" => $ls_vistaPanelGeneral,
+            "title" => "Panel principal"
+        );        
+        $this->layoutPanel($la_dataView);
     }
 }

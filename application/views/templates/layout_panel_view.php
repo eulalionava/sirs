@@ -69,8 +69,8 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="<?php base_url(); ?>" class="logo">
-                            <img src="<?php base_url(); ?>dist/images/min_logo.png">
+                        <a href="<?= base_url(); ?>" class="logo">
+                            <img src="<?= base_url(); ?>dist/images/min_logo.png">
                         </a>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                                 <?php foreach($data_menu as $itemModulo): ?>
                                     <?php if($li_id_modulo_diferente <> $itemModulo->id_modulo): ?>
                                         <li class="has_sub">
-                                            <a href="<?php echo $itemModulo->ruta; ?>" class="waves-effect item_menu" title="<?php echo $itemModulo->descripcion_modulo; ?>">
+                                            <a href="<?= base_url(); ?><?php echo $itemModulo->ruta; ?>" class="waves-effect item_menu" title="<?php echo $itemModulo->descripcion_modulo; ?>">
                                                 <i class="<?php echo $itemModulo->icono; ?>"></i><span> <?php echo $itemModulo->titulo; ?> </span>
                                             </a>
                                             
@@ -171,9 +171,9 @@
                                                 <?php foreach($data_menu as $itemSubmenu): ?>
                                                     <?php if($itemSubmenu->id_modulo == $itemModulo->id_modulo): ?>
                                                         <li>
-                                                            <a class="item_menu" href="<?php echo $itemSubmenu->ruta.'/'.$itemSubmenu->ruta_aplicativo; ?>">
+                                                            <a class="item_menu" href="<?= base_url(); ?><?php echo $itemSubmenu->ruta.'/'.$itemSubmenu->ruta_aplicativo; ?>">
                                                                 <i class="ion-chevron-right"></i> <?php echo $itemSubmenu->titulo_aplicativo; ?>
-                                                            </a>                                                            
+                                                            </a>
                                                         </li>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>                                                
@@ -203,3 +203,47 @@
             <div class="content-page" style="background: #fbfbfb !important;" id="content_page">
                 <!-- Start content -->
                 <?php echo $content; ?>
+                
+                <footer class="footer text-right">
+                    <?php echo date('Y'); ?> © Grupo NACH.
+                </footer>
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Right content here -->
+            <!-- ============================================================== -->
+
+
+            <!-- Right Sidebar -->
+            <div class="side-bar right-bar nicescroll">
+                <h4 class="text-center">
+                    Mis candidatos
+                </h4>
+                <div class="contact-list nicescroll">
+                    <ul class="list-group contacts-list">
+                        <li class="list-group-item">
+                            <small>Sin candidatos</small>
+                            <span class="clearfix"></span>
+                        </li>
+                    </ul>  
+                </div>
+            </div>
+            <!-- /Right-bar -->
+        </div>
+        <!-- END wrapper -->
+        
+        <script src="<?php echo base_url(); ?>dist/js/waves.js"></script>
+        <script src="<?php echo base_url(); ?>dist/js/wow.min.js"></script>
+        <script src="<?php echo base_url(); ?>dist/js/jquery.nicescroll.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>dist/js/jquery.scrollTo.min.js"></script>
+        <script src="<?php echo base_url(); ?>dist/assets/jquery-detectmobile/detect.js"></script>
+        <script src="<?php echo base_url(); ?>dist/assets/fastclick/fastclick.js"></script>
+        <script src="<?php echo base_url(); ?>dist/assets/jquery-slimscroll/jquery.slimscroll.js"></script>
+        <script src="<?php echo base_url(); ?>dist/assets/jquery-blockui/jquery.blockUI.js"></script>
+
+
+        <!-- CUSTOM JS -->
+        <script src="<?php echo base_url(); ?>dist/js/jquery.app.js"></script>
+	
+	</body>
+</html>

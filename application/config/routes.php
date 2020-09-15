@@ -60,5 +60,9 @@ $route['iniciar-sesion'] = 'IniciarSesion/procesarSesion';
 $route['finalizar-sesion'] = 'IniciarSesion/finalizarSesion';
 
 
+/**********************SOLICITUD EMPLEO****************************************/
+$route['solicitud-empleo'] = 'SolicitudEmpleo';
+$route['solicitud-empleo/continuar-tramite'] = 'SolicitudEmpleo/continuarTramite';
+
 /**********************PANEL PRINCIPAL*****************************************/
 $route['panel-principal'] = 'Principal';
