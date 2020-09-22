@@ -101,7 +101,7 @@ class InformacionCandidatos_model extends CI_Model {
                             ORDER BY vacantes.id_vacante DESC, 
                             cuestionarios.id_cuestionario ASC, 
                             preguntas.id_pregunta ASC, 
-                            claves.id_clave ASC;";
+                            claves.id_clave ASC; ";
             $statement = $this->db->query($ls_query, $la_where);
             if ($statement) {
                 $arg_dataOut = $statement->result();

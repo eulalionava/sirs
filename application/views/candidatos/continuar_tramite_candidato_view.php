@@ -38,40 +38,40 @@
         <div class="row">
             <div class="tabs-vertical-env tab-nach" style="background-color: transparent !important;">
                 <ul class="nav tabs-vertical nav-nach">
-                    <li class="tab active">
-                        <a href="#info-gral" data-toggle="tab"> 
+                    <li class="tab active tab_control">
+                        <a href="javascript:void(0);" data-contenido-tab="info-gral"> 
                             <span class="visible-xs"><i class="fa fa-user"></i></span> 
                             <span class="hidden-xs">
                                 <i class="fa fa-user"></i>Información general.
                             </span> 
                         </a>
                     </li> 
-                    <li class="tab"> 
-                        <a href="#cuestionario" data-toggle="tab" aria-expanded="false"> 
+                    <li class="tab tab_control"> 
+                        <a href="javascript:void(0);" data-contenido-tab="cuestionario"> 
                             <span class="visible-xs"><i class="fa fa-question-circle"></i></span> 
                             <span class="hidden-xs">
                                 <i class="fa fa-question-circle"></i>Cuestionario
                             </span> 
                         </a> 
                     </li> 
-                    <li class="tab"> 
-                        <a href="#prueba-ortografia" data-toggle="tab" aria-expanded="false"> 
+                    <li class="tab tab_control"> 
+                        <a href="javascript:void(0);" data-contenido-tab="prueba-ortografia"> 
                             <span class="visible-xs"><i class="fa fa-text-height"></i></span> 
                             <span class="hidden-xs">
                                 <i class="fa fa-text-height"></i>Prueba de ortografía
                             </span> 
                         </a> 
                     </li> 
-                    <li class="tab"> 
-                        <a href="#prueba-typing" data-toggle="tab" aria-expanded="false"> 
+                    <li class="tab tab_control"> 
+                        <a href="javascript:void(0);" data-contenido-tab="prueba-typing"> 
                             <span class="visible-xs"><i class="fa fa-keyboard-o"></i></span> 
                             <span class="hidden-xs">
                                 <i class="fa fa-keyboard-o"></i>Prueba de typing
                             </span> 
                         </a> 
                     </li> 
-                    <li class="tab"> 
-                        <a href="#cargar-documentacion" data-toggle="tab" aria-expanded="false"> 
+                    <li class="tab tab_control"> 
+                        <a href="javascript:void(0);" data-contenido-tab="cargar-documentacion"> 
                             <span class="visible-xs"><i class="fa fa-file-archive-o"></i></span> 
                             <span class="hidden-xs">
                                 <i class="fa fa-file-archive-o"></i>Cargar documentación
@@ -142,10 +142,9 @@
                                         </div>
                                     </div>
                                 </form>
-                            </div> 
-
+                            </div>
                             <div class="panel-footer">
-                                <button type="button" class="btn btn-purple pull-right btnAvanzarProceso">
+                                <button type="button" data-ns="cuestionario" data-cs="info-gral" class="btn btn-purple pull-right btnAvanzarProceso">
                                     Siguiente
                                 </button>
                                 <div class="clearfix"></div>
@@ -169,7 +168,7 @@
                             <?php foreach($cuestionario_general as $item): ?>
                                 <?php if($li_id_pregunta_diferente <> $item->id_pregunta): ?>
                                     <div class="panel panel-border panel-purple">                            
-                                        <div class="panel-body"> 
+                                        <div class="panel-body panel-nach-pregunta" data-tq="<?php echo $item->tipo_pregunta; ?>" data-iq="<?php echo $item->id_pregunta; ?>"> 
                                             <h5><?php echo $li_index.'. '.$item->pregunta; ?> </h5>
                                             <?php if(strlen(trim($item->indicaciones)) > 0): ?>
                                                 <blockquote>
@@ -206,15 +205,15 @@
                                             <?php foreach($cuestionario_general as $respuesta): ?>
                                                 <?php if($respuesta->id_pregunta == $item->id_pregunta): ?>
                                                     <?php if($item->tipo_pregunta == 1): ?>
-                                                        <textarea class="form-control" rows="3" placeholder="Redacte su respuesta..."></textarea>
+                                                        <textarea class="form-control" rows="3" data-iq="<?php echo $item->id_pregunta; ?>" placeholder="Redacte su respuesta..."></textarea>
                                                     <?php elseif($item->tipo_pregunta == 2): ?>
                                                         <div class="radio radio-primary m-b-10">
-                                                            <input type="radio" id="respuesta_<?php echo $respuesta->id_clave; ?>" value="<?php echo $respuesta->id_clave; ?>" name="respuesta_<?php echo $respuesta->id_pregunta; ?>">
+                                                            <input type="radio" id="respuesta_<?php echo $respuesta->id_clave; ?>" data-iq="<?php echo $item->id_pregunta; ?>" value="<?php echo $respuesta->id_clave; ?>" name="respuesta_<?php echo $respuesta->id_pregunta; ?>">
                                                             <label for="respuesta_<?php echo $respuesta->id_clave; ?>"> <?php echo $respuesta->opcion; ?> </label>
                                                         </div>
                                                     <?php elseif($item->tipo_pregunta == 3): ?>
                                                         <div class="checkbox checkbox-primary m-b-10">
-                                                            <input type="checkbox" id="respuesta_<?php echo $respuesta->id_clave; ?>" value="<?php echo $respuesta->id_clave; ?>">
+                                                            <input type="checkbox" id="respuesta_<?php echo $respuesta->id_clave; ?>" data-iq="<?php echo $item->id_pregunta; ?>" value="<?php echo $respuesta->id_clave; ?>" name="respuesta_<?php echo $respuesta->id_pregunta; ?>">
                                                             <label for="respuesta_<?php echo $respuesta->id_clave; ?>"> <?php echo $respuesta->opcion; ?> </label>
                                                         </div>
                                                     <?php endif; ?>
@@ -235,7 +234,7 @@
                         
                         <div class="panel panel-border panel-purple">
                             <div class="panel-footer">
-                                <button type="button" class="btn btn-purple pull-right btnAvanzarProceso">
+                                <button type="button" data-ns="prueba-ortografia" data-cs="cuestionario" class="btn btn-purple pull-right btnAvanzarProceso">
                                     Siguiente
                                 </button>
                                 <div class="clearfix"></div>
@@ -260,7 +259,7 @@
                             <?php foreach($cuestionario_ortografia as $item): ?>
                                 <?php if($li_id_pregunta_diferente <> $item->id_pregunta): ?>
                                     <div class="panel panel-border panel-purple">                            
-                                        <div class="panel-body"> 
+                                        <div class="panel-body panel-nach-pregunta-ortografia" data-tq="<?php echo $item->tipo_pregunta; ?>" data-iq="<?php echo $item->id_pregunta; ?>"> 
                                             <h5><?php echo $li_index.'. '.$item->pregunta; ?> </h5>
                                             <?php if(strlen(trim($item->indicaciones)) > 0): ?>
                                                 <blockquote>
@@ -297,15 +296,15 @@
                                             <?php foreach($cuestionario_ortografia as $respuesta): ?>
                                                 <?php if($respuesta->id_pregunta == $item->id_pregunta): ?>
                                                     <?php if($item->tipo_pregunta == 1): ?>
-                                                        <textarea class="form-control" rows="3" placeholder="Redacte su respuesta..."></textarea>
+                                                        <textarea class="form-control" rows="3" data-iq="<?php echo $item->id_pregunta; ?>" placeholder="Redacte su respuesta..."></textarea>
                                                     <?php elseif($item->tipo_pregunta == 2): ?>
                                                         <div class="radio radio-primary m-b-10">
-                                                            <input type="radio" id="respuesta_<?php echo $respuesta->id_clave; ?>" value="<?php echo $respuesta->id_clave; ?>" name="respuesta_<?php echo $respuesta->id_pregunta; ?>">
+                                                            <input type="radio" id="respuesta_<?php echo $respuesta->id_clave; ?>" data-iq="<?php echo $item->id_pregunta; ?>" value="<?php echo $respuesta->id_clave; ?>" name="respuesta_<?php echo $respuesta->id_pregunta; ?>">
                                                             <label for="respuesta_<?php echo $respuesta->id_clave; ?>"> <?php echo $respuesta->opcion; ?> </label>
                                                         </div>
                                                     <?php elseif($item->tipo_pregunta == 3): ?>
                                                         <div class="checkbox checkbox-primary m-b-10">
-                                                            <input type="checkbox" id="respuesta_<?php echo $respuesta->id_clave; ?>" value="<?php echo $respuesta->id_clave; ?>">
+                                                            <input type="checkbox" id="respuesta_<?php echo $respuesta->id_clave; ?>" data-iq="<?php echo $item->id_pregunta; ?>" value="<?php echo $respuesta->id_clave; ?>" name="respuesta_<?php echo $respuesta->id_pregunta; ?>">
                                                             <label for="respuesta_<?php echo $respuesta->id_clave; ?>"> <?php echo $respuesta->opcion; ?> </label>
                                                         </div>
                                                     <?php endif; ?>
@@ -325,7 +324,7 @@
                         <?php endif; ?>
                         <div class="panel panel-border panel-purple">
                             <div class="panel-footer">
-                                <button type="button" class="btn btn-purple pull-right btnAvanzarProceso">
+                                <button type="button" data-ns="prueba-typing" data-cs="prueba-ortografia" class="btn btn-purple pull-right btnAvanzarProceso">
                                     Siguiente
                                 </button>
                                 <div class="clearfix"></div>
@@ -350,7 +349,7 @@
                             <?php foreach($cuestionario_typing as $item): ?>
                                 <?php if($li_id_pregunta_diferente <> $item->id_pregunta): ?>
                                     <div class="panel panel-border panel-purple">                            
-                                        <div class="panel-body"> 
+                                        <div class="panel-body panel-nach-pregunta-typing" data-tq="<?php echo $item->tipo_pregunta; ?>" data-iq="<?php echo $item->id_pregunta; ?>"> 
                                             <h5><?php echo $li_index.'. '.$item->pregunta; ?> </h5>
                                             <?php if(strlen(trim($item->indicaciones)) > 0): ?>
                                                 <blockquote>
@@ -389,7 +388,7 @@
                                                     <?php if($item->tipo_pregunta == 1): ?>                                                        
                                                         <div class="row">
                                                             <div class="col-md-9">
-                                                                <textarea class="form-control" rows="4" placeholder="Redacte su respuesta..." data-id-pregunta="<?php echo $respuesta->id_pregunta; ?>"></textarea>
+                                                                <textarea class="form-control" rows="3" data-iq="<?php echo $item->id_pregunta; ?>" placeholder="Redacte su respuesta..."></textarea>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <b>Inicia: </b> <span id="text_inicia_test_<?php echo $respuesta->id_pregunta; ?>">00:00</span><br>
@@ -400,12 +399,12 @@
                                                         </div>
                                                     <?php elseif($item->tipo_pregunta == 2): ?>
                                                         <div class="radio radio-primary m-b-10">
-                                                            <input type="radio" id="respuesta_<?php echo $respuesta->id_clave; ?>" value="<?php echo $respuesta->id_clave; ?>" name="respuesta_<?php echo $respuesta->id_pregunta; ?>">
+                                                            <input type="radio" id="respuesta_<?php echo $respuesta->id_clave; ?>" data-iq="<?php echo $item->id_pregunta; ?>" value="<?php echo $respuesta->id_clave; ?>" name="respuesta_<?php echo $respuesta->id_pregunta; ?>">
                                                             <label for="respuesta_<?php echo $respuesta->id_clave; ?>"> <?php echo $respuesta->opcion; ?> </label>
                                                         </div>
                                                     <?php elseif($item->tipo_pregunta == 3): ?>
                                                         <div class="checkbox checkbox-primary m-b-10">
-                                                            <input type="checkbox" id="respuesta_<?php echo $respuesta->id_clave; ?>" value="<?php echo $respuesta->id_clave; ?>">
+                                                            <input type="checkbox" id="respuesta_<?php echo $respuesta->id_clave; ?>" data-iq="<?php echo $item->id_pregunta; ?>" value="<?php echo $respuesta->id_clave; ?>" name="respuesta_<?php echo $respuesta->id_pregunta; ?>">
                                                             <label for="respuesta_<?php echo $respuesta->id_clave; ?>"> <?php echo $respuesta->opcion; ?> </label>
                                                         </div>
                                                     <?php endif; ?>
@@ -426,7 +425,7 @@
                         
                         <div class="panel panel-border panel-purple">
                             <div class="panel-footer">
-                                <button type="button" class="btn btn-purple pull-right btnAvanzarProceso">
+                                <button type="button" data-ns="cargar-documentacion" data-cs="prueba-typing" class="btn btn-purple pull-right btnAvanzarProceso">
                                     Siguiente
                                 </button>
                                 <div class="clearfix"></div>

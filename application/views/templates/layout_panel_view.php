@@ -28,6 +28,8 @@
         <!-- Custom Files -->
         <link href="<?php echo base_url(); ?>dist/css/helper.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>dist/css/style.css" rel="stylesheet" type="text/css" />
+        
+        <link href="<?php echo base_url(); ?>dist/assets/sweet-alert/sweet-alert.min.css" rel="stylesheet" type="text/css"/>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -56,6 +58,8 @@
         <script src="<?php echo base_url(); ?>dist/js/sistema/sistema_model.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>dist/js/sistema/sistema_view.min.js" type="text/javascript"></script>
         
+        <script src="<?php echo base_url(); ?>dist/js/funciones.generales.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url(); ?>dist/assets/sweet-alert/sweet-alert.min.js" type="text/javascript"></script>        
     </head>
 
 

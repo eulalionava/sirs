@@ -5,7 +5,7 @@
         <?php $li_id_pregunta_diferente = 0; $li_index = 1;?>
         <?php foreach($data as $item): ?>
             <?php if($li_id_pregunta_diferente <> $item->id_pregunta): ?>    
-                <div class="panel panel-border panel-inverse">
+                <div class="panel panel-border panel-inverse panel-nach-pregunta">
                     <div class="panel-heading"> 
                         <h3 class="panel-title">
                             <?php echo $li_index.'. '.$item->pregunta; ?>
