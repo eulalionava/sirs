@@ -31,6 +31,29 @@ class SolicitudEmpleo extends MY_Controller {
         );        
         $this->layoutPanel($la_dataView);
     }
+    
+    public function finalizarProcesoSolicitud(){
+        try{
+            $la_return = array();
+            $la_return['mensaje'] = "";
+            $la_return['return'] = 1;
+                
+            $la_dataIn = array();            
+            
+            var_dump($_POST);
+            
+        }catch(Exception $exc) {
+            $ls_mensaje = '"finalizarProcesoSolicitud" controller does not work. Exception: ' . $exc->getTraceAsString();
+            $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
+            $la_return['return'] = -1;
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($la_return);
+        }
+        
+        return 1;
+    }
+    
     public function continuarTramite(){
         $la_dataIn = array(
             "id_persona_entidad" => $this->id_persona_entidad
