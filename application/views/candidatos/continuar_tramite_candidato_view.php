@@ -178,17 +178,17 @@
                                                             <hr>
                                                             <?php if($item->id_tipo_archivo == 1): ?>
                                                                 <b class="text-success"><i class="fa fa-clipboard"></i> Archivo adjunto: </b> <?php echo $item->archivo; ?>
-                                                                <img src="<?php echo $item->ruta_archivo; ?>" class="img-responsive">
+                                                                <img src="<?php echo base_url($item->ruta_archivo); ?>" class="img-responsive">
                                                             <?php elseif($item->id_tipo_archivo == 2): ?>
                                                                 <b class="text-success"><i class="fa fa-clipboard"></i> Archivo adjunto: </b> <?php echo $item->archivo; ?>
                                                                 <video controls>
-                                                                    <source src="<?php echo $item->ruta_archivo; ?>" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+                                                                    <source src="<?php echo base_url($item->ruta_archivo); ?>" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
                                                                 </video>
                                                             <?php elseif($item->id_tipo_archivo == 3): ?>
                                                                 <b class="text-success"><i class="fa fa-clipboard"></i> Archivo adjunto: </b> <?php echo $item->archivo; ?>
                                                                 <div class="container-audio">
                                                                     <audio controls>
-                                                                        <source src="<?php echo $item->ruta_archivo; ?>" type="audio/ogg">
+                                                                        <source src="<?php echo base_url($item->ruta_archivo); ?>" type="audio/ogg">
                                                                         Your browser dose not Support the audio Tag
                                                                     </audio>
                                                                 </div>
@@ -269,17 +269,17 @@
                                                             <hr>
                                                             <?php if($item->id_tipo_archivo == 1): ?>
                                                                 <b class="text-success"><i class="fa fa-clipboard"></i> Archivo adjunto: </b> <?php echo $item->archivo; ?>
-                                                                <img src="<?php echo $item->ruta_archivo; ?>" class="img-responsive">
+                                                                <img src="<?php echo base_url($item->ruta_archivo); ?>" class="img-responsive">
                                                             <?php elseif($item->id_tipo_archivo == 2): ?>
                                                                 <b class="text-success"><i class="fa fa-clipboard"></i> Archivo adjunto: </b> <?php echo $item->archivo; ?>
                                                                 <video controls>
-                                                                    <source src="<?php echo $item->ruta_archivo; ?>" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+                                                                    <source src="<?php echo base_url($item->ruta_archivo); ?>" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
                                                                 </video>
                                                             <?php elseif($item->id_tipo_archivo == 3): ?>
                                                                 <b class="text-success"><i class="fa fa-clipboard"></i> Archivo adjunto: </b> <?php echo $item->archivo; ?>
                                                                 <div class="container-audio">
                                                                     <audio controls>
-                                                                        <source src="<?php echo $item->ruta_archivo; ?>" type="audio/ogg">
+                                                                        <source src="<?php echo base_url($item->ruta_archivo); ?>" type="audio/ogg">
                                                                         Your browser dose not Support the audio Tag
                                                                     </audio>
                                                                 </div>
@@ -359,17 +359,17 @@
                                                             <hr>
                                                             <?php if($item->id_tipo_archivo == 1): ?>
                                                                 <b class="text-success"><i class="fa fa-clipboard"></i> Archivo adjunto: </b> <?php echo $item->archivo; ?>
-                                                                <img src="<?php echo $item->ruta_archivo; ?>" class="img-responsive">
+                                                                <img src="<?php echo base_url($item->ruta_archivo); ?>" class="img-responsive">
                                                             <?php elseif($item->id_tipo_archivo == 2): ?>
                                                                 <b class="text-success"><i class="fa fa-clipboard"></i> Archivo adjunto: </b> <?php echo $item->archivo; ?>
                                                                 <video controls>
-                                                                    <source src="<?php echo $item->ruta_archivo; ?>" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+                                                                    <source src="<?php echo base_url($item->ruta_archivo); ?>" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
                                                                 </video>
                                                             <?php elseif($item->id_tipo_archivo == 3): ?>
                                                                 <b class="text-success"><i class="fa fa-clipboard"></i> Archivo adjunto: </b> <?php echo $item->archivo; ?>
                                                                 <div class="container-audio">
-                                                                    <audio controls>
-                                                                        <source src="<?php echo $item->ruta_archivo; ?>" type="audio/ogg">
+                                                                    <audio controls class="audio_typing" data-iq="<?php echo $item->id_pregunta; ?>">
+                                                                        <source src="<?php echo base_url($item->ruta_archivo); ?>" type="audio/ogg">
                                                                         Your browser dose not Support the audio Tag
                                                                     </audio>
                                                                 </div>
@@ -385,18 +385,26 @@
                                             
                                             <?php foreach($cuestionario_typing as $respuesta): ?>
                                                 <?php if($respuesta->id_pregunta == $item->id_pregunta): ?>
-                                                    <?php if($item->tipo_pregunta == 1): ?>                                                        
-                                                        <div class="row">
-                                                            <div class="col-md-9">
-                                                                <textarea class="form-control" rows="3" data-iq="<?php echo $item->id_pregunta; ?>" placeholder="Redacte su respuesta..."></textarea>
+                                                    <?php if($item->tipo_pregunta == 1): ?>
+                                                        <?php if($item->id_tipo_archivo == 3): ?>
+                                                            <div class="row">
+                                                                <div class="col-md-9">
+                                                                    <textarea class="form-control form_control_typing" rows="3" id="a<?php echo $item->id_pregunta; ?>" disabled data-iq="<?php echo $item->id_pregunta; ?>" placeholder="Redacte su respuesta..."></textarea>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <b>Inicia: </b> <span id="text_inicia_test_<?php echo $respuesta->id_pregunta; ?>">00:00:00</span><br>
+                                                                    <b>Finaliza: </b> <span id="text_finaliza_test_<?php echo $respuesta->id_pregunta; ?>">00:00:00</span><br>
+                                                                    <b>Tiempo: </b> <span id="text_total_tiempo_test_<?php echo $respuesta->id_pregunta; ?>">0s</span><br>
+                                                                    <b>Total dígitos: </b> <span id="text_total_digitios_test_<?php echo $respuesta->id_pregunta; ?>">0</span><br>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-md-3">
-                                                                <b>Inicia: </b> <span id="text_inicia_test_<?php echo $respuesta->id_pregunta; ?>">00:00</span><br>
-                                                                <b>Finaliza: </b> <span id="text_finaliza_test_<?php echo $respuesta->id_pregunta; ?>">00:00</span><br>
-                                                                <b>Tiempo: </b> <span id="text_total_tiempo_test_<?php echo $respuesta->id_pregunta; ?>">00:00</span><br>
-                                                                <b>Total dígitos: </b> <span id="text_total_digitios_test_<?php echo $respuesta->id_pregunta; ?>">0</span><br>
+                                                        <?php else: ?>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <textarea class="form-control" rows="3" id="a<?php echo $item->id_pregunta; ?>"  data-iq="<?php echo $item->id_pregunta; ?>" placeholder="Redacte su respuesta..."></textarea>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        <?php endif; ?>
                                                     <?php elseif($item->tipo_pregunta == 2): ?>
                                                         <div class="radio radio-primary m-b-10">
                                                             <input type="radio" id="respuesta_<?php echo $respuesta->id_clave; ?>" data-iq="<?php echo $item->id_pregunta; ?>" value="<?php echo $respuesta->id_clave; ?>" name="respuesta_<?php echo $respuesta->id_pregunta; ?>">

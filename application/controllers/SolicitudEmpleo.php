@@ -40,7 +40,8 @@ class SolicitudEmpleo extends MY_Controller {
                 
             $la_dataIn = array();            
             
-            var_dump($_POST);
+            $data = json_decode(file_get_contents('php://input'),1);
+            var_dump($data);
             
         }catch(Exception $exc) {
             $ls_mensaje = '"finalizarProcesoSolicitud" controller does not work. Exception: ' . $exc->getTraceAsString();
