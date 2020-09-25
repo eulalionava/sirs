@@ -8,7 +8,7 @@
                 <h4 class="pull-left page-title">Vacantes en proceso de selección</h4>
                 <ol class="breadcrumb pull-right">
                     <li><a href="<?php echo base_url(); ?>">Panel principal</a></li>
-                    <li><a href="<?php echo base_url(); ?>/mis-postulaciones">Mis postulacinoes</a></li>
+                    <li><a href="<?php echo base_url(); ?>mis-postulaciones">Mis postulacinoes</a></li>
                     <li>Ver vacantes</li>
                 </ol>
             </div>
@@ -24,17 +24,13 @@
                                     <span class="titulo-vacante text-primary"><?php echo $vacante->vacante; ?></span>
                                     <span class="empresa-vacante"><?php echo $vacante->nombre; ?></span>
                                 </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-purple btn-block waves-effect waves-light btn_nach_detalle">
-                                        <i class="fa fa-eye"></i> Detalle
-                                    </button>
-                                </div>
-                                
-                                <div class="col-md-2">
-                                    <button class="btn btn-success btn-block waves-effect waves-light btn_nach_continuar">
-                                        <i class="fa fa-question-circle"></i> Cuestionarios
-                                    </button>
-                                </div>
+                                <div class="col-md-4 text-center">
+                                    <button class="btn btn-icon waves-effect waves-light btn-purple m-b-5 btn_nach_detalle" title="Ver vacante"> <i class="fa fa-eye"></i> </button>
+                                    
+                                    <button class="btn btn-icon waves-effect waves-light btn-success m-b-5 btn_nach_continuar" title="Ver cuestionarios"> <i class="fa fa-question-circle"></i> </button>
+                                    
+                                    <button class="btn btn-icon waves-effect waves-light btn-warning m-b-5 btn_nach_docs" title="Subir documentación"> <i class="fa fa-upload"></i> </button>                                    
+                                </div>                                
                             </div>
                             
                         </a>

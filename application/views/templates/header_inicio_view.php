@@ -58,8 +58,24 @@
         
         <script src="<?php echo base_url(); ?>dist/js/funciones.generales.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>dist/assets/sweet-alert/sweet-alert.min.js" type="text/javascript"></script>
-        
+
+        <link href="<?php echo base_url(); ?>dist/css/spinner.css" rel="stylesheet" type="text/css"/>
+        <script src="<?php echo base_url(); ?>dist/js/ajax.indicador.js" type="text/javascript"></script>
     </head>
     
     <body>
+        <div id="preloadAjax">
+            <div class="atom-spinner">
+                <div class="spinner-inner">
+                    <div class="spinner-line"></div>
+                    <div class="spinner-line"></div>
+                    <div class="spinner-line"></div>
+                    <!--Chrome renders little circles malformed :(-->
+                    <div class="spinner-circle">
+                      &#9679;
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         

@@ -4,6 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class IniciarSesion extends CI_Controller {
     private $usuario = "", $password = "";
     public function __construct(){
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+            sleep(2);
+        }
         parent::__construct();        
         $this->load->library('session');
         $this->load->model('IniciarSesion_model', 'mLogin', TRUE);        

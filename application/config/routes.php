@@ -65,10 +65,17 @@ $route['solicitud-empleo'] = 'SolicitudEmpleo';
 $route['solicitud-empleo/continuar-tramite'] = 'SolicitudEmpleo/continuarTramite';
 $route['solicitud-empleo/finalizar-proceso-solicitud'] = 'SolicitudEmpleo/finalizarProcesoSolicitud';
 
-/**********************SOLICITUD EMPLEO****************************************/
+/************************POSTULACIONES******************************************/
 $route['mis-postulaciones'] = 'misPostulaciones';
 $route['mis-postulaciones/ver-vacantes'] = 'misPostulaciones/vacantesCandidato';
 $route['mis-postulaciones/detalle-vacante'] = 'misPostulaciones/detalleVacante';
+$route['mis-postulaciones/cuestionarios-vacante'] = 'misPostulaciones/cuestionariosVacante';
+
+/*********************POSTULACIONES - CUESTIONARIOS*****************************/
+$route['mis-postulaciones/detalle-cuestionario'] = 'misPostulaciones/detalleCuestionario';
+
+/*********************POSTULACIONES - DOUMENTOS*********************************/
+$route['mis-postulaciones/mostrar-documentos'] = 'misPostulaciones/mostrarDocumentos';
 
 
 

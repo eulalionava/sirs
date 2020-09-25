@@ -4,6 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class MY_Controller extends CI_Controller {
     public $tipo_persona_entidad = 0, $id_usuario = 0, $id_persona_entidad;
     public function __construct(){
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+            sleep(2);
+        }
+        
         parent::__construct();
         $this->load->helper('url');
         $this->load->model("PanelPrincipal_model", "mPanel", true);

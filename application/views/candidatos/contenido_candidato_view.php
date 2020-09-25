@@ -8,7 +8,7 @@
                 <h4 class="pull-left page-title">Registro de solicitud de empleo</h4>
                 <ol class="breadcrumb pull-right">
                     <li><a href="<?php echo base_url(); ?>">Panel principal</a></li>
-                    <li><a href="<?php echo base_url(); ?>/solicitud-empleo">Solicitud de empleo</a></li>
+                    <li><a href="<?php echo base_url(); ?>solicitud-empleo">Solicitud de empleo</a></li>
                     <li>Continuar trámite</li>
                 </ol>
             </div>

@@ -59,6 +59,11 @@ Date: Jun 2015
 
 
 /******** 1. General ********/
+.min-scroll{
+    height: 130px;
+    overflow: hidden;
+    overflow-y: auto;
+}
 .titulo-vacante{
     font-weight: bold;
     font-size: 16px;
