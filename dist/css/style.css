@@ -59,6 +59,12 @@ Date: Jun 2015
 
 
 /******** 1. General ********/
+.titulo-vacante{
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+}
+
 textarea{
     resize: none;
 }

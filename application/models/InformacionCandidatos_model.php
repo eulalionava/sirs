@@ -7,6 +7,60 @@ class InformacionCandidatos_model extends CI_Model {
     }
     
     /**
+     * obtenerVacantesCandidato
+     * Se obtienen las vacantes asignadas a los candidatos
+     * @param Array  $arg_dataIn parámetros para condicionar consultas.
+     * @param String $arg_dataOut parámetro de salida para retornar datos.
+     * @param String $arg_mensaje
+     * @return int 
+     */
+    public function obtenerVacantesCandidato($arg_dataIn, &$arg_dataOut, &$arg_mensaje) {
+        try {
+            $la_where = array($arg_dataIn['id_persona_entidad']);
+            $ls_where = "";
+            if(isset($arg_dataIn['id_vacante_md5'])){
+                $la_where[] = $arg_dataIn['id_vacante_md5'];
+                $ls_where .= " AND(MD5(personas_vacantes.id_vacante) = ?)";
+            }
+            $ls_query = "SELECT 
+                            personas_vacantes.id_persona_entidad,
+                            personas_vacantes.id_vacante,
+                            personas_vacantes.id_status,
+                            vacantes.salario_propuesto,
+                            vacantes.id_campaña,
+                            vacantes.vacante,
+                            vacantes.descripcion_vacante,
+                            campaña.campaña,
+                            campaña.id_cliente,
+                            clientes.nombre,
+                            clientes.logo,
+                            clientes.solicitud
+                        FROM 
+                            personas_vacantes
+                            INNER JOIN vacantes
+                                ON(vacantes.id_vacante  = personas_vacantes.id_vacante)
+                            INNER JOIN campaña
+                                ON(campaña.id_campaña  = vacantes.id_campaña)
+                            INNER JOIN clientes
+                                ON(clientes.id_cliente = campaña.id_cliente)
+                        WHERE 
+                            (personas_vacantes.id_persona_entidad = ?) ".$ls_where."
+                        ORDER BY personas_vacantes.id_persona_vacante DESC";
+            $statement = $this->db->query($ls_query, $la_where);
+            if ($statement) {
+                $arg_dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+        } catch (Exception $exc) {
+            $arg_mensaje = 'obtenerVacantesCandidato method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+    
+    /**
      * obtenerSolicitarDocumentos
      * Se obtienen los documentos parametrizados a un cliente, los cuales son requeridos a los candidatos.
      * @param Array  $arg_dataIn parámetros para condicionar consultas.

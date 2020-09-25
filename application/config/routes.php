@@ -65,5 +65,12 @@ $route['solicitud-empleo'] = 'SolicitudEmpleo';
 $route['solicitud-empleo/continuar-tramite'] = 'SolicitudEmpleo/continuarTramite';
 $route['solicitud-empleo/finalizar-proceso-solicitud'] = 'SolicitudEmpleo/finalizarProcesoSolicitud';
 
+/**********************SOLICITUD EMPLEO****************************************/
+$route['mis-postulaciones'] = 'misPostulaciones';
+$route['mis-postulaciones/ver-vacantes'] = 'misPostulaciones/vacantesCandidato';
+$route['mis-postulaciones/detalle-vacante'] = 'misPostulaciones/detalleVacante';
+
+
+
 /**********************PANEL PRINCIPAL*****************************************/
 $route['panel-principal'] = 'Principal';
