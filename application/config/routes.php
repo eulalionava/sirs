@@ -64,6 +64,8 @@ $route['finalizar-sesion'] = 'IniciarSesion/finalizarSesion';
 $route['solicitud-empleo'] = 'SolicitudEmpleo';
 $route['solicitud-empleo/continuar-tramite'] = 'SolicitudEmpleo/continuarTramite';
 $route['solicitud-empleo/finalizar-proceso-solicitud'] = 'SolicitudEmpleo/finalizarProcesoSolicitud';
+$route['solicitud-empleo/guardar-respuestas-cuestionario'] = 'SolicitudEmpleo/guardarRespuestasCuestinario';
+
 
 /************************POSTULACIONES******************************************/
 $route['mis-postulaciones'] = 'misPostulaciones';
@@ -74,9 +76,10 @@ $route['mis-postulaciones/cuestionarios-vacante'] = 'MisPostulaciones/cuestionar
 /*********************POSTULACIONES - CUESTIONARIOS*****************************/
 $route['mis-postulaciones/detalle-cuestionario'] = 'MisPostulaciones/detalleCuestionario';
 
-/*********************POSTULACIONES - DOUMENTOS*********************************/
+/*********************POSTULACIONES - DOCUMENTOS*********************************/
 $route['mis-postulaciones/mostrar-documentos'] = 'MisPostulaciones/mostrarDocumentos';
-
+$route['mis-postulaciones/cargar-documentos'] = 'MisPostulaciones/cargarDocumentos';
+$route['mis-postulaciones/consultar-documentos'] = 'MisPostulaciones/consultarDocumentos';
 
 
 /**********************PANEL PRINCIPAL*****************************************/

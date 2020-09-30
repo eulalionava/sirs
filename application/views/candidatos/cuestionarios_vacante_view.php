@@ -50,10 +50,19 @@
                                             <div class="panel-body min-scroll">
                                                 <p><?php echo $cuestionario->descripcion_cuestionario; ?></p>
                                             </div>
-                                            <div class="panel-footer text-center">
-                                                <button class="btn btn-purple btn-custom waves-effect waves-light m-b-5 btn_nach_cuestionario">
-                                                    <i class="fa fa-rocket"></i> <span>Contestar ahora mismo</span> 
-                                                </button>
+                                            <div class="panel-footer">
+                                                <?php if($cuestionario->cantidad_intentos < $cuestionario->intentos): ?>
+                                                    <button class="btn btn-purple btn-custom waves-effect waves-light m-b-5 btn_nach_cuestionario">
+                                                        <i class="fa fa-rocket"></i> <span>Contestar</span> 
+                                                    </button>
+                                                <?php else: ?>
+                                                    <button class="btn btn-success btn-custom waves-effect waves-light m-b-5">
+                                                        <i class="fa fa-rocket"></i> <span>Terminado</span> 
+                                                    </button>
+                                                <?php endif; ?>
+                                                <small class="pull-right">
+                                                   <b>Intentos: </b> <?php echo (($cuestionario->cantidad_intentos == "")?0:$cuestionario->cantidad_intentos); ?> de <?php echo $cuestionario->intentos; ?>
+                                                </small>
                                             </div>
                                         </div>
                                     </div>                                    

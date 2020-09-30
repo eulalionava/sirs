@@ -31,6 +31,61 @@ class SolicitudEmpleo extends MY_Controller {
         );        
         $this->layoutPanel($la_dataView);
     }
+    public function guardarRespuestasCuestinario(){
+        try{
+            $la_return = array();
+            $la_return['mensaje'] = "";
+            $la_return['return'] = 1;
+            $ls_mensaje = "";
+                      
+            $la_respuestas = $this->input->post('data')['respuestas'];
+            
+            if(count($la_respuestas) == 0){
+                $la_return['mensaje'] = "Ocurrió un error inesperado: las repuestas no han sido recibidas.";
+                $la_return['return'] = -1;
+                return;
+            }
+            
+            $la_respuestasValidadas = array();
+            foreach($la_respuestas as $respuesta){
+                /*
+                 * 1: abierta (textarea)
+                 * 2: radios
+                 * 3: checkbox
+                 */
+                $li_id_pregunta = $respuesta["id_pregunta"];
+                $ls_respuesta = trim($respuesta["respuesta"], ",");
+                $ls_hora_inicia = (strlen(trim($respuesta["hora_inicia"])) > 0)?date("Y-m-d")." ".$respuesta["hora_inicia"]:NULL;
+                $ls_hora_fin = (strlen(trim($respuesta["hora_fin"])) > 0)?date("Y-m-d")." ".$respuesta["hora_fin"]:NULL;;
+                
+                $la_respuestasValidadas[] = array(
+                    "id_pregunta" => $li_id_pregunta,
+                    "id_usuario" => $this->id_persona_entidad,
+                    "respuesta" => $ls_respuesta,
+                    "comienza" => $ls_hora_inicia,
+                    "termina" => $ls_hora_fin
+                );
+            }
+            
+            $la_dataSalida = array();
+            if($this->mCandidato->guardarRespuestasCuestionario($la_respuestasValidadas, $la_dataSalida, $ls_mensaje) < 0){
+                $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
+                $la_return['return'] = -1;
+                return;
+            }
+            
+            $la_return['mensaje'] = "El cuestionario seleccionado ha sido completado.";
+        }catch(Exception $exc) {
+            $ls_mensaje = '"finalizarProcesoSolicitud" controller does not work. Exception: ' . $exc->getTraceAsString();
+            $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
+            $la_return['return'] = -1;
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($la_return);
+        }
+        
+        return 1;
+    }
     
     public function finalizarProcesoSolicitud(){
         try{
