@@ -7,6 +7,47 @@ class InformacionCandidatos_model extends CI_Model {
     }
     
     /**
+     * consultarDocumentoDescarga
+     * Se obtienen el documento o solicitud para descargar
+     * @param Array  $arg_dataIn parámetros para condicionar consultas.
+     * @param String $arg_dataOut parámetro de salida para retornar datos.
+     * @param String $arg_mensaje
+     * @return int 
+     */
+    public function consultarDocumentoDescarga($arg_dataIn, &$arg_dataOut, &$arg_mensaje) {
+        try {
+            $la_where = array($arg_dataIn["id_archivo"]);
+            if($arg_dataIn["tipo_archivo"] == 'S'){
+                $ls_query = "SELECT 
+                                solicitud_empleo AS ruta_archivo
+                            FROM 
+                                solicitud_empleo
+                            WHERE 
+                                (SHA2(id_solicitud_empleo, 224)  = ?)";  
+            }else{
+                $ls_query = "SELECT 
+                                ruta_archivo AS ruta_archivo
+                            FROM 
+                                documentos_candidatos
+                            WHERE 
+                                (SHA2(id_documento_candidato , 224)  = ?)";  
+            }
+                      
+            $statement = $this->db->query($ls_query, $la_where);
+            if ($statement) {
+                $arg_dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+        } catch (Exception $exc) {
+            $arg_mensaje = 'consultarDocumentoDescarga method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+    
+    /**
      * consultarDocumentos
      * Se obtienen los documentos almacenados del candidato.
      * @param Array  $arg_dataIn parámetros para condicionar consultas.
@@ -16,16 +57,24 @@ class InformacionCandidatos_model extends CI_Model {
      */
     public function consultarDocumentos($arg_dataIn, &$arg_dataOut, &$arg_mensaje) {
         try {
-            $la_where = array($arg_dataIn['id_persona_entidad']);
-            $ls_where = "";
-            $ls_query = "";
-            
-            if(strlen(trim($arg_dataIn["id_cliente"])) > 0){
-                $ls_query = "";
-            }else{
-                $ls_query = "";
-            }
-            
+            $la_where = array();
+            $ls_query = "SELECT 
+                            -1 AS id_documento,
+                            CONCAT(SHA2(solicitud_empleo.id_solicitud_empleo, 224),'S') AS hash_documento
+                        FROM 
+                            solicitud_empleo
+                        WHERE 
+                            (id_cliente = ".$arg_dataIn['id_cliente'].")
+                            AND(id_persona_entidad  = ".$arg_dataIn['id_persona_entidad'].")
+                    UNION
+                        SELECT 
+                            documentos_candidatos.id_documento AS id_documento,
+                            CONCAT(SHA2(documentos_candidatos.id_documento_candidato, 224),'F') AS hash_documento
+                        FROM 
+                            documentos_candidatos
+                        WHERE 
+                            (documentos_candidatos.id_documento IN(".$arg_dataIn['id_documento']."))
+                            AND(documentos_candidatos.id_candidato = ".$arg_dataIn['id_persona_entidad'].") ";            
             $statement = $this->db->query($ls_query, $la_where);
             if ($statement) {
                 $arg_dataOut = $statement->result();
@@ -33,7 +82,7 @@ class InformacionCandidatos_model extends CI_Model {
                 return -1;
             }
         } catch (Exception $exc) {
-            $arg_mensaje = 'obtenerDetalleCuestionario method does not work. Exception: ' . $exc->getTraceAsString();
+            $arg_mensaje = 'consultarDocumentos method does not work. Exception: ' . $exc->getTraceAsString();
             return -1;
         }
         

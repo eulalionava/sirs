@@ -32,6 +32,62 @@ class MisPostulaciones extends MY_Controller {
         $this->layoutPanel($la_dataView);
     }
     
+    public function descargarDocumento($params = array()){
+        try{
+            $la_return = array();
+            $la_return['mensaje'] = "";
+            $la_return['return'] = 1;
+            $ls_params = $params;
+            $ls_tipo_archivo = substr($ls_params, -1);
+            
+            $la_dataIn = array(
+                "tipo_archivo" => $ls_tipo_archivo,
+                "id_archivo" => trim($ls_params, $ls_tipo_archivo)
+            );
+            
+            $la_dataOut = array();
+            if($this->mCandidato->consultarDocumentoDescarga($la_dataIn, $la_dataOut, $ls_mensaje) < 0){
+                $la_return['mensaje'] = $ls_mensaje;
+                $la_return['return'] = -1;
+                return;
+            }
+            
+            $ls_ruta_real = "../../".$la_dataOut[0]->ruta_archivo;
+            $ls_nombreArchivo = basename($ls_ruta_real);
+            
+            
+            $fullPath = base_url().$la_dataOut[0]->ruta_archivo;
+        if($fullPath) {
+            $fsize = filesize($fullPath);
+            $path_parts = pathinfo($fullPath);
+            $ext = strtolower($path_parts["extension"]);
+
+            switch ($ext) {
+                case "pdf":
+                    header("Content-Disposition: attachment; filename=\"" . $path_parts["basename"]."\""); // Use 'attachment' to force a download
+                    header("Content-type: octet/stream"); // Add here more headers for diff. extensions
+                    break;
+                default;
+                    header("Content-type: application/octet-stream");
+                    header("Content-Disposition: filename=\"" . $path_parts["basename"]."\"");
+            }
+
+            if($fsize) { // Checking if file size exist
+                header("Content-length: $fsize");
+            }
+            readfile($fullPath);
+            exit;
+        }
+        }catch(Exception $exc) {
+            $ls_mensaje = '"detalleCuestionario" controller does not work. Exception: ' . $exc->getTraceAsString();
+            $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
+            $la_return['return'] = -1;
+        }
+        
+        
+        return 1;
+    }
+    
     public function consultarDocumentos(){
         try{
             $la_return = array();
@@ -71,13 +127,7 @@ class MisPostulaciones extends MY_Controller {
                 $la_return['return'] = -1;
                 return;
             }
-
-            $la_dataView = array(
-                "detalle_documentos" => $la_dataOut
-            );
-
-            $ls_detalleVacante = $this->load->view('candidatos/documentos_view', $la_dataView, true);
-            $la_return['contenido'] = $ls_detalleVacante;
+            $la_return['info_docs'] = $la_dataOut;
         }catch(Exception $exc) {
             $ls_mensaje = '"detalleCuestionario" controller does not work. Exception: ' . $exc->getTraceAsString();
             $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
@@ -107,9 +157,7 @@ class MisPostulaciones extends MY_Controller {
             }
             
             $la_filesSubir = $_FILES;
-            var_dump($la_filesSubir);
-            $la_return['return'] = -1;
-            return;
+            
             $la_idDocumentos = $this->input->post('id_documento');
             $ls_path_archivos = __DIR__.'/../../uploads/candidatos/'.md5($this->id_persona_entidad)."/";
             $ls_subbpath_archivos = __DIR__.'/../../';
@@ -119,8 +167,9 @@ class MisPostulaciones extends MY_Controller {
             }
             
             $la_extensionesPermitidas = array(
-                "txt", "doc", "docs", "pdf", "jpg", "jpeg", "png"
+                "txt" => 1, "doc" => 1, "docx" => 1, "pdf" => 1, "jpg" => 1, "jpeg" => 1, "png" => 1
             );
+            
             for($li_index = 0; $li_index < $li_tota_archivos; $li_index++){
                 $ls_name = $la_filesSubir["file"]["name"][$li_index];
                 $ls_tmp_name = $la_filesSubir["file"]["tmp_name"][$li_index];
@@ -138,7 +187,7 @@ class MisPostulaciones extends MY_Controller {
                 $ls_extension = strtolower(end($la_extension));
                 
                 if(!isset($la_extensionesPermitidas[$ls_extension])){
-                    $la_return['mensaje'] = "La extensión del archivo no es válida: ".$ls_name;
+                    $la_return['mensaje'] = "La extensión del archivo no es válida: ".$la_extensionesPermitidas[$ls_extension];
                     $la_return['return'] = -1;
                     return;
                 }

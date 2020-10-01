@@ -80,7 +80,7 @@ $route['mis-postulaciones/detalle-cuestionario'] = 'MisPostulaciones/detalleCues
 $route['mis-postulaciones/mostrar-documentos'] = 'MisPostulaciones/mostrarDocumentos';
 $route['mis-postulaciones/cargar-documentos'] = 'MisPostulaciones/cargarDocumentos';
 $route['mis-postulaciones/consultar-documentos'] = 'MisPostulaciones/consultarDocumentos';
-
+$route['descargar-documento-candidato/(:any)'] = 'MisPostulaciones/descargarDocumento/$1';
 
 /**********************PANEL PRINCIPAL*****************************************/
 $route['panel-principal'] = 'Principal';

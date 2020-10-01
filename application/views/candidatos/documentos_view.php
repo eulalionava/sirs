@@ -42,7 +42,7 @@
                     <input type="file" name="subir_documento_0" id="subir_documento_0" class="area_cargar_archivo" data-ic="0">
                 </label>
                 
-                <a href="javascript:void(0);" class="btn btn-warning waves-effect waves-light btn-xs m-b-5 ddc" data-ic="0" id="df_0" target="_blank">Descargar</a>
+                <a href="javascript:void(0);" class="btn btn-warning waves-effect waves-light btn-xs m-b-5 ddc" download data-ic="0" id="df_0" target="_blank">Descargar</a>
             </div>
         </div>
         
