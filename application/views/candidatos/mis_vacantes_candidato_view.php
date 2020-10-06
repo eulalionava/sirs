@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <div class="content">
-    <div class="container">
+    <div class="container">        
         <?php if(isset($_GET["r"]) AND $_GET["r"] == "success"): ?>
             <div class="row">
-                <div class="col-sm-12">                    
+                <div class="col-sm-12">
                     <div class="alert alert-success alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         Se completó correctamente el cuestionario seleccionado.

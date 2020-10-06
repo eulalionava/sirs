@@ -31,6 +31,24 @@ class MisPostulaciones extends MY_Controller {
         );        
         $this->layoutPanel($la_dataView);
     }
+    public function agendarEntrevista(){
+        $la_dataIn = array(
+            "id_persona_entidad" => $this->id_persona_entidad
+        );
+        $la_dataOut = array();
+        if($this->mCandidato->obtenerHorariosEntrevista($la_dataIn, $la_dataOut, $ls_mensaje) < 0){
+            echo $ls_mensaje;
+        }
+        
+        $la_dataView = array();
+        
+        $ls_vistaPanelGeneral = $this->load->view('candidatos/agendar_entrevista_candidato_view', $la_dataView, true);
+        $la_dataView = array(
+            "view" => $ls_vistaPanelGeneral,
+            "title" => "Agendar entrevista"
+        );        
+        $this->layoutPanel($la_dataView);
+    }
     
     public function descargarDocumento($params = array()){
         try{
@@ -57,27 +75,27 @@ class MisPostulaciones extends MY_Controller {
             
             
             $fullPath = base_url().$la_dataOut[0]->ruta_archivo;
-        if($fullPath) {
-            $fsize = filesize($fullPath);
-            $path_parts = pathinfo($fullPath);
-            $ext = strtolower($path_parts["extension"]);
+            if($fullPath) {
+                $fsize = filesize($fullPath);
+                $path_parts = pathinfo($fullPath);
+                $ext = strtolower($path_parts["extension"]);
 
-            switch ($ext) {
-                case "pdf":
-                    header("Content-Disposition: attachment; filename=\"" . $path_parts["basename"]."\""); // Use 'attachment' to force a download
-                    header("Content-type: octet/stream"); // Add here more headers for diff. extensions
-                    break;
-                default;
-                    header("Content-type: application/octet-stream");
-                    header("Content-Disposition: filename=\"" . $path_parts["basename"]."\"");
-            }
+                switch ($ext) {
+                    case "pdf":
+                        header("Content-Disposition: attachment; filename=\"" . $path_parts["basename"]."\""); // Use 'attachment' to force a download
+                        header("Content-type: octet/stream"); // Add here more headers for diff. extensions
+                        break;
+                    default;
+                        header("Content-type: application/octet-stream");
+                        header("Content-Disposition: filename=\"" . $path_parts["basename"]."\"");
+                }
 
-            if($fsize) { // Checking if file size exist
-                header("Content-length: $fsize");
+                if($fsize) { // Checking if file size exist
+                    header("Content-length: $fsize");
+                }
+                readfile($fullPath);
+                exit;
             }
-            readfile($fullPath);
-            exit;
-        }
         }catch(Exception $exc) {
             $ls_mensaje = '"detalleCuestionario" controller does not work. Exception: ' . $exc->getTraceAsString();
             $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;

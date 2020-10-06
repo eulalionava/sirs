@@ -68,7 +68,7 @@ $route['solicitud-empleo/guardar-respuestas-cuestionario'] = 'SolicitudEmpleo/gu
 
 
 /************************POSTULACIONES******************************************/
-$route['mis-postulaciones'] = 'misPostulaciones';
+$route['mis-postulaciones'] = 'MisPostulaciones';
 $route['mis-postulaciones/ver-vacantes'] = 'MisPostulaciones/vacantesCandidato';
 $route['mis-postulaciones/detalle-vacante'] = 'MisPostulaciones/detalleVacante';
 $route['mis-postulaciones/cuestionarios-vacante'] = 'MisPostulaciones/cuestionariosVacante';
@@ -81,6 +81,15 @@ $route['mis-postulaciones/mostrar-documentos'] = 'MisPostulaciones/mostrarDocume
 $route['mis-postulaciones/cargar-documentos'] = 'MisPostulaciones/cargarDocumentos';
 $route['mis-postulaciones/consultar-documentos'] = 'MisPostulaciones/consultarDocumentos';
 $route['descargar-documento-candidato/(:any)'] = 'MisPostulaciones/descargarDocumento/$1';
+
+/*********************POSTULACIONES - ENTREVISTA*********************************/
+$route['mis-postulaciones/agendar-entrevista'] = 'MisPostulaciones/agendarEntrevista';
+
+
+/*********************MI CUENTA*********************************/
+$route['mi-cuenta'] = 'MiCuenta';
+$route['mi-cuenta/datos-personales'] = 'MiCuenta/datosPersonales';
+$route['mi-cuenta/cambiar-password'] = 'MiCuenta/cambiarPassword';
 
 /**********************PANEL PRINCIPAL*****************************************/
 $route['panel-principal'] = 'Principal';

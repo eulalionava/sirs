@@ -137,54 +137,23 @@
         var form = '';
         var today = new Date($.now());
 
-        var defaultEvents =  [{
-                title: 'Hey!',
-                start: new Date($.now() + 158000000),
-                className: 'bg-purple'
-            }, {
-                title: 'See John Deo',
-                start: today,
-                end: today,
-                className: 'bg-danger'
-            }, {
-                title: 'Buy a Moltran',
-                start: new Date($.now() + 338000000),
-                className: 'bg-primary'
-            }];
+        var defaultEvents =  [];
 
         var $this = this;
         $this.$calendarObj = $this.$calendar.fullCalendar({
-            slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
-            minTime: '08:00:00',
-            maxTime: '19:00:00',  
             defaultView: 'month',  
             handleWindowResize: true,   
             height: $(window).height() - 200,   
             header: {
-                left: 'prev,next today',
+                left: 'today',
                 center: 'title',
-                right: 'month,agendaWeek,agendaDay'
+                right: 'month'
             },
-            events: defaultEvents,
-            editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar !!!
-            eventLimit: true, // allow "more" link when too many events
+            events: defaultEvents,           
             selectable: true,
-            drop: function(date) { $this.onDrop($(this), date); },
-            select: function (start, end, allDay) { $this.onSelect(start, end, allDay); },
-            eventClick: function(calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); },
-
-        });
-
-        //on new event
-        this.$saveCategoryBtn.on('click', function(){
-            var categoryName = $this.$categoryForm.find("input[name='category-name']").val();
-            var categoryColor = $this.$categoryForm.find("select[name='category-color']").val();
-            if (categoryName !== null && categoryName.length != 0) {
-                $this.$extEvents.append('<div class="external-event bg-' + categoryColor + '" data-class="bg-' + categoryColor + '" style="position: relative;"><i class="fa fa-move"></i>' + categoryName + '</div>')
-                $this.enableDrag();
+            select: function (start, end, allDay) {
+                f_abrirAgendarEntrevista(start, end, allDay);
             }
-
         });
     },
 

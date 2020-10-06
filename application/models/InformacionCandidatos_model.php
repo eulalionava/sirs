@@ -7,6 +7,38 @@ class InformacionCandidatos_model extends CI_Model {
     }
     
     /**
+     * obtenerHorariosEntrevista
+     * Se obtienen los horarios en que aplicarán entrevistas
+     * @param Array  $arg_dataIn parámetros para condicionar consultas.
+     * @param String $arg_dataOut parámetro de salida para retornar datos.
+     * @param String $arg_mensaje
+     * @return int 
+     */
+    public function obtenerHorariosEntrevista($arg_dataIn, &$arg_dataOut, &$arg_mensaje) {
+        try {
+            $la_where = array($arg_dataIn["id_archivo"]);
+            $ls_query = "SELECT 
+                            ruta_archivo AS ruta_archivo
+                        FROM 
+                            documentos_candidatos
+                        WHERE 
+                            (SHA2(id_documento_candidato , 224)  = ?)";  
+                      
+            $statement = $this->db->query($ls_query, $la_where);
+            if ($statement) {
+                $arg_dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+        } catch (Exception $exc) {
+            $arg_mensaje = 'obtenerHorariosEntrevista method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+    
+    /**
      * consultarDocumentoDescarga
      * Se obtienen el documento o solicitud para descargar
      * @param Array  $arg_dataIn parámetros para condicionar consultas.
