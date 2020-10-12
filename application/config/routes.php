@@ -84,6 +84,7 @@ $route['descargar-documento-candidato/(:any)'] = 'MisPostulaciones/descargarDocu
 
 /*********************POSTULACIONES - ENTREVISTA*********************************/
 $route['mis-postulaciones/agendar-entrevista'] = 'MisPostulaciones/agendarEntrevista';
+$route['mis-postulaciones/guardar-entrevista'] = 'MisPostulaciones/guardarEntrevista';
 
 
 /*********************MI CUENTA*********************************/

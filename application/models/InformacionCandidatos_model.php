@@ -7,6 +7,74 @@ class InformacionCandidatos_model extends CI_Model {
     }
     
     /**
+     * obtenerEntrevistaCandidato
+     * Se obtienen los datos de la entrevista a la que aplicó el candidato.
+     * @param Array  $arg_dataIn parámetros para condicionar consultas.
+     * @param String $arg_dataOut parámetro de salida para retornar datos.
+     * @param String $arg_mensaje
+     * @return int 
+     */
+    public function obtenerEntrevistaCandidato($arg_dataIn, &$arg_dataOut, &$arg_mensaje) {
+        try {
+            $la_where = array($arg_dataIn["id_persona_entidad"]);
+            $ls_query = "SELECT 
+                            entrevista.id_usuario_entrevistador,
+                            entrevista.fecha_entrevista, 
+                            YEAR(entrevista.fecha_entrevista) AS anio, 
+                            MONTH(entrevista.fecha_entrevista) AS mes,
+                            DAY(entrevista.fecha_entrevista) AS dia,
+                            DAYOFWEEK(entrevista.fecha_entrevista) AS dia_semana,
+                            DATE_FORMAT(entrevista.hora_entrevista, '%H:%i') AS hora_entrevista,
+                            entrevista.descripcion_entrevista,
+                            CONCAT(personas_entidades.nombres, ' ', personas_entidades.apellido_paterno, ' ', personas_entidades.apellido_materno) AS entrevistador,
+                            personas_entidades.ruta_foto,
+                            personas_entidades.numero_telefono,
+                            personas_entidades.correo_electronico
+                        FROM 
+                            entrevista
+                            INNER JOIN personas_entidades
+                                ON(personas_entidades.id_persona_entidad  = entrevista.id_usuario_entrevistador)
+                        WHERE
+                            (entrevista.id_persona_entidad = ?) ";  
+            $statement = $this->db->query($ls_query, $la_where);
+            if ($statement) {
+                $arg_dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+        } catch (Exception $exc) {
+            $arg_mensaje = 'obtenerEntrevistaCandidato method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+    
+    /**
+     * guardarEntrevistaCandidato
+     * Se guardan el horario de la entrevista a la que asistirá el candidato.
+     * @param Array  $arg_dataIn parámetros para condicionar consultas.
+     * @param String $arg_dataOut parámetro de salida para retornar datos.
+     * @param String $arg_mensaje
+     * @return int 
+     */
+    public function guardarEntrevistaCandidato($arg_dataIn, &$arg_dataOut, &$arg_mensaje) {
+        try {
+            $la_where = array();
+            $ls_query = "";
+            $la_dataWhere = array("SHA2(id_entrevista, 224) = " => $arg_dataIn["id_entrevista"]);
+            $la_dataUpdate = array("id_persona_entidad" => $arg_dataIn["id_persona_entidad"]);
+            
+            $this->db->update('entrevista', $la_dataUpdate, $la_dataWhere);
+        } catch (Exception $exc) {
+            $arg_mensaje = 'guardarEntrevistaCandidato method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+    
+    /**
      * obtenerHorariosEntrevista
      * Se obtienen los horarios en que aplicarán entrevistas
      * @param Array  $arg_dataIn parámetros para condicionar consultas.
@@ -16,13 +84,22 @@ class InformacionCandidatos_model extends CI_Model {
      */
     public function obtenerHorariosEntrevista($arg_dataIn, &$arg_dataOut, &$arg_mensaje) {
         try {
-            $la_where = array($arg_dataIn["id_archivo"]);
+            $la_where = array();
             $ls_query = "SELECT 
-                            ruta_archivo AS ruta_archivo
+                            SHA2(e.id_entrevista, 224) AS id_entrevista, 
+                            e.fecha_entrevista, 
+                            YEAR(e.fecha_entrevista) AS anio, 
+                            MONTH(e.fecha_entrevista) AS mes,
+                            DAY(e.fecha_entrevista) AS dia,
+                            DAYOFWEEK(e.fecha_entrevista) AS dia_semana,
+                            DATE_FORMAT(e.hora_entrevista, '%H:%i') AS hora_entrevista                            
                         FROM 
-                            documentos_candidatos
+                            entrevista e, (SELECT fecha_entrevista FROM entrevista WHERE id_persona_entidad=0 AND fecha_entrevista>=DATE(NOW()) GROUP BY fecha_entrevista ORDER BY fecha_entrevista LIMIT 2) e2
                         WHERE 
-                            (SHA2(id_documento_candidato , 224)  = ?)";  
+                            (e.id_persona_entidad = 0)
+                            AND(e.fecha_entrevista IN(e2.fecha_entrevista) ) 
+                        GROUP BY e.fecha_entrevista, e.hora_entrevista     
+                        ORDER BY e.fecha_entrevista";
                       
             $statement = $this->db->query($ls_query, $la_where);
             if ($statement) {
@@ -121,86 +198,6 @@ class InformacionCandidatos_model extends CI_Model {
         return 1;
     }
     
-    /**
-     * guardarDocumentosCandidato
-     * Se guardan los documentos del candidato.
-     * @param Array  $arg_dataIn parámetros para condicionar consultas.
-     * @param String $arg_dataOut parámetro de salida para retornar datos.
-     * @param String $arg_mensaje
-     * @return int 
-     */
-    public function guardarDocumentosCandidato($arg_dataIn, &$arg_dataOut, &$arg_mensaje) {
-        try {
-            $la_where = array();
-            $ls_query = "";
-            
-            if($arg_dataIn["solicitud"] == 1){
-                $la_where = array($arg_dataIn["id_cliente"], $arg_dataIn["id_persona_entidad"]);
-                $ls_query = "SELECT COUNT(1) AS existe_archivo FROM solicitud_empleo WHERE (id_cliente = ?) AND (id_persona_entidad  = ?) ";
-            }else{
-                $la_where = array($arg_dataIn["id_documento"], $arg_dataIn["id_candidato"]);
-                $ls_query = "SELECT COUNT(1) AS existe_archivo FROM documentos_candidatos WHERE (id_documento = ?) AND (id_candidato  = ?) ";
-            }
-            
-            $statement = $this->db->query($ls_query, $la_where);
-            $la_dataInsert = array();
-            $la_dataUpdate = array();
-            $la_dataWhere = array();
-            
-            if ($statement) {
-                $la_dataExiste = $statement->result();
-                $li_existe_archivo = $la_dataExiste[0]->existe_archivo;
-                
-                if($arg_dataIn["solicitud"] == 1){
-                    if($li_existe_archivo > 0){
-                        $la_dataUpdate = array(
-                            "solicitud_empleo" => $arg_dataIn["solicitud_empleo"]
-                        );
-                        
-                        $la_dataWhere = array(
-                            "id_cliente" => $arg_dataIn["id_cliente"],
-                            "id_persona_entidad" => $arg_dataIn["id_persona_entidad"]                            
-                        );
-                        $this->db->update('solicitud_empleo', $la_dataUpdate, $la_dataWhere);
-                    }else{
-                        $la_dataInsert = array(
-                            "id_cliente" => $arg_dataIn["id_cliente"],
-                            "id_persona_entidad" => $arg_dataIn["id_persona_entidad"],
-                            "solicitud_empleo" => $arg_dataIn["solicitud_empleo"]
-                        );
-                        $this->db->insert('solicitud_empleo', $la_dataInsert);
-                    }
-                }else{
-                    if($li_existe_archivo > 0){
-                        $la_dataUpdate = array(
-                            "nombre_archivo" => $arg_dataIn["nombre_archivo"],
-                            "ruta_archivo" => $arg_dataIn["ruta_archivo"]
-                        );
-                        
-                        $la_dataWhere = array(
-                            "id_documento" => $arg_dataIn["id_documento"],
-                            "id_candidato" => $arg_dataIn["id_candidato"]                           
-                        );
-                        
-                        $this->db->update('documentos_candidatos', $la_dataUpdate, $la_dataWhere);
-                    }else{
-                        $la_dataInsert = array(
-                            "id_documento" => $arg_dataIn["id_documento"],
-                            "id_candidato" => $arg_dataIn["id_candidato"],
-                            "nombre_archivo" => $arg_dataIn["nombre_archivo"],
-                            "ruta_archivo" => $arg_dataIn["ruta_archivo"]
-                        );
-                        $this->db->insert('documentos_candidatos', $la_dataInsert);
-                    }
-                }
-            }            
-        } catch (Exception $exc) {
-            $arg_mensaje = 'guardarDocumentosCandidato method does not work. Exception: ' . $exc->getTraceAsString();
-            return -1;
-        }
-        
-        return 1;
-    }
     
     /**
      * guardarRespuestasCuestionario

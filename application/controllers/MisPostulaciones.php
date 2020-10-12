@@ -5,6 +5,7 @@ class MisPostulaciones extends MY_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('InformacionCandidatos_model', 'mCandidato', true);
+        $this->load->helper('fecha_espanol');
     }
     
     /**
@@ -31,16 +32,63 @@ class MisPostulaciones extends MY_Controller {
         );        
         $this->layoutPanel($la_dataView);
     }
-    public function agendarEntrevista(){
-        $la_dataIn = array(
+    
+    public function guardarEntrevista(){
+        try{
+            $la_return = array();
+            $la_return['mensaje'] = "";
+            $la_return['return'] = 1;
+            
+            $la_dataIn = array(
+                "id_entrevista" => $this->input->post('data')["id_entrevista"],
+                "id_persona_entidad" => $this->id_persona_entidad
+            );
+            
+            $la_dataOut = array();
+            if($this->mCandidato->guardarEntrevistaCandidato($la_dataIn, $la_dataOut, $ls_mensaje) < 0){
+                $la_return['mensaje'] = $ls_mensaje;
+                $la_return['return'] = -1;
+                return;
+            }
+            
+        }catch(Exception $exc) {
+            $ls_mensaje = '"guardarEntrevista" controller does not work. Exception: ' . $exc->getTraceAsString();
+            $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
+            $la_return['return'] = -1;
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($la_return);
+        }
+        
+        return 1;
+    }
+    
+    public function agendarEntrevista(){        
+        $la_dataInEntrevista = array(
             "id_persona_entidad" => $this->id_persona_entidad
         );
-        $la_dataOut = array();
-        if($this->mCandidato->obtenerHorariosEntrevista($la_dataIn, $la_dataOut, $ls_mensaje) < 0){
+        
+        $la_dataEntrevista = array();
+        if($this->mCandidato->obtenerEntrevistaCandidato($la_dataInEntrevista, $la_dataEntrevista, $ls_mensaje) < 0){
             echo $ls_mensaje;
         }
         
-        $la_dataView = array();
+        $la_dataIn = array(
+            "id_persona_entidad" => $this->id_persona_entidad
+        );
+        
+        $la_dataOut = array();
+        if(count($la_dataEntrevista) == 0){
+            if($this->mCandidato->obtenerHorariosEntrevista($la_dataIn, $la_dataOut, $ls_mensaje) < 0){
+                echo $ls_mensaje;
+            }
+        }
+        
+        
+        $la_dataView = array(
+            "data_horarios" => $la_dataOut,
+            "data_entrevista" => $la_dataEntrevista
+        );
         
         $ls_vistaPanelGeneral = $this->load->view('candidatos/agendar_entrevista_candidato_view', $la_dataView, true);
         $la_dataView = array(
@@ -100,8 +148,7 @@ class MisPostulaciones extends MY_Controller {
             $ls_mensaje = '"detalleCuestionario" controller does not work. Exception: ' . $exc->getTraceAsString();
             $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
             $la_return['return'] = -1;
-        }
-        
+        }        
         
         return 1;
     }
