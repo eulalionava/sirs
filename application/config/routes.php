@@ -92,5 +92,11 @@ $route['mi-cuenta'] = 'MiCuenta';
 $route['mi-cuenta/datos-personales'] = 'MiCuenta/datosPersonales';
 $route['mi-cuenta/cambiar-password'] = 'MiCuenta/cambiarPassword';
 
+
+/************RECLUTAMIENTO Y SELECCIÓN***************************/
+$route['reclutamiento-seleccion'] = 'ReclutamientoSeleccion';
+$route['reclutamiento-seleccion/generar-tokens'] = 'ReclutamientoSeleccion/generarTokens';
+
+
 /**********************PANEL PRINCIPAL*****************************************/
 $route['panel-principal'] = 'Principal';
