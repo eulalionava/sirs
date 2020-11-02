@@ -100,3 +100,8 @@ $route['reclutamiento-seleccion/generar-tokens'] = 'ReclutamientoSeleccion/gener
 
 /**********************PANEL PRINCIPAL*****************************************/
 $route['panel-principal'] = 'Principal';
+
+/**********************RECLUTAMIENTO *********************************************/
+$route['reclutamiento-general'] = "Reclutamiento";
+$route['reclutamiento-general/agendar-horario'] = "Reclutamiento/agenda";
+$route['reclutamiento-general/agenda-horario'] ="Reclutamiento/agendarHorario";
