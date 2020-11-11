@@ -24,7 +24,7 @@
                             </h3> 
                         </div> 
                         <div class="panel-body">
-                            <p><b>Ya tienes una entrevista agendada, los datos son los singuientes:</b></p>
+                            <p><b>Ya tienes una entrevista agendada, los datos son los siguientes:</b></p>
                             <p><b>Cuándo:</b> <?php echo fecha_espanol($data_entrevista[0]->dia_semana, $data_entrevista[0]->dia, $data_entrevista[0]->mes, $data_entrevista[0]->anio); ?></p>
                             <p><b>A qué hora:</b> <?php echo $data_entrevista[0]->hora_entrevista; ?> h</p>
                             <p><b>Detalles:</b>  <?php echo $data_entrevista[0]->descripcion_entrevista; ?></p>

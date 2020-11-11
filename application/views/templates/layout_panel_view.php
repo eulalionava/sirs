@@ -21,6 +21,7 @@
 
         <!-- animate css -->
         <link href="<?php echo base_url(); ?>dist/css/animate.css" rel="stylesheet" />
+        <link href="<?php echo base_url(); ?>dist/css/personalizados.css" rel="stylesheet" />
 
         <!-- Waves-effect -->
         <link href="<?php echo base_url(); ?>dist/css/waves-effect.css" rel="stylesheet">

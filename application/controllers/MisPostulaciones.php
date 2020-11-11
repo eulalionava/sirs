@@ -38,18 +38,56 @@ class MisPostulaciones extends MY_Controller {
             $la_return = array();
             $la_return['mensaje'] = "";
             $la_return['return'] = 1;
-            
+
+            $fecha = date("Y-m-d");
             $la_dataIn = array(
-                "id_entrevista" => $this->input->post('data')["id_entrevista"],
-                "id_persona_entidad" => $this->id_persona_entidad
+                "id_entrevista"         => $this->input->post('data')["id_entrevista"],
+                "id_persona_entidad"    => $this->id_persona_entidad,
+                "fecha"                 => $fecha
             );
-            
-            $la_dataOut = array();
-            if($this->mCandidato->guardarEntrevistaCandidato($la_dataIn, $la_dataOut, $ls_mensaje) < 0){
-                $la_return['mensaje'] = $ls_mensaje;
+
+            //Verificar entrevistadores activo
+            if($this->mCandidato->entrevitadorsActivos($la_dataEntrevistadores,$mensaje) < 0){
+                $la_return['mensaje'] = $mensaje;
                 $la_return['return'] = -1;
-                return;
             }
+
+            $seAgendo = false;
+            $la_return['agendo'] = false;
+            // $id_entrevista = $la_dataIn['id_entrevista'];
+
+            //Recorre cada entrevistador
+            if(count($la_dataEntrevistadores) != 0){
+
+                foreach($la_dataEntrevistadores as $valor){
+
+                    $id_entrevistador = $valor->id_persona_entidad;
+                    if($this->mCandidato->entrevistandoCandidato($la_dataIn,$id_entrevistador,$data,$ls_mensaje) < 0){
+                        $la_return['mensaje'] = $ls_mensaje;
+                        $la_return['return'] = -1;  
+                    }
+
+                    if(count($data) == 0){
+                        
+                        $la_return['datos_entrevista'] = $la_dataIn;
+                        $la_dataOut = array();
+                        if($this->mCandidato->guardarEntrevistaCandidato($la_dataIn,$id_entrevistador, $la_dataOut, $ls_mensaje) < 0){
+                            $la_return['mensaje']   = $ls_mensaje;
+                            $la_return['return']    = -1;
+                            return;   
+                        }
+                        $la_return['agendo'] = true;
+                        break;
+                    }
+                }
+                
+            }else{
+                $la_return['agendo'] = false; 
+                $la_return['mensaje'] = "No hay entrevistadores";
+                
+            }
+            
+            
             
         }catch(Exception $exc) {
             $ls_mensaje = '"guardarEntrevista" controller does not work. Exception: ' . $exc->getTraceAsString();
@@ -67,11 +105,18 @@ class MisPostulaciones extends MY_Controller {
         $la_dataInEntrevista = array(
             "id_persona_entidad" => $this->id_persona_entidad
         );
-        
+
+        $la_dataEntrevistadores = array();
+        if($this->mCandidato->entrevitadorsActivos($la_dataEntrevistadores, $ls_mensaje) < 0){
+            echo $ls_mensaje;
+        }
+
+        //verifica si tiene entrevista pendiente
         $la_dataEntrevista = array();
         if($this->mCandidato->obtenerEntrevistaCandidato($la_dataInEntrevista, $la_dataEntrevista, $ls_mensaje) < 0){
             echo $ls_mensaje;
         }
+
         
         $la_dataIn = array(
             "id_persona_entidad" => $this->id_persona_entidad
@@ -89,13 +134,14 @@ class MisPostulaciones extends MY_Controller {
             "data_horarios" => $la_dataOut,
             "data_entrevista" => $la_dataEntrevista
         );
-        
+
         $ls_vistaPanelGeneral = $this->load->view('candidatos/agendar_entrevista_candidato_view', $la_dataView, true);
         $la_dataView = array(
             "view" => $ls_vistaPanelGeneral,
             "title" => "Agendar entrevista"
         );        
         $this->layoutPanel($la_dataView);
+        
     }
     
     public function descargarDocumento($params = array()){

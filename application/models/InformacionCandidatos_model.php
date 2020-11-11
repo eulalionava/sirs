@@ -58,12 +58,12 @@ class InformacionCandidatos_model extends CI_Model {
      * @param String $arg_mensaje
      * @return int 
      */
-    public function guardarEntrevistaCandidato($arg_dataIn, &$arg_dataOut, &$arg_mensaje) {
+    public function guardarEntrevistaCandidato($arg_dataIn,$entrevistador, &$arg_dataOut, &$arg_mensaje) {
         try {
             $la_where = array();
             $ls_query = "";
             $la_dataWhere = array("SHA2(id_entrevista, 224) = " => $arg_dataIn["id_entrevista"]);
-            $la_dataUpdate = array("id_persona_entidad" => $arg_dataIn["id_persona_entidad"]);
+            $la_dataUpdate = array("id_usuario_entrevistador"=>$entrevistador,"id_persona_entidad" => $arg_dataIn["id_persona_entidad"]);
             
             $this->db->update('entrevista', $la_dataUpdate, $la_dataWhere);
         } catch (Exception $exc) {
@@ -99,7 +99,7 @@ class InformacionCandidatos_model extends CI_Model {
                             (e.id_persona_entidad = 0)
                             AND(e.fecha_entrevista IN(e2.fecha_entrevista) ) 
                         GROUP BY e.fecha_entrevista, e.hora_entrevista     
-                        ORDER BY e.fecha_entrevista";
+                        ORDER BY e.hora_entrevista";
                       
             $statement = $this->db->query($ls_query, $la_where);
             if ($statement) {
@@ -109,6 +109,61 @@ class InformacionCandidatos_model extends CI_Model {
             }
         } catch (Exception $exc) {
             $arg_mensaje = 'obtenerHorariosEntrevista method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    /**
+     * Entrevistadores activos
+     */
+    public function entrevitadorsActivos(&$arg_data,&$arg_mensaje){
+        try {
+            $ls_query = "SELECT 
+                        pe.id_persona_entidad
+                        FROM personas_entidades pe INNER JOIN perfiles_accesos pa 
+                            ON pe.tipo_persona_entidad = pa.id_perfil_acceso 
+                        WHERE pe.tipo_persona_entidad = 3 
+                        AND pe.status_persona_entidad = 3;";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $arg_data = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'verHorarios method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    /**
+     * entrevistandoCandidato
+     * Verificacion ,si se encuentra en entrevista el entrevistador
+     */
+    public function entrevistandoCandidato($datos,$entrevistador,&$arg_data,&$arg_mensaje){
+        try {
+            
+            $ls_query = "SELECT *  FROM entrevista 
+                        WHERE id_usuario_entrevistador = $entrevistador 
+                        AND fecha_entrevista = '".$datos['fecha']."' ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $arg_data = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'entrevistandoCandidato method does not work. Exception: ' . $exc->getTraceAsString();
             return -1;
         }
         

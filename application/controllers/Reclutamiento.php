@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Reclutamiento extends MY_Controller {    
     public function __construct(){
         parent::__construct();
-        $this->load->model('ReclutamientoModel', 'modelRecluta', true);
+        $this->load->model('Reclutamiento_model', 'modelRecluta', true);
     }
     
     /**
@@ -43,7 +43,10 @@ class Reclutamiento extends MY_Controller {
         $this->layoutPanel($la_dataView);
 
     }
-    
+    /**
+     * agendarHorario
+     * se agendan los horarios de entrevista
+     */
     public function agendarHorario(){
 
         try{
@@ -51,145 +54,170 @@ class Reclutamiento extends MY_Controller {
             $respuesta['ok'] = true;
 
             $datos = $this->input->post('data');
-            $respuesta['data'] = $datos;
 
-            if($this->modelRecluta->guardarHorario($datos) < 0){
-                $respuesta['mensaje'] = 'Imposible no se agendo el horario';
+            if($this->modelRecluta->guardarHorario($datos,$mensage) < 0){
+                $respuesta['mensaje'] = $mensage;
                 $respuesta['ok'] = false;
-                return -1;
+                return;
             }
-            
+
             $respuesta['mensaje'] = 'Horario agendado correctamente';
-
-
 
         }catch(Exception $e){
 
             $ls_mensaje = '"agendarHorario" controller does not work. Exception: ' . $e->getTraceAsString();
             $respuesta['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
             $la_return['ok'] = false;
+            return;
 
         }finally{
 
             header("Content-type: application/json");
-            echo json_encode($datos);
+            echo json_encode($respuesta);
         }
-    }
 
-    public function guardarRespuestasCuestinario(){
-        try{
-            $la_return = array();
-            $la_return['mensaje'] = "";
-            $la_return['return'] = 1;
-            $ls_mensaje = "";
-                      
-            $la_respuestas = $this->input->post('data')['respuestas'];
-            
-            if(count($la_respuestas) == 0){
-                $la_return['mensaje'] = "Ocurrió un error inesperado: las repuestas no han sido recibidas.";
-                $la_return['return'] = -1;
-                return;
-            }
-            
-            $la_respuestasValidadas = array();
-            foreach($la_respuestas as $respuesta){
-                /*
-                 * 1: abierta (textarea)
-                 * 2: radios
-                 * 3: checkbox
-                 */
-                $li_id_pregunta = $respuesta["id_pregunta"];
-                $ls_respuesta = trim($respuesta["respuesta"], ",");
-                $ls_hora_inicia = (strlen(trim($respuesta["hora_inicia"])) > 0)?date("Y-m-d")." ".$respuesta["hora_inicia"]:NULL;
-                $ls_hora_fin = (strlen(trim($respuesta["hora_fin"])) > 0)?date("Y-m-d")." ".$respuesta["hora_fin"]:NULL;;
-                
-                $la_respuestasValidadas[] = array(
-                    "id_pregunta" => $li_id_pregunta,
-                    "id_usuario" => $this->id_persona_entidad,
-                    "respuesta" => $ls_respuesta,
-                    "comienza" => $ls_hora_inicia,
-                    "termina" => $ls_hora_fin
-                );
-            }
-            
-            $la_dataSalida = array();
-            if($this->mCandidato->guardarRespuestasCuestionario($la_respuestasValidadas, $la_dataSalida, $ls_mensaje) < 0){
-                $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
-                $la_return['return'] = -1;
-                return;
-            }
-            
-            $la_return['mensaje'] = "El cuestionario seleccionado ha sido completado.";
-        }catch(Exception $exc) {
-            $ls_mensaje = '"finalizarProcesoSolicitud" controller does not work. Exception: ' . $exc->getTraceAsString();
-            $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
-            $la_return['return'] = -1;
-        }finally{
-            header("Content-type: application/json");
-            echo json_encode($la_return);
-        }
-        
         return 1;
     }
-    
-    public function finalizarProcesoSolicitud(){
+
+    /**
+     * verHorarios
+     * Muestra todos los horarios que se encuentran disponibles en el dia actual 
+     */
+
+    public function verHorarios(){
+        $respuesta = array();
+        $diaActual = date("Y-m-d");
+        $respuesta['ok'] = true;
+
+        if($this->modelRecluta->verHorariosAgendados($diaActual,$data,$mensage) < 0){
+            $respuesta['mensaje'] = "No se encontraron registros";
+            $respuesta['ok'] = false;
+            return;
+        }
+
+        $respuesta['data']      = $data;
+
+        $la_dataView = array();
+        $ls_vistaPanelGeneral = $this->load->view('reclutamiento/horarios_view', $respuesta, true);
+        $la_dataView = array(
+            "view" => $ls_vistaPanelGeneral,
+            "title" => "Horarios"
+        );        
+
+        $this->layoutPanel($la_dataView);
+
+    }
+
+    /**
+     * Selecionadores
+     * Obtiene todos los usuarios que son de tipo seleccionador
+     */
+    public function seleccionadores(){
+
+        $respuesta = array();
+        $respuesta['ok'] = true;
+
+        if($this->modelRecluta->getEntrevistadores($data,$mensage) < 0){
+            $respuesta['ok'] = false;
+            $respuesta['mensaje'] = "No no se encontraron registros";
+        }
+
+        $respuesta['data'] = $data;
+
+        $la_dataView = array();
+        $ls_vistaPanelGeneral = $this->load->view('reclutamiento/seleccionadores_view', $respuesta, true);
+        $la_dataView = array(
+            "view" => $ls_vistaPanelGeneral,
+            "title" => "Seleccionadores"
+        );        
+        $this->layoutPanel($la_dataView);
+
+    }
+
+    /**
+     * altaEntrevistador
+     * Dara de alta los entrevistadores que atenderan en trevistas
+     */
+
+    public function altaEntrevistador(){
         try{
-            $la_return = array();
-            $la_return['mensaje'] = "";
-            $la_return['return'] = 1;
-                
-            $la_dataIn = array();            
+            $respuesta = array();
+            $respuesta['ok'] = true;
+            $datos = $this->input->post('data');
+
+            if($this->modelRecluta->agregarEntre($datos,$mensage) < 0){
+                $respuesta['ok'] = false;
+            }
             
-            $data = json_decode(file_get_contents('php://input'),1);
-            var_dump($data);
+            $respuesta['mensaje'] = "Entrevistadores, fueron dados de alta correctamente";
             
-        }catch(Exception $exc) {
-            $ls_mensaje = '"finalizarProcesoSolicitud" controller does not work. Exception: ' . $exc->getTraceAsString();
-            $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
-            $la_return['return'] = -1;
+
+        }catch(Exception $e){
+
         }finally{
             header("Content-type: application/json");
-            echo json_encode($la_return);
+            echo json_encode($respuesta);
         }
-        
-        return 1;
     }
+    /**
+     * showEntrevistadores
+     * Muestra de seleccionadores que estan dados de alta
+     */
+    public function showEntrevistadores(){
+        try{
+            $respuesta = array();
+            $respuesta['ok'] = false;
+
+            if($this->modelRecluta->getSeleccionados($datos,$mensage) < 0){
+                $respuesta['ok'] = false;
+            }
+
+            if( count($datos)  > 0 ){
+                $respuesta['ok']    = true;
+                $respuesta['data']  = $datos;
+            }else{
+                $respuesta['ok'] = false;
+            }
+
+            $ls_seleccionadores = $this->load->view('reclutamiento/listado_seleccionadores_view', $respuesta, true);
+            $respuesta['contenido'] = $ls_seleccionadores;
+
+        }catch(Exception $e){
+            $ls_mensaje = '"showEntrevistadores" controller does not work. Exception: ' . $e->getTraceAsString();
+            $respuesta['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
+            $respuesta['ok'] = false;
+
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($respuesta);
+        }
+    }
+    /**
+     * bajaSeleccionador
+     * Baja de seleccionadores
+     */
+    public function bajaSeleccionador(){
+        try{
+            $respuesta = array();
+
+            $respuesta['ok'] = true;
+            $id = $this->input->post('id');
+
+            if($this->modelRecluta->bajaSeleccinador($id,$mensage) < 0){
+                $respuesta['ok']        = false;
+                $respuesta['mensaje']   = $mensage;
+            }
+            
+            $respuesta['mensaje'] = "Seleccionador dado de baja correctamente";
+            
+
+        }catch(Exception $e){
+
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($respuesta);
+        }
+    }
+
     
-    public function cambiarPassword(){
-        $la_dataIn = array(
-            "id_persona_entidad" => $this->id_persona_entidad
-        );
-        
-        if($this->mCandidato->obtenerEstructuraCompletaCandidato($la_dataIn, $la_dataCandidato, $arg_mensaje) < 0){
-            echo $arg_mensaje;
-        }
-        
-        $la_dataView = array(
-        );
-        $ls_vistaPanelGeneral = $this->load->view('candidatos/cambiar_password_candidato_view', $la_dataView, true);
-        $la_dataView = array(
-            "view" => $ls_vistaPanelGeneral,
-            "title" => "Cambiar contraseña"
-        );        
-        $this->layoutPanel($la_dataView);
-    }
-    
-    public function datosPersonales(){
-        $la_dataIn = array(
-            "id_persona_entidad" => $this->id_persona_entidad
-        );
-        
-        if($this->mCandidato->obtenerEstructuraCompletaCandidato($la_dataIn, $la_dataCandidato, $arg_mensaje) < 0){
-            echo $arg_mensaje;
-        }
-        
-        $la_dataView = array(
-        );
-        $ls_vistaPanelGeneral = $this->load->view('candidatos/datos_personales_candidato_view', $la_dataView, true);
-        $la_dataView = array(
-            "view" => $ls_vistaPanelGeneral,
-            "title" => "Mis datos personales"
-        );        
-        $this->layoutPanel($la_dataView);
-    }
 }
