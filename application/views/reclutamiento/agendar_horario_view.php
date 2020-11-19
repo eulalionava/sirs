@@ -8,22 +8,21 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="panel">
-                        <div class="panel-body">
-                            <div class="col-md-6">
+                    
+                    <div class="panel panel-default" id="manual">
+                        <div class="panel-heading">
+                            <h5 class="title">Manual</h5>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12" style="margin-bottom:2rem;margin-top:2rem;">
+                            <div class="col-md-2">
                                 <input type="radio" name="agenda" value="1" class="agendaManual">
                                 <label for="agenda">Manual</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-2">
                                 <input type="radio" name="agenda" value="2" class="agendaAuto">
                                 <label for="agenda">Automatico</label>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default" id="manual" style="display:none;">
-                        <div class="panel-heading">
-                            <h5 class="title">Manual</h5>
                         </div>
                         <div class="panel-body">
                             <div class="col-md-4 col-sm-4">
@@ -75,80 +74,29 @@
                         </div>
                     </div>
 
-                    <div class="panel panel-default" id="automatico" style="display:none;">
-                        <div class="panel-heading">
-                            <h4 class="title">Automatico</h4>
-                        </div>
+                    <div class="panel panel-default verpanel" style="display:none;">
                         <div class="panel-body">
-                            <div class="col-md-6 col-sm-6">
-                                <label for="">Intervalo:</label>
-                                <input type="text" class="form-control" placeholder="minutos" style="margin-bottom:10px;">
-                                <input type="button" class="btn btn-success" value="Aceptar">
+
+                            <div style="margin-bottom:10px;">
+                                <select name="" id="" class="form-control form-control-lg entrevistador">
+                                    <option value="0">Selecciona entrevistador</option>
+                                    <?php
+                                    foreach($data as $item){
+                                        ?>
+                                            <option value="<?=$item->id_persona_entidad?>"><?=$item->nombres.' '.$item->apellido_paterno.' '.$item->apellido_materno?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
                             </div>
-                            <div class="col-md-6 col-sm-6">
+                            <div id="tablaDinamica">
+
                             </div>
+
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
-                        
-                        <div class="panel-body">
-                        <table class="table table-bordered">
-                            <thead>
-                                <th></th>
-                                <th>11</th>
-                                <th>12</th>
-                                <th>13</th>
-                                <th>14</th>
-                                <th>15</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>9:00</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                </tr>
-                                <tr>
-                                    <td>10:00</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                </tr>
-                                <tr>
-                                    <td>11:00</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                </tr>
-                                <tr>
-                                    <td>12:00</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                </tr>
-                                <tr>
-                                    <td>13:00</td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                    <td><input type="checkbox"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 ms-6">
+                    <!-- <div class="col-md-6 ms-6">
                         <div class="form-group">
                             <label for="fecha">Seleccionar fecha:</label>
                             <input type="date" id="btnFecha" class="form-control" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
@@ -170,11 +118,12 @@
                             </select>
                         </div>
                     </div>
-                    <input type="button" class="btn btn-success" id="btnAgendarHorario" value="Agendar horario">
+                    <input type="button" class="btn btn-success" id="btnAgendarHorario" value="Agendar horario"> -->
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
 <script src="<?php echo base_url(); ?>dist/js/reclutamiento/reclutamiento_view.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>dist/js/reclutamiento/reclutamiento_model.min.js" type="text/javascript"></script>

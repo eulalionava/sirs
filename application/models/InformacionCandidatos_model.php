@@ -35,6 +35,8 @@ class InformacionCandidatos_model extends CI_Model {
                             INNER JOIN personas_entidades
                                 ON(personas_entidades.id_persona_entidad  = entrevista.id_usuario_entrevistador)
                         WHERE
+                            fecha_entrevista >= '".$arg_dataIn['fecha_entrevista']."'
+                        AND
                             (entrevista.id_persona_entidad = ?) ";  
             $statement = $this->db->query($ls_query, $la_where);
             if ($statement) {
@@ -58,12 +60,12 @@ class InformacionCandidatos_model extends CI_Model {
      * @param String $arg_mensaje
      * @return int 
      */
-    public function guardarEntrevistaCandidato($arg_dataIn,$entrevistador, &$arg_dataOut, &$arg_mensaje) {
+    public function guardarEntrevistaCandidato($arg_dataIn,&$arg_dataOut, &$arg_mensaje) {
         try {
             $la_where = array();
             $ls_query = "";
             $la_dataWhere = array("SHA2(id_entrevista, 224) = " => $arg_dataIn["id_entrevista"]);
-            $la_dataUpdate = array("id_usuario_entrevistador"=>$entrevistador,"id_persona_entidad" => $arg_dataIn["id_persona_entidad"]);
+            $la_dataUpdate = array("id_persona_entidad" => $arg_dataIn["id_persona_entidad"]);
             
             $this->db->update('entrevista', $la_dataUpdate, $la_dataWhere);
         } catch (Exception $exc) {
@@ -94,12 +96,12 @@ class InformacionCandidatos_model extends CI_Model {
                             DAYOFWEEK(e.fecha_entrevista) AS dia_semana,
                             DATE_FORMAT(e.hora_entrevista, '%H:%i') AS hora_entrevista                            
                         FROM 
-                            entrevista e, (SELECT fecha_entrevista FROM entrevista WHERE id_persona_entidad=0 AND fecha_entrevista>=DATE(NOW()) GROUP BY fecha_entrevista ORDER BY fecha_entrevista LIMIT 2) e2
+                            entrevista e, (SELECT DISTINCT  fecha_entrevista FROM entrevista WHERE id_persona_entidad=0 AND fecha_entrevista>=DATE(NOW()) GROUP BY fecha_entrevista ORDER BY fecha_entrevista LIMIT 2) e2
                         WHERE 
                             (e.id_persona_entidad = 0)
                             AND(e.fecha_entrevista IN(e2.fecha_entrevista) ) 
                         GROUP BY e.fecha_entrevista, e.hora_entrevista     
-                        ORDER BY e.hora_entrevista";
+                        ORDER BY e.fecha_entrevista, e.hora_entrevista";
                       
             $statement = $this->db->query($ls_query, $la_where);
             if ($statement) {

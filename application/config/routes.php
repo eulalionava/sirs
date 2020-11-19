@@ -104,9 +104,14 @@ $route['panel-principal'] = 'Principal';
 /**********************RECLUTAMIENTO *********************************************/
 $route['reclutamiento-general'] = "Reclutamiento";
 $route['reclutamiento-general/agendar-horario'] = "Reclutamiento/agenda";
-$route['reclutamiento-general/agenda-horario'] ="Reclutamiento/agendarHorario";
 $route['reclutamiento-general/ver-horario'] = 'Reclutamiento/verHorarios';
 $route['reclutamiento-general/agenda-seleccionador'] = 'Reclutamiento/seleccionadores';
 $route['reclutamiento-general/alta-entrevistador'] = "Reclutamiento/altaEntrevistador";
 $route['reclutamiento-general/mostrar-seleccionadores'] = "Reclutamiento/showEntrevistadores";
 $route['reclutamiento-general/editar-seleccionador'] = "Reclutamiento/bajaSeleccionador";
+$route['reclutamiento-general/agenda-horarios'] ="Reclutamiento/agendarHorarios";
+
+/********************* SELECCIONADORES****************************************** */
+$route['seleccionadores/mi-agenda'] = "Seleccionador/verMiAgenda";
+$route['seleccionadores/entrevista-detalle'] = "Seleccionador/entrevistaDetalle";
+$route['seleccionadores/agregar-comentario'] = "Seleccionador/agregarComentario";

@@ -30,14 +30,28 @@ class Reclutamiento_model extends CI_Model {
     public function guardarHorario($datos,&$arg_mensaje){
 
         try{
-            $la_data = array(
-                'id_usuario_entrevistador'  =>0,
-                'id_persona_entidad'        =>0,
-                'fecha_entrevista'          =>$datos['fecha'],
-                'hora_entrevista'           =>$datos['hora']
+
+            foreach($datos as $item){
+
+                $la_data = array(
+                    'id_usuario_entrevistador'  =>$item['id_entrevistador'],
+                    'id_persona_entidad'        =>0,
+                    'fecha_entrevista'          =>$item['fecha'],
+                    'hora_entrevista'           =>$item['hora']
+                );
+    
+                $this->db->insert('entrevista',$la_data);
+            }
+
+            $la_update = Array(
+                "status_persona_entidad"=>1
+            );
+            $la_where = Array(
+                "id_persona_entidad"=>$datos[0]['id_entrevistador']
             );
 
-            $this->db->insert('entrevista',$la_data);
+            $this->db->update("personas_entidades",$la_update,$la_where);
+
 
         }catch(Exception $e){
 
@@ -80,12 +94,21 @@ class Reclutamiento_model extends CI_Model {
     public function getEntrevistadores(&$arg_data,&$arg_mensaje){
 
         try {
-            $ls_query = "SELECT pe.id_persona_entidad,pe.nombres,pe.apellido_paterno,
-                    pe.apellido_materno,pe.rfc,pe.correo_electronico,pe.genero_sexual,
-                    pe.ruta_foto,pe.numero_telefono,pe.status_persona_entidad
-                    FROM personas_entidades pe INNER JOIN perfiles_accesos pa 
-                    ON pe.tipo_persona_entidad = pa.id_perfil_acceso 
-                    WHERE pe.tipo_persona_entidad = 3";
+            $ls_query = "SELECT 
+                            pe.id_persona_entidad,
+                            pe.nombres,
+                            pe.apellido_paterno,
+                            pe.apellido_materno,
+                            pe.rfc,
+                            pe.correo_electronico,
+                            pe.genero_sexual,
+                            pe.ruta_foto,
+                            pe.numero_telefono,
+                            pe.status_persona_entidad
+                            FROM personas_entidades pe 
+                            INNER JOIN perfiles_accesos pa 
+                                ON pe.tipo_persona_entidad = pa.id_perfil_acceso 
+                            WHERE pe.tipo_persona_entidad = 3";
 
             $statement = $this->db->query($ls_query);
 
@@ -106,13 +129,22 @@ class Reclutamiento_model extends CI_Model {
     public function getSeleccionados(&$arg_data,&$arg_mensaje){
 
         try {
-            $ls_query = "SELECT pe.id_persona_entidad,pe.nombres,pe.apellido_paterno,
-                    pe.apellido_materno,pe.rfc,pe.correo_electronico,pe.genero_sexual,
-                    pe.ruta_foto,pe.numero_telefono,pe.status_persona_entidad
-                    FROM personas_entidades pe INNER JOIN perfiles_accesos pa 
-                    ON pe.tipo_persona_entidad = pa.id_perfil_acceso 
-                    WHERE pe.tipo_persona_entidad = 3 
-                    AND pe.status_persona_entidad = 3 ";
+            $ls_query = "SELECT 
+                        pe.id_persona_entidad,
+                        pe.nombres,
+                        pe.apellido_paterno,
+                        pe.apellido_materno,
+                        pe.rfc,
+                        pe.correo_electronico,
+                        pe.genero_sexual,
+                        pe.ruta_foto,
+                        pe.numero_telefono,
+                        pe.status_persona_entidad
+                        FROM personas_entidades pe 
+                        INNER JOIN perfiles_accesos pa 
+                            ON pe.tipo_persona_entidad = pa.id_perfil_acceso 
+                        WHERE pe.tipo_persona_entidad = 3 
+                        AND pe.status_persona_entidad = 3 ";
 
             $statement = $this->db->query($ls_query);
 

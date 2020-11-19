@@ -34,8 +34,23 @@ class Reclutamiento extends MY_Controller {
 
     public function agenda(){
 
-        $la_dataView = array();
-        $ls_vistaPanelGeneral = $this->load->view('reclutamiento/agendar_horario_view', array(), true);
+        $respuesta = array();
+        $respuesta['ok'] = false;
+
+        if($this->modelRecluta->getSeleccionados($datos,$mensage) < 0){
+            $respuesta['ok'] = false;
+        }
+
+        if( count($datos)  > 0 ){
+            $respuesta['ok']    = true;
+            $respuesta['data']  = $datos;
+
+        }else{
+
+            $respuesta['ok'] = false;
+        }
+
+        $ls_vistaPanelGeneral = $this->load->view('reclutamiento/agendar_horario_view', $respuesta, true);
         $la_dataView = array(
             "view" => $ls_vistaPanelGeneral,
             "title" => "Agendar Horario"
@@ -209,6 +224,33 @@ class Reclutamiento extends MY_Controller {
             }
             
             $respuesta['mensaje'] = "Seleccionador dado de baja correctamente";
+            
+
+        }catch(Exception $e){
+
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($respuesta);
+        }
+    }
+    /**
+     * agendarHorarios
+     * Agenda todos los horarios por seleccionador
+     */
+    public function agendarHorarios(){
+        try{
+            $respuesta = array();
+
+            $respuesta['ok'] = true;
+            $datos = $this->input->post('data');
+
+            if($this->modelRecluta->guardarHorario($datos,$mensage) < 0){
+                $respuesta['ok']        = false;
+                $respuesta['mensaje']   = $mensage;
+            }
+
+            $respuesta['id_entrevistador']  = $datos[0]['id_entrevistador'];
+            $respuesta['mensaje']           = "Hararios generados correctamente";
             
 
         }catch(Exception $e){

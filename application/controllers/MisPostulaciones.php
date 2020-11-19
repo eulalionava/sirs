@@ -46,46 +46,15 @@ class MisPostulaciones extends MY_Controller {
                 "fecha"                 => $fecha
             );
 
-            //Verificar entrevistadores activo
-            if($this->mCandidato->entrevitadorsActivos($la_dataEntrevistadores,$mensaje) < 0){
-                $la_return['mensaje'] = $mensaje;
-                $la_return['return'] = -1;
+            $la_return['ok'] = true;
+            $la_dataOut = array();
+            if($this->mCandidato->guardarEntrevistaCandidato($la_dataIn,$la_dataOut, $ls_mensaje) < 0){
+                $la_return['mensaje']   = $ls_mensaje;
+                $la_return['return']    = -1;
+                $la_return['ok']        = false;
+                return;   
             }
-
-            $seAgendo = false;
-            $la_return['agendo'] = false;
-            // $id_entrevista = $la_dataIn['id_entrevista'];
-
-            //Recorre cada entrevistador
-            if(count($la_dataEntrevistadores) != 0){
-
-                foreach($la_dataEntrevistadores as $valor){
-
-                    $id_entrevistador = $valor->id_persona_entidad;
-                    if($this->mCandidato->entrevistandoCandidato($la_dataIn,$id_entrevistador,$data,$ls_mensaje) < 0){
-                        $la_return['mensaje'] = $ls_mensaje;
-                        $la_return['return'] = -1;  
-                    }
-
-                    if(count($data) == 0){
-                        
-                        $la_return['datos_entrevista'] = $la_dataIn;
-                        $la_dataOut = array();
-                        if($this->mCandidato->guardarEntrevistaCandidato($la_dataIn,$id_entrevistador, $la_dataOut, $ls_mensaje) < 0){
-                            $la_return['mensaje']   = $ls_mensaje;
-                            $la_return['return']    = -1;
-                            return;   
-                        }
-                        $la_return['agendo'] = true;
-                        break;
-                    }
-                }
-                
-            }else{
-                $la_return['agendo'] = false; 
-                $la_return['mensaje'] = "No hay entrevistadores";
-                
-            }
+            
             
             
             
@@ -103,7 +72,8 @@ class MisPostulaciones extends MY_Controller {
     
     public function agendarEntrevista(){        
         $la_dataInEntrevista = array(
-            "id_persona_entidad" => $this->id_persona_entidad
+            "id_persona_entidad" => $this->id_persona_entidad,
+            "fecha_entrevista"   => date("Y-m-d")
         );
 
         $la_dataEntrevistadores = array();
@@ -127,6 +97,11 @@ class MisPostulaciones extends MY_Controller {
             if($this->mCandidato->obtenerHorariosEntrevista($la_dataIn, $la_dataOut, $ls_mensaje) < 0){
                 echo $ls_mensaje;
             }
+        }
+
+        //Manda correo si no hay horarios
+        if( count($la_dataOut) == 0){
+            
         }
         
         

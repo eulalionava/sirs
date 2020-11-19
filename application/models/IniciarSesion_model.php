@@ -30,8 +30,8 @@ class IniciarSesion_model extends CI_Model {
                             personas_entidades.ruta_foto, 
                             CASE
                                 WHEN personas_entidades.tipo_persona_entidad = 1 THEN 'Reclutador'
-                                WHEN personas_entidades.tipo_persona_entidad = 2 THEN 'Seleccionador'
-                                WHEN personas_entidades.tipo_persona_entidad = 3 THEN 'Cliente'
+                                WHEN personas_entidades.tipo_persona_entidad = 2 THEN 'Cliente'
+                                WHEN personas_entidades.tipo_persona_entidad = 3 THEN 'Seleccionador'
                                 WHEN personas_entidades.tipo_persona_entidad = 4 THEN 'Welcome'
                                 WHEN personas_entidades.tipo_persona_entidad = 5 THEN 'Candidato'
                                 ELSE 'Administrador'
