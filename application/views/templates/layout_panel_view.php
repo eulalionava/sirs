@@ -18,6 +18,9 @@
         <link href="<?php echo base_url(); ?>dist/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>dist/assets/ionicon/css/ionicons.min.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+        
+        <!-- DataTables css -->
+        <link href="<?php echo base_url(); ?>dist/js/jquery.dataTables.min.css" rel="stylesheet" />
 
         <!-- animate css -->
         <link href="<?php echo base_url(); ?>dist/css/animate.css" rel="stylesheet" />
@@ -52,7 +55,9 @@
         <script src="<?php echo base_url(); ?>dist/js/jquery.min.js"></script>
         <script src="<?php echo base_url(); ?>dist/js/bootstrap.min.js"></script>
 
-        
+        <!--- DataTables js-->
+        <script src="<?php echo base_url(); ?>dist/js/jquery.dataTables.min.js"></script>
+
         <!--- BackboneJS -->
         <script src="<?php echo base_url(); ?>dist/assets/backboneJS/underscore.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>dist/assets/backboneJS/backbone.min.js" type="text/javascript"></script>
@@ -114,8 +119,8 @@
                                 </div>
                                 <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
                             </form>
-
-                            <ul class="nav navbar-nav navbar-right pull-right">
+                            <input type="text" value="<?=$this->tipo_persona_entidad?>" id="tipoPersona">
+                            <ul class="nav navbar-nav navbar-right pull-right notificaciones">
                                 <li class="dropdown hidden-xs">
                                     <a title="Notificaciones" href="#" data-target="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
                                         <i class="md md-notifications"></i> <span class="badge badge-xs badge-danger">0</span>
@@ -151,7 +156,24 @@
                 </div>
             </div>
             <!-- Top Bar End -->
-
+            <div class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Notificaciones</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>No hay notificaciones</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- ========== Left Sidebar Start ========== -->
 

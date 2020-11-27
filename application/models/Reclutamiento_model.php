@@ -188,7 +188,10 @@ class Reclutamiento_model extends CI_Model {
 
         return 1;
     }
-
+    /**
+     * bajaSeleccinador
+     * Cambia de estatus ,despues de agendar sus horarios de entrevista
+     */
     public function bajaSeleccinador($id,&$arg_mensaje){
         try{
 
@@ -209,6 +212,242 @@ class Reclutamiento_model extends CI_Model {
 
         return 1;
     }
+
+    /**
+     * getAllCandidatos
+     * Obtiene todos los candidatos
+     */
+
+     public function getAllCandidatos(&$arg_data,&$arg_mensaje){
+        try{
+
+            $ls_query = "SELECT 
+                            pe.id_persona_entidad,
+                            pe.nombres,
+                            pe.apellido_paterno,
+                            pe.apellido_materno,
+                            pe.rfc,
+                            pe.correo_electronico,
+                            pe.genero_sexual,
+                            pe.tipo_persona_entidad,
+                            pe.ruta_foto,
+                            pe.status_persona_entidad
+                        FROM personas_entidades pe
+                        WHERE pe.tipo_persona_entidad = 5 
+                        AND pe.status_persona_entidad = 1; ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $arg_data = $statement->result();
+            } else {
+                return -1;
+            }
+    
+
+        }catch(Exception $e){
+            $arg_mensaje = 'getAllCandidatos method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+
+        return 1;
+
+     }
+
+     public function vacantesPorCandidato($id_entidad,&$dataOut,&$arg_mensaje){
+        try{
+
+            $ls_query = "SELECT 
+                            pe.id_persona_entidad,
+                            vacantes.id_vacante,
+                            vacantes.vacante,
+                            clientes.nombre,
+                            pv.id_persona_vacante,
+                            pv.id_status
+                        FROM personas_entidades pe 
+                        INNER JOIN personas_vacantes pv 
+                            ON pe.id_persona_entidad = pv.id_persona_entidad
+                        INNER JOIN vacantes 
+                            ON  pv.id_vacante=vacantes.id_vacante
+                        INNER JOIN campana 
+                            ON vacantes.id_campana=campana.id_campana
+                        INNER JOIN clientes 
+                            ON campana.id_cliente=clientes.id_cliente  
+                        WHERE pe.id_persona_entidad = $id_entidad 
+                        AND vacantes.estatus = 1; ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+                $arg_mensaje = $ls_query;
+            } else {
+                return -1;
+            }
+        }catch(Exception $e){
+            $arg_mensaje = 'vacantesPorCandidato method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+
+        return 1;
+     }
+
+     /**
+      * cuastionariosCandidato
+      * Obtiene los cuastionarios del candidato por vacante
+      */
+    
+    public function cuastionariosCandidato($dataIn,&$dataOut,&$arg_mensaje){
+        try{
+
+            $ls_query = "SELECT
+                            vacantes_cuestionarios.id_vacante_cuestionario,
+                            vacantes_cuestionarios.id_vacante,
+                            vacantes_cuestionarios.id_cuestionario,
+                            vacantes.vacante,
+                            cuestionarios.titulo_cuestionario,
+                            cuestionarios.descripcion_cuestionario,
+                            cuestionarios.id_tipo_cuestionario,
+                            cuestionarios.intentos,
+                            (SELECT 
+                                MAX(IFNULL(respuestas.intento, 0))
+                            FROM 
+                                respuestas
+                                INNER JOIN preguntas
+                                    ON(respuestas.id_pregunta = preguntas.id_pregunta)
+                            WHERE 
+                                (preguntas.id_cuestionario = cuestionarios.id_cuestionario)
+                                AND (respuestas.id_usuario = '".$dataIn['id_usuario']."' )) AS cantidad_intentos
+                        FROM 	
+                            vacantes_cuestionarios
+                            INNER JOIN vacantes
+                                ON(vacantes.id_vacante = vacantes_cuestionarios.id_vacante)
+                            INNER JOIN cuestionarios
+                                ON(cuestionarios.id_cuestionario = vacantes_cuestionarios.id_cuestionario)
+                        WHERE 
+                            vacantes_cuestionarios.id_vacante = '".$dataIn['id_vacante']."'
+                            ORDER BY vacantes_cuestionarios.id_vacante_cuestionario DESC ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+    
+
+        }catch(Exception $e){
+            $arg_mensaje = 'getAllCandidatos method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+
+        return 1;
+    }
+
+    public function obtenerDocumentosCandidato($dataIn,&$dataOut,&$arg_mensaje){
+        try{
+
+            $ls_query = "SELECT 
+                            vacantes.id_vacante,
+                            vacantes.id_campana,
+                            campana.id_cliente,
+                            campanas_documentos.id_documento,
+                            documentos_candidatos.nombre_archivo,
+                            documentos_candidatos.ruta_archivo,
+                            catalogo_docs_expediente.nombre_doc,
+                            catalogo_docs_expediente.descripcion,
+                            clientes.solicitud
+                        FROM 
+                            vacantes
+                        INNER JOIN campana
+                            ON(campana.id_campana = vacantes.id_campana)
+                        INNER JOIN campanas_documentos
+                            ON(campanas_documentos.id_campana = vacantes.id_campana)
+                        INNER JOIN documentos_candidatos
+                            ON(campanas_documentos.id_documento = documentos_candidatos.id_documento)
+                        INNER JOIN catalogo_docs_expediente
+                            ON(catalogo_docs_expediente.id = campanas_documentos.id_documento)
+                        INNER JOIN clientes
+                            ON(clientes.id_cliente = campana.id_cliente)
+                        WHERE 
+                            (vacantes.id_vacante = '".$dataIn['id_vacante']."')
+                        ORDER BY campanas_documentos.id_documento DESC ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+    
+
+        }catch(Exception $e){
+            $arg_mensaje = 'getAllCandidatos method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+
+        return 1;
+    }
+
+    public function segimiento($dataIn,&$dataOut,&$arg_mensaje){
+        try{
+
+            $ls_query = "SELECT 
+                            pe.id_persona_entidad,
+                            pv.id_persona_vacante,
+                            upe.id_usuario,
+                            pe.nombres,
+                            pe.apellido_paterno,
+                            pe.apellido_materno,
+                            vacantes.vacante 
+                        FROM personas_vacantes pv 
+                        INNER JOIN personas_entidades pe 
+                            ON pv.id_persona_entidad = pe.id_persona_entidad
+                        INNER JOIN usuarios_personas_entidades upe
+							ON pe.id_persona_entidad = upe.id_persona_entidad
+                        INNER JOIN vacantes 
+                            ON pv.id_vacante = vacantes.id_vacante
+                        WHERE pv.id_persona_vacante = '".$dataIn['id_persona_vacante']."';";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+
+        }catch(Exception $e){
+            $arg_mensaje = 'getAllCandidatos method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+
+        return 1;
+    }
+
+    public function guardarSegimiento($dataIn,&$arg_mensaje){
+        try{
+
+            $la_data = Array(
+                "id_persona_entidad"    => intval($dataIn['id_persona']),
+                "id_vacante"            => intval($dataIn['id_vacante']),
+                "id_usuario"            => intval($dataIn['id_usuario']),
+                "estatus"               => intval($dataIn['estatus']),
+                "fecha_hora"            => Date('Y-m-d: h:m:s')
+            );
+
+            $this->db->insert("seguimiento",$la_data);
+
+        }catch(Exception $e){
+            $arg_mensaje = 'guardarSegimiento method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+
+        return 1;
+    }
+
 
     
 }

@@ -102,6 +102,7 @@
                         <?php endif; ?>
                     <?php endif; ?>
                     
+                    <!-- Ortografia -->
                     <?php if($detalle_cuestionario[0]->id_tipo_cuestionario == 1): ?>
                         <?php 
                             $cuestionario_ortografia = $detalle_cuestionario;
@@ -175,6 +176,7 @@
                         <?php endif; ?>
                     <?php endif; ?>
                     
+                    <!-- cuestionario typing -->
                     <?php if($detalle_cuestionario[0]->id_tipo_cuestionario == 2): ?>
                         <?php
                             $cuestionario_typing = $detalle_cuestionario;
@@ -266,8 +268,9 @@
                         <?php endif; ?>
                     <?php endif; ?>
                     <div class="panel panel-border panel-purple">
-                        <div class="panel-footer text-center">
-                            <button type="button" data-tqy="<?php echo $detalle_cuestionario[0]->id_tipo_cuestionario;?>" class="btn btn-purple btn-custom waves-effect waves-light m-b-5 btn_finalizar_cuestionario">
+                        <div class="panel-footer text-center" data-hash="<?=$detalle_cuestionario[0]->id_cuestionario?>">
+                            <button type="button" data-tqy="<?php echo $detalle_cuestionario[0]->id_tipo_cuestionario;?>" data-hash="<?=$detalle_cuestionario[0]->id_vacante_cuestionario?>" 
+                            class="btn btn-purple btn-custom waves-effect waves-light m-b-5 btn_finalizar_cuestionario">
                                 <i class="fa fa-check-circle"></i> Finalizar cuestionario
                             </button>
                         </div>

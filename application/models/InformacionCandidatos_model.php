@@ -53,6 +53,42 @@ class InformacionCandidatos_model extends CI_Model {
     }
     
     /**
+     * getEntrevistaHorarios
+     * Se obtiene los horarios de las entrevistas
+     */
+    public function getEntrevistaHorarios($fecha,&$arg_dataOut,&$arg_mensaje){
+        try {
+            $ls_query = "SELECT 
+                            entrevista.id_usuario_entrevistador,
+                            entrevista.fecha_entrevista, 
+                            YEAR(entrevista.fecha_entrevista) AS anio, 
+                            MONTH(entrevista.fecha_entrevista) AS mes,
+                            DAY(entrevista.fecha_entrevista) AS dia,
+                            DAYOFWEEK(entrevista.fecha_entrevista) AS dia_semana,
+                            DATE_FORMAT(entrevista.hora_entrevista, '%H:%i') AS hora_entrevista,
+                            entrevista.descripcion_entrevista
+                        FROM 
+                            entrevista
+                        WHERE
+                            fecha_entrevista >= '".$fecha."' 
+                        AND id_persona_entidad = 0 ";  
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $arg_dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+        } catch (Exception $exc) {
+            $arg_mensaje = 'getEntrevistaHorarios method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+    
+    /**
      * guardarEntrevistaCandidato
      * Se guardan el horario de la entrevista a la que asistirá el candidato.
      * @param Array  $arg_dataIn parámetros para condicionar consultas.
@@ -275,14 +311,26 @@ class InformacionCandidatos_model extends CI_Model {
                             (id_pregunta = ?)
                             AND(id_usuario = ?)"; 
             $statement = $this->db->query($ls_query, $la_where);
+
             if ($statement) {
                 $la_dataMax = $statement->result();
                 $li_intento_max = $la_dataMax[0]->intento;
+                $total_puntaje = 0.0;
                 
                 foreach($arg_dataIn as $data){
+                    $consulta = "SELECT * FROM claves where id_clave = '".$data['respuesta']."' ";
+                    $consulta = $this->db->query($consulta);
+                    $resultado = $consulta->result();
+
+                    $total_puntaje = $total_puntaje + $resultado[0]->valor;
+
                     $data["intento"] = $li_intento_max;
                     $this->db->insert('respuestas', $data);
-                }                
+                }     
+                
+                //puntaje total de su cuestionario
+                $arg_dataOut = $total_puntaje;
+                
             }            
         } catch (Exception $exc) {
             $arg_mensaje = 'guardarRespuestasCuestionario method does not work. Exception: ' . $exc->getTraceAsString();
@@ -291,7 +339,27 @@ class InformacionCandidatos_model extends CI_Model {
         
         return 1;
     }
+
+    /**
+     * guardarStatusDeCuestionario
+     * Se guarda el estatus del cuestionario por vacante
+     */
     
+     public function guardarStatusDeCuestionario($idVacanteCuest,&$dataIn,&$arg_mensaje){
+        try {
+            $la_where = array();
+            $ls_query = "";
+            $la_dataWhere = array("id_vacante_cuestionario" => $idVacanteCuest);
+            $la_dataUpdate = array("estatus" => 1);
+            
+            $this->db->update('vacantes_cuestionarios', $la_dataUpdate, $la_dataWhere);
+        } catch (Exception $exc) {
+            $arg_mensaje = 'guardarStatusDeCuestionario method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+     }
     
     /**
      * obtenerDocumentos
@@ -311,6 +379,8 @@ class InformacionCandidatos_model extends CI_Model {
                             vacantes.id_campana,
                             campana.id_cliente,
                             campanas_documentos.id_documento,
+                            documentos_candidatos.nombre_archivo,
+                            documentos_candidatos.ruta_archivo,
                             catalogo_docs_expediente.nombre_doc,
                             catalogo_docs_expediente.descripcion,
                             clientes.solicitud
@@ -320,6 +390,8 @@ class InformacionCandidatos_model extends CI_Model {
                             ON(campana.id_campana = vacantes.id_campana)
                         INNER JOIN campanas_documentos
                             ON(campanas_documentos.id_campana = vacantes.id_campana)
+                        INNER JOIN documentos_candidatos
+							ON(campanas_documentos.id_documento = documentos_candidatos.id_documento)
                         INNER JOIN catalogo_docs_expediente
                             ON(catalogo_docs_expediente.id = campanas_documentos.id_documento)
                         INNER JOIN clientes
@@ -351,7 +423,7 @@ class InformacionCandidatos_model extends CI_Model {
      */
     public function obtenerDetalleCuestionario($arg_dataIn, &$arg_dataOut, &$arg_mensaje) {
         try {
-            $la_where = array($arg_dataIn['id_persona_entidad'], $arg_dataIn['id_cuestionario_md5']);
+            $la_where = array($arg_dataIn['id_persona_entidad'], $arg_dataIn['id_cuestionario_md5'],$arg_dataIn['id_vacante']);
             $ls_where = "";            
             $ls_query = "SELECT 
                             personas_vacantes.id_persona_entidad,
@@ -367,6 +439,7 @@ class InformacionCandidatos_model extends CI_Model {
                             clientes.nombre AS nombre_cliente,
                             clientes.solicitud AS solicitud_cliente,
                             clientes.rfc AS rfc_cliente,
+                            vacantes_cuestionarios.id_vacante_cuestionario,
                             vacantes_cuestionarios.id_cuestionario,
                             cuestionarios.titulo_cuestionario,
                             cuestionarios.descripcion_cuestionario,
@@ -379,7 +452,9 @@ class InformacionCandidatos_model extends CI_Model {
                             preguntas.ruta_archivo,
                             preguntas.id_tipo_archivo,
                             claves.id_clave,
-                            claves.opcion    
+                            claves.opcion,
+                            claves.valor,
+                            claves.correcto    
                         FROM 
                             personas_vacantes
                             INNER JOIN vacantes
@@ -400,6 +475,7 @@ class InformacionCandidatos_model extends CI_Model {
                         WHERE 
                             (personas_vacantes.id_persona_entidad = ?)
                             AND(MD5(cuestionarios.id_cuestionario) = ?)
+                            AND(vacantes.id_vacante = ?)
                             ORDER BY vacantes.id_vacante DESC, 
                             cuestionarios.id_cuestionario ASC, 
                             preguntas.id_pregunta ASC, 
@@ -432,6 +508,7 @@ class InformacionCandidatos_model extends CI_Model {
             $ls_where = "";
             
             $ls_query = "SELECT
+                            id_vacante_cuestionario,
                             vacantes_cuestionarios.id_vacante,
                             vacantes_cuestionarios.id_cuestionario,
                             vacantes.vacante,
@@ -447,7 +524,7 @@ class InformacionCandidatos_model extends CI_Model {
                                     ON(respuestas.id_pregunta = preguntas.id_pregunta)
                             WHERE 
                                 (preguntas.id_cuestionario = cuestionarios.id_cuestionario)
-                                AND(respuestas.id_usuario = ?) ) AS cantidad_intentos
+                                AND (respuestas.id_usuario = ?) ) AS cantidad_intentos
                         FROM 	
                             vacantes_cuestionarios
                             INNER JOIN vacantes

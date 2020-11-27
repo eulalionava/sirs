@@ -31,6 +31,7 @@ class SolicitudEmpleo extends MY_Controller {
         );        
         $this->layoutPanel($la_dataView);
     }
+
     public function guardarRespuestasCuestinario(){
         try{
             $la_return = array();
@@ -39,6 +40,7 @@ class SolicitudEmpleo extends MY_Controller {
             $ls_mensaje = "";
                       
             $la_respuestas = $this->input->post('data')['respuestas'];
+            $id_vacante_cuestionartio = $this->input->post('id_vacante_cuestionario');
             
             if(count($la_respuestas) == 0){
                 $la_return['mensaje'] = "Ocurrió un error inesperado: las repuestas no han sido recibidas.";
@@ -47,6 +49,7 @@ class SolicitudEmpleo extends MY_Controller {
             }
             
             $la_respuestasValidadas = array();
+
             foreach($la_respuestas as $respuesta){
                 /*
                  * 1: abierta (textarea)
@@ -73,7 +76,15 @@ class SolicitudEmpleo extends MY_Controller {
                 $la_return['return'] = -1;
                 return;
             }
-            
+
+            //Guardar el estatus de cuestionario terminado
+            if($this->mCandidato->guardarStatusDeCuestionario($id_vacante_cuestionartio,$dataSalida,$arg_mensaje) < 0){
+                $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde";
+                $la_return['return'] = -1;
+                return;
+            }
+
+            $la_return['puntaje_total'] = $la_dataSalida;
             $la_return['mensaje'] = "El cuestionario seleccionado ha sido completado.";
         }catch(Exception $exc) {
             $ls_mensaje = '"finalizarProcesoSolicitud" controller does not work. Exception: ' . $exc->getTraceAsString();

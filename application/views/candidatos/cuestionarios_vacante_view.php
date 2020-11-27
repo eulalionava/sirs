@@ -25,6 +25,7 @@
                     "fa fa-laptop"
                 );
             ?>
+            
             <?php foreach($detalle_vacante as $vacante): ?>
                     <?php if($li_id_vacante_diferente <> $vacante->id_vacante): ?>
                         <div class="row">
@@ -52,7 +53,7 @@
                                             </div>
                                             <div class="panel-footer">
                                                 <?php if($cuestionario->cantidad_intentos < $cuestionario->intentos): ?>
-                                                    <button class="btn btn-purple btn-custom waves-effect waves-light m-b-5 btn_nach_cuestionario">
+                                                    <button class="btn btn-purple btn-custom waves-effect waves-light m-b-5 btn_nach_cuestionario" data-hash="<?=$cuestionario->id_vacante_cuestionario?>" data-vt="<?=$vacante->id_vacante?>">
                                                         <i class="fa fa-rocket"></i> <span>Contestar</span> 
                                                     </button>
                                                 <?php else: ?>

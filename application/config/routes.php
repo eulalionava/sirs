@@ -72,6 +72,7 @@ $route['mis-postulaciones'] = 'MisPostulaciones';
 $route['mis-postulaciones/ver-vacantes'] = 'MisPostulaciones/vacantesCandidato';
 $route['mis-postulaciones/detalle-vacante'] = 'MisPostulaciones/detalleVacante';
 $route['mis-postulaciones/cuestionarios-vacante'] = 'MisPostulaciones/cuestionariosVacante';
+$route['mis-postulaciones/notificaciones'] = "MisPostulaciones/notificacionEntrevistas";
 
 /*********************POSTULACIONES - CUESTIONARIOS*****************************/
 $route['mis-postulaciones/detalle-cuestionario'] = 'MisPostulaciones/detalleCuestionario';
@@ -115,3 +116,11 @@ $route['reclutamiento-general/agenda-horarios'] ="Reclutamiento/agendarHorarios"
 $route['seleccionadores/mi-agenda'] = "Seleccionador/verMiAgenda";
 $route['seleccionadores/entrevista-detalle'] = "Seleccionador/entrevistaDetalle";
 $route['seleccionadores/agregar-comentario'] = "Seleccionador/agregarComentario";
+
+/*********************** SEGUIMIENTO CANDIDATOS         ************************ */
+$route['mis-candidatos/ver-candidatos'] = "Reclutamiento/misCandidatos";
+$route['mis-candidatos/vacantes-candidatos'] = "Reclutamiento/vacantesCandidatos";
+$route['mis-candidatos/candidatos-cuestionarios'] = "Reclutamiento/cuestionariosCandidatos";
+$route['mis-candidatos/candidatos-documentos'] = "Reclutamiento/documentosCandidatos";
+$route['mis-candidatos/segimiento-vacante'] = "Reclutamiento/segimientoVacante";
+$route['mis-candidatos/guardar-segimiento'] = "Reclutamiento/guardarSegimiento";
