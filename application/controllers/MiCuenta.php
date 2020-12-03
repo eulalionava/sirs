@@ -30,6 +30,7 @@ class MiCuenta extends MY_Controller {
             "title" => "Micuenta"
         );        
         $this->layoutPanel($la_dataView);
+        
     }
     
     public function guardarRespuestasCuestinario(){

@@ -124,3 +124,11 @@ $route['mis-candidatos/candidatos-cuestionarios'] = "Reclutamiento/cuestionarios
 $route['mis-candidatos/candidatos-documentos'] = "Reclutamiento/documentosCandidatos";
 $route['mis-candidatos/segimiento-vacante'] = "Reclutamiento/segimientoVacante";
 $route['mis-candidatos/guardar-segimiento'] = "Reclutamiento/guardarSegimiento";
+
+
+
+/*************************  ADMIN USUARIOS ****************************************** */
+$route['admin-usuarios/ver-usuarios'] = "AdminUsuarios/verUsuarios";
+$route['admin-usuarios/nuevo-usuario'] = "AdminUsuarios/nuevoUsuario";
+$route['admin-usuarios/borrar-usuario'] = "AdminUsuarios/borrarUsuario";
+$route['admin-usuarios/editar-usuario']="AdminUsuarios/editarUsuario";
