@@ -53,6 +53,7 @@ class Admin_usuarios_model extends CI_Model {
         try {
 
             $la_data = Array(
+
                 "nombres"               => $dataIn['nombre'],
                 "apellido_paterno"      => $dataIn['ap'],
                 "apellido_materno"      => $dataIn['am'],
@@ -63,7 +64,7 @@ class Admin_usuarios_model extends CI_Model {
                 "numero_telefono"       => $dataIn['numero'],
                 "status_persona_entidad" => 1,
                 "fecha_alta"            => date('Y-m-d: h:m:s'),
-                "id_usuario_alta"       => 1
+                "id_usuario_alta"       => $this->id_persona_entidad
             );
 
             $data_usuario = Array(
@@ -72,7 +73,7 @@ class Admin_usuarios_model extends CI_Model {
                 "password"          =>md5($dataIn['rfc']),
                 "status"            =>1,
                 "fecha_alta"        =>date('Y-m-d: h:m:s'),
-                "id_usuario_alta"   =>1
+                "id_usuario_alta"   =>$this->id_persona_entidad
             );
 
             $this->db->insert("personas_entidades",$la_data);
@@ -92,7 +93,7 @@ class Admin_usuarios_model extends CI_Model {
                 "id_persona_entidad"  =>$arg_dataOut1[0]->id_persona,
                 "id_usuario"          =>$arg_dataOut2[0]->id_usuario,
                 "fecha_alta"          =>date('Y-m-d: h:m:s'),
-                "id_usuario_alta"     =>1
+                "id_usuario_alta"     =>$this->id_persona_entidad
             );
 
             $this->db->insert("usuarios_personas_entidades",$persona_usuario);

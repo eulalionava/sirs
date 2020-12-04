@@ -126,9 +126,16 @@ $route['mis-candidatos/segimiento-vacante'] = "Reclutamiento/segimientoVacante";
 $route['mis-candidatos/guardar-segimiento'] = "Reclutamiento/guardarSegimiento";
 
 
-
 /*************************  ADMIN USUARIOS ****************************************** */
 $route['admin-usuarios/ver-usuarios'] = "AdminUsuarios/verUsuarios";
 $route['admin-usuarios/nuevo-usuario'] = "AdminUsuarios/nuevoUsuario";
 $route['admin-usuarios/borrar-usuario'] = "AdminUsuarios/borrarUsuario";
 $route['admin-usuarios/editar-usuario']="AdminUsuarios/editarUsuario";
+
+
+/*************************VACANTES********************************************** */
+$route['catalogo-general/ver-vacantes'] ="Catalogos/verVacantes";
+$route['catalogo-general/nueva-vacante'] = "Catalogos/vacante";
+$route['catalogo-general/new-vacante'] = "Catalogos/nuevaVacante";
+$route['catalogo-general/eliminar-vacante'] = "Catalogos/eliminarVacante";
+$route['catalogo-general/editar-vacante'] ="Catalogos/editarVacante";
