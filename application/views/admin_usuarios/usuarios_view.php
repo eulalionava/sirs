@@ -3,12 +3,15 @@
     <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Usuarios</h3>
+                <h3 class="panel-title">Administracion Usuarios</h3>
             </div>
             <div class="panel-body">
                 <div class="form-group" style="float:right">
+                <button class="btn btn-primary">
+                    <b>Asignar documentos</b>
+                </button>
                 <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                    Nuevo usuario
+                    <b>Nuevo usuario</b>
                 </button>
                 </div>
                 <?php if(count($data) > 0):?>

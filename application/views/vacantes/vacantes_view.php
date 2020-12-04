@@ -38,7 +38,7 @@
                                         <button class="btn btn-danger btnDeleteVacante" data-hash="<?=$vacante->id_vacante?>">
                                             <i class="fa fa-trash"></i>
                                         </button>
-                                        <button class="btn btn-secondary btnAsignarVacante" data-hash="<?=$vacante->id_vacante?>">
+                                        <button class="btn btn-secondary btnAsignarVacante" data-hash="<?=$vacante->id_vacante?>" data-vac="<?=$vacante->vacante?>">
                                             <i class="fa fa-arrow-right"></i>
                                         </button>
                                     </div>

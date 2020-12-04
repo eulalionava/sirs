@@ -125,6 +125,10 @@ class Catalogos_model extends CI_Model {
         return 1;
     }
 
+    /**
+     * edicionVacante
+     * Editar un registro
+     */
     public function edicionVacante($dataIn,&$arg_mensaje){
         try {
 
@@ -142,6 +146,176 @@ class Catalogos_model extends CI_Model {
 
         } catch (Exception $exc) {
             $arg_mensaje = 'edicionVacante method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    /**
+     * getCandidatos
+     * Obtiene todos los registros de tipo candidato
+     */
+    public function getCandidatos(&$dataOut,&$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT 
+                            id_persona_entidad,
+                            nombres,
+                            apellido_paterno,
+                            apellido_materno
+                        FROM personas_entidades
+                        WHERE tipo_persona_entidad = 5 ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'edicionVacante method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    /**
+     * Verifica si el candidato tiene la vacante asignada
+     */
+    public function buscarAsiganacion($dataIn,&$dataOut, &$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT 
+                            id_persona_vacante,
+                            id_persona_entidad,
+                            id_vacante,
+                            id_status
+                        FROM personas_vacantes
+                        WHERE id_persona_entidad = '".$dataIn['id_candidato']."' 
+                        AND id_vacante ='".$dataIn['id_vacante']."' ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'buscarAsiganacion method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    /**
+     * Asigna vacante a un candidato
+     */
+    public function asiganacionCandidatoVacante($dataIn,&$dataOut, &$arg_mensaje){
+        try {
+
+            $la_data = array(
+                "id_persona_entidad"=>intval($dataIn['id_candidato']),
+                "id_vacante"=>intval($dataIn['id_vacante']),
+                "id_status"=>$dataIn['id_entidad']
+            ); 
+
+            $this->db->insert("personas_vacantes",$la_data);
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'asiganacionCandidatoVacante method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    /**
+     * getClientes
+     * Obtiene todos los clientes
+     */
+    public function getClientes(&$dataOut,&$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT 
+                            id_cliente,
+                            nombre,
+                        FROM clientes";
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'getClientes method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    /**
+     * getCuestionarios
+     * Obtiene todos los cuestionarios por cliente
+     */
+    public function getCuestionarios(&$dataOut,&$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT 
+                            id_cuestionario,
+                            titulo_cuestionario
+                        FROM cuestionarios
+                        WHERE id_cliente = 1
+                        AND estatus = 1 ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'getCuestionarios method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    /**
+     * getDocumentos
+     * Obtiene el catalogo de documentos (expedientes)
+     */
+    public function getDocumentos(&$dataOut,&$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT 
+                            id,
+                            nombre_doc,
+                            descripcion
+                        FROM catalogo_docs_expediente";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'getCuestionarios method does not work. Exception: ' . $exc->getTraceAsString();
             return -1;
         }
         
