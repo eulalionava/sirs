@@ -45,6 +45,40 @@ class Admin_usuarios_model extends CI_Model {
         
         return 1;
     }
+
+    /**
+     * getCandidatos
+     * Obtiene todos los registros de tipo candidato
+     */
+    public function getCandidatos(&$dataOut,&$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT 
+                            id_persona_entidad,
+                            nombres,
+                            apellido_paterno,
+                            apellido_materno,
+                            rfc,
+                            correo_electronico,
+                            numero_telefono
+                        FROM personas_entidades
+                        WHERE tipo_persona_entidad = 5 ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'getCandidatos method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
     /**
      * guardarUsuarios
      * Realiza un nuevo registro de usuarios 
@@ -150,6 +184,99 @@ class Admin_usuarios_model extends CI_Model {
 
         } catch (Exception $exc) {
             $arg_mensaje = 'borrarUsuario method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    public function getVacantes(&$dataOut,&$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT 
+                            id_vacante,
+                            vacante
+                        FROM vacantes
+                        WHERE estatus = 1 ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'getVacantes method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    public function getDocumentos(&$dataOut,&$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT 
+                            id,
+                            nombre_docs,
+                            descripcion,
+                            idsesion
+                        FROM catalogo_docs_expediente ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'getDocumentos method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    public function getPersonaVacante($dataIn,&$dataOut,&$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT * FROM personas_vacantes 
+                        WHERE id_persona_entidad = '".$dataIn['id_persona']."' 
+                        and id_vacante = '".$dataIn['id_vacante']."'; ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'getPersonaVacante method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    public function newPersonaVacante($dataIn,&$arg_mensaje){
+        try {
+
+            $data = Array(
+                "id_persona_entidad" => $dataIn['id_persona'],
+                "id_vacante"=>$dataIn['id_vacante'],
+                'id_status'=>$this->id_persona_entidad
+            );
+
+            $this->db->insert("personas_vacantes",$data);
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'newPersonaVacante method does not work. Exception: ' . $exc->getTraceAsString();
             return -1;
         }
         

@@ -133,4 +133,77 @@ class AdminUsuarios extends MY_Controller {
         
         return 1;
     }
+
+    public function candidatosDocs(){
+        try{
+
+            $respuesta = array();
+            $respuesta['ok'] = true;
+
+            // personas entidades
+            if($this->modelAdmin->getCandidatos($dataOut, $arg_mensaje) < 0){
+                $respuesta['ok'] = false;
+            }
+            $respuesta['candidatos'] = $dataOut;
+
+            if($this->modelAdmin->getVacantes($dataOut, $arg_mensaje) < 0){
+                $respuesta['ok'] = false;
+            }
+            $respuesta['vacantes']      = $dataOut;
+
+            if($this->modelAdmin->getDocumentos($dataOut, $arg_mensaje) < 0){
+                $respuesta['ok'] = false;
+            }
+            $respuesta['vacantes']      = $dataOut;
+
+
+            $ls_view = $this->load->view('admin_usuarios/asignacion_view', $respuesta, true);
+            $respuesta['contenido'] = $ls_view;
+
+        }catch(Exception $e){
+            $arg_mensaje = '"entrevistaDetalle" controller does not work. Exception: ' . $e->getTraceAsString();
+            $respuesta['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$arg_mensaje;
+            $respuesta['ok'] = false;
+
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($respuesta);
+        }
+    }
+
+    public function vacanteCandidato(){
+        try{
+
+            $respuesta = array();
+            $respuesta['ok'] = true;
+            $respuesta['asigna'] = false;
+
+            $la_data = array(
+                "id_persona"=>$this->input->post('data')['id_persona'],
+                "id_vacante"=>$this->input->post('data')['vacante'],
+            );
+            $respuesta['id_persona']    = $this->input->post("persona");
+            // personas entidades
+            if($this->modelAdmin->getPersonaVacante($la_data,$dataOut, $arg_mensaje) < 0){
+                $respuesta['ok'] = false;
+            }
+
+            if(count($dataOut) < 0){
+                $respuesta['asigna'] = true;
+            }else{
+                if($this->modelAdmin->newPersonaVacante($la_data,$arg_mensaje) < 0){
+                    $respuesta['ok'] = false;
+                }
+            }
+
+        }catch(Exception $e){
+            $arg_mensaje = '"entrevistaDetalle" controller does not work. Exception: ' . $e->getTraceAsString();
+            $respuesta['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$arg_mensaje;
+            $respuesta['ok'] = false;
+
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($respuesta);
+        }
+    }
 }

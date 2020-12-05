@@ -177,12 +177,6 @@ class Catalogos extends MY_Controller {
             $respuesta['id_vacante']    = $this->input->post('data')['id_vacante'];
             $respuesta['vacante']       = $this->input->post('data')['vacante'];
 
-            //personas entidades
-            if($this->modelCatalogo->getCandidatos($dataOut, $arg_mensaje) < 0){
-                echo $arg_mensaje;
-            }
-            $respuesta['entidades'] = $dataOut;
-
 
             $ls_view = $this->load->view('vacantes/asignacionPorVacante_view', $respuesta, true);
             $respuesta['contenido'] = $ls_view;
@@ -197,52 +191,5 @@ class Catalogos extends MY_Controller {
             echo json_encode($respuesta);
         }
     }
-
-    /**
-     * asignarCandidato
-     * Asignara la vacante a un candidato
-     */
-
-    public function asignarCandidato(){
-        try{
-
-            $respuesta = array();
-            $respuesta['ok'] = true;
-            $respuesta['asignacion'] = false;
-
-            $la_data = array(
-                "id_entidad"    =>$this->id_persona_entidad,
-                "id_vacante"    =>$this->input->post('data')['id_vacante'],
-                "id_candidato"  =>$this->input->post('data')['candidato']
-            );
-
-            //personas entidades
-            // if($this->modelCatalogo->buscarAsiganacion($la_data,$dataOut, $arg_mensaje) < 0){
-            //     echo $arg_mensaje;
-            // }
-
-            // if(count($dataOut) < 0){
-            //     $respuesta['asignacion'] = true;
-            // }else{
-
-            //     if($this->modelCatalogo->asiganacionCandidatoVacante($la_data,$dataOut, $arg_mensaje) < 0){
-            //         echo $arg_mensaje;
-            //     }
-            }
-
-        }catch(Exception $e){
-            $arg_mensaje = '"entrevistaDetalle" controller does not work. Exception: ' . $e->getTraceAsString();
-            $respuesta['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$arg_mensaje;
-            $respuesta['ok'] = false;
-
-        }finally{
-            header("Content-type: application/json");
-            echo json_encode($respuesta);
-        }
-    }
-
-
-
-
    
 }

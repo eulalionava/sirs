@@ -131,6 +131,8 @@ $route['admin-usuarios/ver-usuarios'] = "AdminUsuarios/verUsuarios";
 $route['admin-usuarios/nuevo-usuario'] = "AdminUsuarios/nuevoUsuario";
 $route['admin-usuarios/borrar-usuario'] = "AdminUsuarios/borrarUsuario";
 $route['admin-usuarios/editar-usuario']="AdminUsuarios/editarUsuario";
+$route['admin-usuarios/docs-candidatos'] = "AdminUsuarios/candidatosDocs";
+$route['admin-usuarios/vacante-candidato'] = "AdminUsuarios/vacanteCandidato";
 
 
 /*************************VACANTES********************************************** */
@@ -140,4 +142,3 @@ $route['catalogo-general/new-vacante'] = "Catalogos/nuevaVacante";
 $route['catalogo-general/eliminar-vacante'] = "Catalogos/eliminarVacante";
 $route['catalogo-general/editar-vacante'] ="Catalogos/editarVacante";
 $route['catalogo-general/asignar-vacante'] = "Catalogos/asignarViewVacante";
-$route['catalogo-general/asignar-vacante-candidato'] = "Catalogos/asignarCandidato";

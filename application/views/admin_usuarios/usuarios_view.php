@@ -7,7 +7,7 @@
             </div>
             <div class="panel-body">
                 <div class="form-group" style="float:right">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary btnAsignarDocs">
                     <b>Asignar documentos</b>
                 </button>
                 <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
@@ -17,12 +17,12 @@
                 <?php if(count($data) > 0):?>
                 <table id="tablaUsuarios" class="table">
                     <thead>
-                        <th>Nombre</th>
-                        <th>Rfc</th>
-                        <th>Correo</th>
-                        <th>Sexo</th>
-                        <th>Telefono</th>
-                        <th>Fecha alta</th>
+                        <th>NOMBRE</th>
+                        <th>RFC</th>
+                        <th>CORREO</th>
+                        <th>SEXO</th>
+                        <th>TELEFONO</th>
+                        <th>FECHA ALTA</th>
                         <th></th>
                     </thead>
                     <tbody>
@@ -216,7 +216,7 @@
                                                     </div>
                                                     <div class="col-md-12 col-sm-12">
                                                         <div class="form-group">
-                                                        <select name="" id="" class="form-control editTipo<?=$item->id_persona_entidad?>">
+                                                        <select name="" class="form-control editTipo<?=$item->id_persona_entidad?>">
                                                             <option value="<?=$item->tipo_persona_entidad?>">Tipo Acceso</option>
                                                             <option value="1">Administrador</option>
                                                             <option value="2">Reclutador</option>
