@@ -133,6 +133,7 @@ $route['admin-usuarios/borrar-usuario'] = "AdminUsuarios/borrarUsuario";
 $route['admin-usuarios/editar-usuario']="AdminUsuarios/editarUsuario";
 $route['admin-usuarios/docs-candidatos'] = "AdminUsuarios/candidatosDocs";
 $route['admin-usuarios/vacante-candidato'] = "AdminUsuarios/vacanteCandidato";
+$route['admin-usuarios/docs-candidato'] = "AdminUsuarios/guardarDocumentosCandidato";
 
 
 /*************************VACANTES********************************************** */

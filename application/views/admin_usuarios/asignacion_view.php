@@ -83,7 +83,12 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-
+                                        <h4>Documentos:</h4>
+                                        <select class="form-control txtDoc<?=$candidato->id_persona_entidad?>" style="height:5rem;">
+                                            <?php foreach($documentos as $docs):?>
+                                                <option value="<?=$docs->id?>"><?=$docs->nombre_doc?></option>
+                                            <?php endforeach;?>
+                                        </select>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

@@ -154,7 +154,7 @@ class AdminUsuarios extends MY_Controller {
             if($this->modelAdmin->getDocumentos($dataOut, $arg_mensaje) < 0){
                 $respuesta['ok'] = false;
             }
-            $respuesta['vacantes']      = $dataOut;
+            $respuesta['documentos']      = $dataOut;
 
 
             $ls_view = $this->load->view('admin_usuarios/asignacion_view', $respuesta, true);
@@ -192,6 +192,41 @@ class AdminUsuarios extends MY_Controller {
                 $respuesta['asigna'] = true;
             }else{
                 if($this->modelAdmin->newPersonaVacante($la_data,$arg_mensaje) < 0){
+                    $respuesta['ok'] = false;
+                }
+            }
+
+        }catch(Exception $e){
+            $arg_mensaje = '"entrevistaDetalle" controller does not work. Exception: ' . $e->getTraceAsString();
+            $respuesta['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$arg_mensaje;
+            $respuesta['ok'] = false;
+
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($respuesta);
+        }
+    }
+
+    public function guardarDocumentosCandidato(){
+        try{
+
+            $respuesta = array();
+            $respuesta['ok'] = true;
+            $respuesta['asigna'] = false;
+
+            $la_data = array(
+                "id_persona"=>$this->input->post('data')['id_persona'],
+                "id_documento"=>$this->input->post('data')['id_documento'],
+            );
+
+            if($this->modelAdmin->getExpediente($la_data,$dataOut, $arg_mensaje) < 0){
+                $respuesta['ok'] = false;
+            }
+
+            if(count($dataOut) < 0){
+                $respuesta['asigna'] = true;
+            }else{
+                if($this->modelAdmin->newPersonaDocumento($la_data,$arg_mensaje) < 0){
                     $respuesta['ok'] = false;
                 }
             }

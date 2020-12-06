@@ -220,7 +220,7 @@ class Admin_usuarios_model extends CI_Model {
 
             $ls_query = "SELECT 
                             id,
-                            nombre_docs,
+                            nombre_doc,
                             descripcion,
                             idsesion
                         FROM catalogo_docs_expediente ";
@@ -282,4 +282,48 @@ class Admin_usuarios_model extends CI_Model {
         
         return 1;
     }
+
+    public function getExpediente($dataIn,&$dataOut,&$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT * FROM documentos_candidatos 
+                        WHERE id_documento = '".$dataIn['id_documento']."' 
+                        and id_candidato = '".$dataIn['id_persona']."'; ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'getPersonaVacante method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    public function newPersonaDocumento($dataIn,&$arg_mensaje){
+        try {
+
+            $data = Array(
+                "id_documento" => $dataIn['id_persona'],
+                "id_candidato"=>$dataIn['id_documento'],
+                "nombre_archivo"=>0,
+                "ruta_archivo"=>0
+            );
+
+            $this->db->insert("documentos_candidatos",$data);
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'newPersonaDocumento method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
 }
