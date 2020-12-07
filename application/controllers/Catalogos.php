@@ -177,8 +177,12 @@ class Catalogos extends MY_Controller {
             $respuesta['id_vacante']    = $this->input->post('data')['id_vacante'];
             $respuesta['vacante']       = $this->input->post('data')['vacante'];
 
+            if($this->modelCatalogo->getClientes($la_data, $arg_mensaje) < 0){
+                $respuesta['ok'] = false;
+            }
+            $respuesta['clientes'] = $la_data;
 
-            $ls_view = $this->load->view('vacantes/asignacionPorVacante_view', $respuesta, true);
+            $ls_view = $this->load->view('vacantes/asignarCuestionarios_view', $respuesta, true);
             $respuesta['contenido'] = $ls_view;
 
         }catch(Exception $e){
@@ -191,5 +195,74 @@ class Catalogos extends MY_Controller {
             echo json_encode($respuesta);
         }
     }
+
+    /**
+     * asignarViewVacante
+     * Obtener todos los tipos de documentos con filtro de (CLIENTE) 
+     */
+    public function obtenerCuestionarios(){
+        try{
+
+            $respuesta = array();
+            $respuesta['ok'] = true;
+
+            $id_cliente       = $this->input->post('cliente');
+
+            if($this->modelCatalogo->getCuestionarios($id_cliente,$la_data, $arg_mensaje) < 0){
+                $respuesta['ok'] = false;
+            }
+
+            $respuesta['cuestionarios'] = $la_data;
+
+        }catch(Exception $e){
+            $arg_mensaje = '"obtenerCuestionarios" controller does not work. Exception: ' . $e->getTraceAsString();
+            $respuesta['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$arg_mensaje;
+            $respuesta['ok'] = false;
+
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($respuesta);
+        }
+    }
+
+    /**
+     * guardarCuestionarios
+     * Guarda los cuestionarios asignados a la vacante
+     */
+    public function guardarCuestionarios(){
+        try{
+
+            $respuesta = array();
+            $respuesta['ok'] = true;
+
+            $la_data = array(
+                "id_cuestionario" => $this->input->post('data')['id_cuestionario'],
+                "id_vacante"=>$this->input->post('data')['id_vacante']
+            );
+
+            if($this->modelCatalogo->getvacanteCuestionario($la_data,$la_dataOut, $arg_mensaje) < 0){
+                $respuesta['ok'] = false;
+            }
+
+            $respuesta['total'] = count($la_dataOut);
+            if( count($la_dataOut) == 0){
+
+                if($this->modelCatalogo->guardarCuestionarios($la_data, $arg_mensaje) < 0){
+                    $respuesta['ok'] = false;
+                }
+
+            }
+
+
+        }catch(Exception $e){
+            $arg_mensaje = '"guardarCuestionarios" controller does not work. Exception: ' . $e->getTraceAsString();
+            $respuesta['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$arg_mensaje;
+            $respuesta['ok'] = false;
+
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($respuesta);
+        }
+    } 
    
 }

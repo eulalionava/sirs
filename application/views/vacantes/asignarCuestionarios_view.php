@@ -27,6 +27,23 @@
                                     <h4 class="panel-title">Asignar cuestionarios</h4>
                                 </div>
                                 <div class="panel-body">
+                                    <div class="form-group">
+                                        <label for="cliente">Cliente:</label>
+                                        <select name="" class="form-control txtCliente">
+                                            <option value="0">Selecciona cliente</option>
+                                            <?php foreach($clientes as $cliente):?>
+                                                <option value="<?=$cliente->id_cliente?>"><?=$cliente->nombre?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                    <label for="cuestuionarios" style="margin-top: 2rem;margin-bottom: 2rem;">Cuestionarios:</label>
+                                    <div class="form-group" id="tipo_cuestionarios">
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12" style="margin-bottom:2rem;"></div>
+                                    <div class="form-group">
+                                        <input type="button" value="Asigar cuestionarios" class="btn btn-primary asignandoCuestionario" data-hash="<?=$id_vacante?>">
+                                    </div>
                                 </div>
                             </div>
                         </div>

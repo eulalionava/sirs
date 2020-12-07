@@ -310,8 +310,8 @@ class Admin_usuarios_model extends CI_Model {
         try {
 
             $data = Array(
-                "id_documento" => $dataIn['id_persona'],
-                "id_candidato"=>$dataIn['id_documento'],
+                "id_documento"=>$dataIn['id_documento'],
+                "id_candidato" => $dataIn['id_persona'],
                 "nombre_archivo"=>0,
                 "ruta_archivo"=>0
             );

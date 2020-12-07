@@ -222,14 +222,14 @@ class AdminUsuarios extends MY_Controller {
             if($this->modelAdmin->getExpediente($la_data,$dataOut, $arg_mensaje) < 0){
                 $respuesta['ok'] = false;
             }
-
-            if(count($dataOut) < 0){
-                $respuesta['asigna'] = true;
-            }else{
-                if($this->modelAdmin->newPersonaDocumento($la_data,$arg_mensaje) < 0){
-                    $respuesta['ok'] = false;
-                }
-            }
+            $respuesta['total'] = count($dataOut);
+            // if(count($dataOut) < 0){
+            //     $respuesta['asigna'] = true;
+            // }else{
+            //     if($this->modelAdmin->newPersonaDocumento($la_data,$arg_mensaje) < 0){
+            //         $respuesta['ok'] = false;
+            //     }
+            // }
 
         }catch(Exception $e){
             $arg_mensaje = '"entrevistaDetalle" controller does not work. Exception: ' . $e->getTraceAsString();

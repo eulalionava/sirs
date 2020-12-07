@@ -143,3 +143,5 @@ $route['catalogo-general/new-vacante'] = "Catalogos/nuevaVacante";
 $route['catalogo-general/eliminar-vacante'] = "Catalogos/eliminarVacante";
 $route['catalogo-general/editar-vacante'] ="Catalogos/editarVacante";
 $route['catalogo-general/asignar-vacante'] = "Catalogos/asignarViewVacante";
+$route['catalogo-general/ver-documentos'] = "Catalogos/obtenerCuestionarios";
+$route['catalogo-general/guardar-cuestionario'] = "Catalogos/guardarCuestionarios";

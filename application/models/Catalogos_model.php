@@ -161,7 +161,7 @@ class Catalogos_model extends CI_Model {
 
             $ls_query = "SELECT 
                             id_cliente,
-                            nombre,
+                            nombre
                         FROM clientes";
             $statement = $this->db->query($ls_query);
 
@@ -183,14 +183,14 @@ class Catalogos_model extends CI_Model {
      * getCuestionarios
      * Obtiene todos los cuestionarios por cliente
      */
-    public function getCuestionarios(&$dataOut,&$arg_mensaje){
+    public function getCuestionarios($id_cliente,&$dataOut,&$arg_mensaje){
         try {
 
             $ls_query = "SELECT 
                             id_cuestionario,
                             titulo_cuestionario
                         FROM cuestionarios
-                        WHERE id_cliente = 1
+                        WHERE id_cliente = '".$id_cliente."'
                         AND estatus = 1 ";
 
             $statement = $this->db->query($ls_query);
@@ -237,5 +237,54 @@ class Catalogos_model extends CI_Model {
         
         return 1;
     }
+
+    public function getvacanteCuestionario($dataIn,&$dataOut,&$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT 
+                            id_vacante_cuestionario,
+                            id_cuestionario,
+                            id_vacante,
+                            estatus
+                        FROM vacantes_cuestionarios
+                        WHERE id_cuestionario = '".$dataIn['id_cuestionario']."' 
+                        AND id_vacante = '".$dataIn['id_vacante']."' ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'getCuestionarios method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    public function guardarCuestionarios($dataIn,&$arg_mensaje){
+        try {
+
+            $la_data = Array(
+                "id_cuestionario"   =>$dataIn['id_cuestionario'],
+                "id_vacante"        =>$dataIn['id_vacante'],
+                "estatus"           =>0
+            );
+
+            $this->db->insert("vacantes_cuestionarios",$la_data);
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'guardarCuestionarios method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    
 
 }
