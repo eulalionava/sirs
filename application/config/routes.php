@@ -118,30 +118,33 @@ $route['seleccionadores/entrevista-detalle'] = "Seleccionador/entrevistaDetalle"
 $route['seleccionadores/agregar-comentario'] = "Seleccionador/agregarComentario";
 
 /*********************** SEGUIMIENTO CANDIDATOS         ************************ */
-$route['mis-candidatos/ver-candidatos'] = "Reclutamiento/misCandidatos";
-$route['mis-candidatos/vacantes-candidatos'] = "Reclutamiento/vacantesCandidatos";
-$route['mis-candidatos/candidatos-cuestionarios'] = "Reclutamiento/cuestionariosCandidatos";
-$route['mis-candidatos/candidatos-documentos'] = "Reclutamiento/documentosCandidatos";
-$route['mis-candidatos/segimiento-vacante'] = "Reclutamiento/segimientoVacante";
-$route['mis-candidatos/guardar-segimiento'] = "Reclutamiento/guardarSegimiento";
+$route['mis-candidatos/ver-candidatos']             = "Reclutamiento/misCandidatos";
+$route['mis-candidatos/vacantes-candidatos']        = "Reclutamiento/vacantesCandidatos";
+$route['mis-candidatos/candidatos-cuestionarios']   = "Reclutamiento/cuestionariosCandidatos";
+$route['mis-candidatos/candidatos-documentos']      = "Reclutamiento/documentosCandidatos";
+$route['mis-candidatos/segimiento-vacante']         = "Reclutamiento/segimientoVacante";
+$route['mis-candidatos/guardar-segimiento']         = "Reclutamiento/guardarSegimiento";
 
 
 /*************************  ADMIN USUARIOS ****************************************** */
-$route['admin-usuarios/ver-usuarios'] = "AdminUsuarios/verUsuarios";
-$route['admin-usuarios/nuevo-usuario'] = "AdminUsuarios/nuevoUsuario";
-$route['admin-usuarios/borrar-usuario'] = "AdminUsuarios/borrarUsuario";
-$route['admin-usuarios/editar-usuario']="AdminUsuarios/editarUsuario";
-$route['admin-usuarios/docs-candidatos'] = "AdminUsuarios/candidatosDocs";
-$route['admin-usuarios/vacante-candidato'] = "AdminUsuarios/vacanteCandidato";
-$route['admin-usuarios/docs-candidato'] = "AdminUsuarios/guardarDocumentosCandidato";
+$route['admin-usuarios/ver-usuarios']       = "AdminUsuarios/verUsuarios";
+$route['admin-usuarios/nuevo-usuario']      = "AdminUsuarios/nuevoUsuario";
+$route['admin-usuarios/borrar-usuario']     = "AdminUsuarios/borrarUsuario";
+$route['admin-usuarios/editar-usuario']     = "AdminUsuarios/editarUsuario";
+$route['admin-usuarios/docs-candidatos']    = "AdminUsuarios/candidatosDocs";
+$route['admin-usuarios/vacante-candidato']  = "AdminUsuarios/vacanteCandidato";
+$route['admin-usuarios/docs-candidato']     = "AdminUsuarios/guardarDocumentosCandidato";
 
 
 /*************************VACANTES********************************************** */
-$route['catalogo-general/ver-vacantes'] ="Catalogos/verVacantes";
-$route['catalogo-general/nueva-vacante'] = "Catalogos/vacante";
-$route['catalogo-general/new-vacante'] = "Catalogos/nuevaVacante";
-$route['catalogo-general/eliminar-vacante'] = "Catalogos/eliminarVacante";
-$route['catalogo-general/editar-vacante'] ="Catalogos/editarVacante";
-$route['catalogo-general/asignar-vacante'] = "Catalogos/asignarViewVacante";
-$route['catalogo-general/ver-documentos'] = "Catalogos/obtenerCuestionarios";
+$route['catalogo-general/ver-vacantes']         ="Catalogos/verVacantes";
+$route['catalogo-general/nueva-vacante']        = "Catalogos/vacante";
+$route['catalogo-general/new-vacante']          = "Catalogos/nuevaVacante";
+$route['catalogo-general/eliminar-vacante']     = "Catalogos/eliminarVacante";
+$route['catalogo-general/editar-vacante']       ="Catalogos/editarVacante";
+$route['catalogo-general/asignar-vacante']      = "Catalogos/asignarViewVacante";
+$route['catalogo-general/ver-documentos']       = "Catalogos/obtenerCuestionarios";
 $route['catalogo-general/guardar-cuestionario'] = "Catalogos/guardarCuestionarios";
+
+
+/*********************************** DOCUMENTOS ************************************* */
