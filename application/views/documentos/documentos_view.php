@@ -25,7 +25,7 @@
                                 <td><?=$docs->descripcion?></td>
                                 <td>
                                     <div class="input-group">
-                                        <button class="btn btn-warning" data-toggle="modal" data-target="#modal<?=$docs->id?>">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#modal<?=$docs->id?>">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                     </div>
