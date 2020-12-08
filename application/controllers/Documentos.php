@@ -22,6 +22,10 @@ class Documentos extends MY_Controller {
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
+    /**
+     * documentow
+     * Obtiene todos los documentos
+     */
     public function documentos(){        
         $la_dataView = array();
 
@@ -40,6 +44,10 @@ class Documentos extends MY_Controller {
         
     }
 
+    /**
+     * nuevoDocumento
+     * Alta de un nuevo documento
+     */
     public function nuevoDocumento(){
         try{
 
@@ -52,6 +60,39 @@ class Documentos extends MY_Controller {
             );
 
             if($this->modelDoc->nuevoDocumento($la_data, $arg_mensaje) < 0){
+                $respuesta['ok'] = false;
+            }
+
+        }catch(Exception $e){
+            $arg_mensaje = '"nuevoDocumento" controller does not work. Exception: ' . $e->getTraceAsString();
+            $respuesta['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$arg_mensaje;
+            $respuesta['ok'] = false;
+
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($respuesta);
+        }
+    }
+
+    /**
+     * editarDocumento
+     * Edicion de un documento
+     */
+    public function editarDocumento(){
+    
+        
+        try{
+
+            $respuesta = array();
+            $respuesta['ok'] = true;
+
+            $la_data = array(
+                "id_documento" =>$this->input->post('data')['id_documento'],
+                "documento"    => $this->input->post('data')['documento'],
+                "descripcion"  => $this->input->post('data')['descripcion']
+            );
+
+            if($this->modelDoc->editaDocumento($la_data, $arg_mensaje) < 0){
                 $respuesta['ok'] = false;
             }
 

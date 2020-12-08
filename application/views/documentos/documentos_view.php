@@ -52,11 +52,11 @@
                                                         <div class="panel-body"> 
                                                             <div class="form-group">
                                                                 <label for="">Documento:</label>
-                                                                <input type="text" class="form-control" value="<?=$docs->nombre_doc?>">
+                                                                <input type="text" class="form-control txtDocumento<?=$docs->id?>" value="<?=$docs->nombre_doc?>">
                                                             </div>
                                                             <div class="form-group">
                                                             <label for="">Descripcion:</label>
-                                                            <textarea class="form-control"><?=$docs->descripcion?></textarea>
+                                                            <textarea class="form-control txtDescripcion<?=$docs->id?>"><?=$docs->descripcion?></textarea>
                                                             </div>
                                                         </div> 
                                                     </div>

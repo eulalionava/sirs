@@ -56,4 +56,24 @@ class Documentos_model extends CI_Model {
         return 1;
     }
 
+    public function editaDocumento($dataIn, &$arg_mensaje){
+        try {
+            $la_update = array(
+                "nombre_doc"    =>$dataIn['documento'],
+                "descripcion"   =>$dataIn['descripcion']
+            );
+            $la_where = array(
+                "id" => $dataIn['id_documento']
+            );
+
+            $this->db->update("catalogo_docs_expediente",$la_update,$la_where);
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'editaDocumento method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
 }

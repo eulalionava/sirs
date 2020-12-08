@@ -150,3 +150,4 @@ $route['catalogo-general/guardar-cuestionario'] = "Catalogos/guardarCuestionario
 /*********************************** DOCUMENTOS ************************************* */
 $route['catalogo-general/tipo-documento'] = "Documentos/documentos";
 $route['catalogo-general/nuevo-documento'] = "Documentos/nuevoDocumento";
+$route['catalogo-general/editar-documento'] = "Documentos/editarDocumento";
