@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cuestionarios extends MY_Controller {    
+class Documentos extends MY_Controller {    
     public function __construct(){
         parent::__construct();
-        $this->load->model('Cuestionarios_model', 'modelCuestionario', true);
+        $this->load->model('Cuestionarios_model', 'modelCuestionarios', true);
     }
     
     /**
@@ -26,26 +26,15 @@ class Cuestionarios extends MY_Controller {
      * documentow
      * Obtiene todos los documentos
      */
-    public function cuestionarios(){        
+    public function documentos(){        
         $la_dataView = array();
 
-        if($this->modelCuestionario->getClientes($dataOut, $arg_mensaje) < 0){
+        if($this->modelDoc->getDocs($dataOut, $arg_mensaje) < 0){
             echo $arg_mensaje;
         }
-        $la_dataView['clientes'] = $dataOut;
+        $la_dataView['documentos'] = $dataOut;
 
-        if($this->modelCuestionario->getTipoCuestionario($dataOut, $arg_mensaje) < 0){
-            echo $arg_mensaje;
-        }
-        $la_dataView['tipos'] = $dataOut;
-
-        if($this->modelCuestionario->getCuestionarios($dataOut, $arg_mensaje) < 0){
-            echo $arg_mensaje;
-        }
-        $la_dataView['cuestionarios'] = $dataOut;
-        
-
-        $ls_vistaPanelGeneral = $this->load->view('cuestionarios/cuestionarios_view', $la_dataView, true);
+        $ls_vistaPanelGeneral = $this->load->view('documentos/documentos_view', $la_dataView, true);
 
         $la_dataView = array(
             "view" => $ls_vistaPanelGeneral,
@@ -56,28 +45,26 @@ class Cuestionarios extends MY_Controller {
     }
 
     /**
-     * editarCestionario
-     * Edicion registro de un cuestionario
+     * nuevoDocumento
+     * Alta de un nuevo documento
      */
-    public function editarCestionario(){
+    public function nuevoDocumento(){
         try{
 
             $respuesta = array();
             $respuesta['ok'] = true;
 
             $la_data = array(
-                "id_cuestionario"   => $this->input->post('data')['id_cuestionario'],
-                "cuestionario"      => $this->input->post('data')['cuestionario'],
-                "descripcion"       => $this->input->post('data')['descripcion'],
-                "intentos"          => $this->input->post('data')['intentos']
+                "documento"    => $this->input->post('data')['documento'],
+                "descripcion"  => $this->input->post('data')['descripcion']
             );
 
-            if($this->modelCuestionario->editaCuestionario($la_data, $arg_mensaje) < 0){
+            if($this->modelDoc->nuevoDocumento($la_data, $arg_mensaje) < 0){
                 $respuesta['ok'] = false;
             }
 
         }catch(Exception $e){
-            $arg_mensaje = '"editarCestionario" controller does not work. Exception: ' . $e->getTraceAsString();
+            $arg_mensaje = '"nuevoDocumento" controller does not work. Exception: ' . $e->getTraceAsString();
             $respuesta['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$arg_mensaje;
             $respuesta['ok'] = false;
 
