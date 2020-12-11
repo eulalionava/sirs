@@ -55,9 +55,9 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 /***********************INICIAR SESIÓN*****************************************/
-$route['restaurar-password'] = 'IniciarSesion/restaurarPassword';
-$route['iniciar-sesion'] = 'IniciarSesion/procesarSesion';
-$route['finalizar-sesion'] = 'IniciarSesion/finalizarSesion';
+$route['restaurar-password']    = 'IniciarSesion/restaurarPassword';
+$route['iniciar-sesion']        = 'IniciarSesion/procesarSesion';
+$route['finalizar-sesion']      = 'IniciarSesion/finalizarSesion';
 
 
 /**********************SOLICITUD EMPLEO****************************************/
@@ -68,20 +68,20 @@ $route['solicitud-empleo/guardar-respuestas-cuestionario'] = 'SolicitudEmpleo/gu
 
 
 /************************POSTULACIONES******************************************/
-$route['mis-postulaciones'] = 'MisPostulaciones';
-$route['mis-postulaciones/ver-vacantes'] = 'MisPostulaciones/vacantesCandidato';
-$route['mis-postulaciones/detalle-vacante'] = 'MisPostulaciones/detalleVacante';
-$route['mis-postulaciones/cuestionarios-vacante'] = 'MisPostulaciones/cuestionariosVacante';
-$route['mis-postulaciones/notificaciones'] = "MisPostulaciones/notificacionEntrevistas";
+$route['mis-postulaciones']                         = 'MisPostulaciones';
+$route['mis-postulaciones/ver-vacantes']            = 'MisPostulaciones/vacantesCandidato';
+$route['mis-postulaciones/detalle-vacante']         = 'MisPostulaciones/detalleVacante';
+$route['mis-postulaciones/cuestionarios-vacante']   = 'MisPostulaciones/cuestionariosVacante';
+$route['mis-postulaciones/notificaciones']          = "MisPostulaciones/notificacionEntrevistas";
 
 /*********************POSTULACIONES - CUESTIONARIOS*****************************/
 $route['mis-postulaciones/detalle-cuestionario'] = 'MisPostulaciones/detalleCuestionario';
 
 /*********************POSTULACIONES - DOCUMENTOS*********************************/
-$route['mis-postulaciones/mostrar-documentos'] = 'MisPostulaciones/mostrarDocumentos';
-$route['mis-postulaciones/cargar-documentos'] = 'MisPostulaciones/cargarDocumentos';
-$route['mis-postulaciones/consultar-documentos'] = 'MisPostulaciones/consultarDocumentos';
-$route['descargar-documento-candidato/(:any)'] = 'MisPostulaciones/descargarDocumento/$1';
+$route['mis-postulaciones/mostrar-documentos']      = 'MisPostulaciones/mostrarDocumentos';
+$route['mis-postulaciones/cargar-documentos']       = 'MisPostulaciones/cargarDocumentos';
+$route['mis-postulaciones/consultar-documentos']    = 'MisPostulaciones/consultarDocumentos';
+$route['descargar-documento-candidato/(:any)']      = 'MisPostulaciones/descargarDocumento/$1';
 
 /*********************POSTULACIONES - ENTREVISTA*********************************/
 $route['mis-postulaciones/agendar-entrevista'] = 'MisPostulaciones/agendarEntrevista';
@@ -95,72 +95,76 @@ $route['mi-cuenta/cambiar-password'] = 'MiCuenta/cambiarPassword';
 
 
 /************RECLUTAMIENTO Y SELECCIÓN***************************/
-$route['reclutamiento-seleccion'] = 'ReclutamientoSeleccion';
-$route['reclutamiento-seleccion/generar-tokens'] = 'ReclutamientoSeleccion/generarTokens';
+$route['reclutamiento-seleccion']                   = 'ReclutamientoSeleccion';
+$route['reclutamiento-seleccion/generar-tokens']    = 'ReclutamientoSeleccion/generarTokens';
 
 
 /**********************PANEL PRINCIPAL*****************************************/
 $route['panel-principal'] = 'Principal';
 
 /**********************RECLUTAMIENTO *********************************************/
-$route['reclutamiento-general'] = "Reclutamiento";
-$route['reclutamiento-general/agendar-horario'] = "Reclutamiento/agenda";
-$route['reclutamiento-general/ver-horario'] = 'Reclutamiento/verHorarios';
-$route['reclutamiento-general/agenda-seleccionador'] = 'Reclutamiento/seleccionadores';
-$route['reclutamiento-general/alta-entrevistador'] = "Reclutamiento/altaEntrevistador";
+$route['reclutamiento-general']                         = "Reclutamiento";
+$route['reclutamiento-general/agendar-horario']         = "Reclutamiento/agenda";
+$route['reclutamiento-general/ver-horario']             = 'Reclutamiento/verHorarios';
+$route['reclutamiento-general/agenda-seleccionador']    = 'Reclutamiento/seleccionadores';
+$route['reclutamiento-general/alta-entrevistador']      = "Reclutamiento/altaEntrevistador";
 $route['reclutamiento-general/mostrar-seleccionadores'] = "Reclutamiento/showEntrevistadores";
-$route['reclutamiento-general/editar-seleccionador'] = "Reclutamiento/bajaSeleccionador";
-$route['reclutamiento-general/agenda-horarios'] ="Reclutamiento/agendarHorarios";
+$route['reclutamiento-general/editar-seleccionador']    = "Reclutamiento/bajaSeleccionador";
+$route['reclutamiento-general/agenda-horarios']         = "Reclutamiento/agendarHorarios";
 
 /********************* SELECCIONADORES****************************************** */
-$route['seleccionadores/mi-agenda'] = "Seleccionador/verMiAgenda";
-$route['seleccionadores/entrevista-detalle'] = "Seleccionador/entrevistaDetalle";
-$route['seleccionadores/agregar-comentario'] = "Seleccionador/agregarComentario";
+$route['seleccionadores/mi-agenda']                     = "Seleccionador/verMiAgenda";
+$route['seleccionadores/entrevista-detalle']            = "Seleccionador/entrevistaDetalle";
+$route['seleccionadores/agregar-comentario']            = "Seleccionador/agregarComentario";
 
 /*********************** SEGUIMIENTO CANDIDATOS         ************************ */
-$route['mis-candidatos/ver-candidatos']             = "Reclutamiento/misCandidatos";
-$route['mis-candidatos/vacantes-candidatos']        = "Reclutamiento/vacantesCandidatos";
-$route['mis-candidatos/candidatos-cuestionarios']   = "Reclutamiento/cuestionariosCandidatos";
-$route['mis-candidatos/candidatos-documentos']      = "Reclutamiento/documentosCandidatos";
-$route['mis-candidatos/segimiento-vacante']         = "Reclutamiento/segimientoVacante";
-$route['mis-candidatos/guardar-segimiento']         = "Reclutamiento/guardarSegimiento";
+$route['mis-candidatos/ver-candidatos']                 = "Reclutamiento/misCandidatos";
+$route['mis-candidatos/vacantes-candidatos']            = "Reclutamiento/vacantesCandidatos";
+$route['mis-candidatos/candidatos-cuestionarios']       = "Reclutamiento/cuestionariosCandidatos";
+$route['mis-candidatos/candidatos-documentos']          = "Reclutamiento/documentosCandidatos";
+$route['mis-candidatos/segimiento-vacante']             = "Reclutamiento/segimientoVacante";
+$route['mis-candidatos/guardar-segimiento']             = "Reclutamiento/guardarSegimiento";
 
 
-$route['mis-candidatos/ver-tokes']                  = "ReclutamientoSeleccion/generarTokens";
 
 
 /*************************  ADMIN USUARIOS ****************************************** */
-$route['admin-usuarios/ver-usuarios']       = "AdminUsuarios/verUsuarios";
-$route['admin-usuarios/nuevo-usuario']      = "AdminUsuarios/nuevoUsuario";
-$route['admin-usuarios/borrar-usuario']     = "AdminUsuarios/borrarUsuario";
-$route['admin-usuarios/editar-usuario']     = "AdminUsuarios/editarUsuario";
-$route['admin-usuarios/docs-candidatos']    = "AdminUsuarios/candidatosDocs";
-$route['admin-usuarios/vacante-candidato']  = "AdminUsuarios/vacanteCandidato";
-$route['admin-usuarios/docs-candidato']     = "AdminUsuarios/guardarDocumentosCandidato";
+$route['admin-usuarios/ver-usuarios']                   = "AdminUsuarios/verUsuarios";
+$route['admin-usuarios/nuevo-usuario']                  = "AdminUsuarios/nuevoUsuario";
+$route['admin-usuarios/borrar-usuario']                 = "AdminUsuarios/borrarUsuario";
+$route['admin-usuarios/editar-usuario']                 = "AdminUsuarios/editarUsuario";
+$route['admin-usuarios/docs-candidatos']                = "AdminUsuarios/candidatosDocs";
+$route['admin-usuarios/vacante-candidato']              = "AdminUsuarios/vacanteCandidato";
+$route['admin-usuarios/docs-candidato']                 = "AdminUsuarios/guardarDocumentosCandidato";
 
 
 /*************************VACANTES********************************************** */
-$route['catalogo-general/ver-vacantes']         ="Catalogos/verVacantes";
-$route['catalogo-general/nueva-vacante']        = "Catalogos/vacante";
-$route['catalogo-general/new-vacante']          = "Catalogos/nuevaVacante";
-$route['catalogo-general/eliminar-vacante']     = "Catalogos/eliminarVacante";
-$route['catalogo-general/editar-vacante']       ="Catalogos/editarVacante";
-$route['catalogo-general/asignar-vacante']      = "Catalogos/asignarViewVacante";
-$route['catalogo-general/ver-documentos']       = "Catalogos/obtenerCuestionarios";
-$route['catalogo-general/guardar-cuestionario'] = "Catalogos/guardarCuestionarios";
+$route['catalogo-general/ver-vacantes']                 ="Catalogos/verVacantes";
+$route['catalogo-general/nueva-vacante']                = "Catalogos/vacante";
+$route['catalogo-general/new-vacante']                  = "Catalogos/nuevaVacante";
+$route['catalogo-general/eliminar-vacante']             = "Catalogos/eliminarVacante";
+$route['catalogo-general/editar-vacante']               ="Catalogos/editarVacante";
+$route['catalogo-general/asignar-vacante']              = "Catalogos/asignarViewVacante";
+$route['catalogo-general/ver-documentos']               = "Catalogos/obtenerCuestionarios";
+$route['catalogo-general/guardar-cuestionario']         = "Catalogos/guardarCuestionarios";
 
 
 /*********************************** DOCUMENTOS ************************************* */
-$route['catalogo-general/tipo-documento'] = "Documentos/documentos";
-$route['catalogo-general/nuevo-documento'] = "Documentos/nuevoDocumento";
-$route['catalogo-general/editar-documento'] = "Documentos/editarDocumento";
+$route['catalogo-general/tipo-documento']               = "Documentos/documentos";
+$route['catalogo-general/nuevo-documento']              = "Documentos/nuevoDocumento";
+$route['catalogo-general/editar-documento']             = "Documentos/editarDocumento";
 
 
 /************************************* CUESTIONARIOS ***************************************** */
-$route['catalogo-general/tipo-cuestionario'] = "Cuestionarios/cuestionarios";
-$route['catalogo-general/edit-cuestionario'] = "Cuestionarios/editarCuestionario";
-$route['catalogo-general/nuevo-cuestionario'] = "Cuestionarios/nuevoCuestionario";
-$route['catalogo-general/delete-cuestionario'] = "Cuestionarios/eliminarCuestionario";
+$route['catalogo-general/tipo-cuestionario']            = "Cuestionarios/cuestionarios";
+$route['catalogo-general/edit-cuestionario']            = "Cuestionarios/editarCuestionario";
+$route['catalogo-general/nuevo-cuestionario']           = "Cuestionarios/nuevoCuestionario";
+$route['catalogo-general/delete-cuestionario']          = "Cuestionarios/eliminarCuestionario";
+
+/*************************************  ARCHIVOS ********************************************** */
+$route['catalogo-general/tipo-archivos']      = "Archivos/verArchivos";
+$route['catalogo-general/nuevo-tipo-archivo'] = "Archivos/nuevoTipoArchivo";
 
 /**************************************** TOKENS ********************************************* */
-$route['mis-candidatos/generar-token'] = "ReclutamientoSeleccion/crearToken";
+$route['mis-candidatos/ver-tokes']                      = "ReclutamientoSeleccion/generarTokens";
+$route['miscandidatos/generartoken']                    = "ReclutamientoSeleccion/crearToken";

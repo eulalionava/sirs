@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once APPPATH . 'libraries/API_Controller.php';  
 
 class ReclutamientoSeleccion extends MY_Controller {    
     public function __construct(){
@@ -58,11 +59,24 @@ class ReclutamientoSeleccion extends MY_Controller {
     }    
 
     public function crearToken(){
-        
-        $this-> _apiConfig([
-            'methods' => ['POST'],
-            'requireAuthorization' => true
-        ]);
+        // Configuración de API 
+        try{
+            $respuesta = array();
+            $respuesta['ok'] = true; 
+            $data = $this->_apiConfig([
+                'métodos' => [ 'POST' ],
+                'requireAuthorization' => true ,
+           ]);
 
+           $respuesta['data'] = $data;
+
+        }catch(Exception $e){
+            $respuesta['ok'] = false;
+
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($respuesta);
+        }
     }
+        
 }
