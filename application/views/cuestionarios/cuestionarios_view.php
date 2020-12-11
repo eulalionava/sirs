@@ -2,7 +2,7 @@
 <div class="content">
     <div class="container">
         <div class="panel panel-primary">
-            <div class="panel-heading" style="background-color:#413c5d;">
+            <div class="panel-heading" style="background-color:#05274c;">
                 <h3 class="panel-title">CUESTIONARIOS</h3>
             </div>
             <div class="panel-body">
@@ -12,11 +12,11 @@
                 </button>
                 </div>
                 <?php if(count($cuestionarios) > 0):?>
-                <table id="tablaUsuarios" class="table">
+                <table id="tablaCuestionarios" class="table">
                     <thead>
                         <th>CLIENTE</th>
                         <th>CUESTIONARIO</th>
-                        <th>DESCRIPCION</th>
+                        <th>DESCRIPCIÓN</th>
                         <th>TIPO CUESTIONARIO</th>
                         <th></th>
                     </thead>
@@ -31,6 +31,9 @@
                                     <div class="input-group">
                                         <button class="btn btn-primary" data-toggle="modal" data-target="#modal<?=$cuest->id_cuestionario?>">
                                             <i class="fa fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btnDeleteCuestionario" data-hash="<?=$cuest->id_cuestionario?>">
+                                            <i class="fa fa-trash"></i>
                                         </button>
                                     </div>
                                 </td>
@@ -109,13 +112,40 @@
                                         <div class="panel panel-default panel-fill">
                                             <div class="panel-body"> 
                                                 <div class="form-group">
-                                                    <label for="">Cuestionario:</label>
-                                                    <input type="text" class="form-control txtCuestionario" placeholder="Nombre del nuevo documento">
+                                                    <label for="cliente">Cliente:</label>
+                                                    <select class="form-control txtCliente">
+                                                        <?php foreach($clientes as $cliente):?>
+                                                            <option value="<?=$cliente->id_cliente?>"><?=$cliente->nombre?></option>
+                                                        <?php endforeach;?>
+                                                    </select>
                                                 </div>
                                                 <div class="form-group">
-                                                <label for="">Descripcion:</label>
-                                                <textarea rows="10" cols="10" class="form-control txtDescripcion" placeholder="Descripcion documento" style="height: 10rem;"></textarea>
+                                                    <label for="">Cuestionario:</label>
+                                                    <input type="text" class="form-control txtCuestionario" placeholder="Titulo de cuestionario">
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="">Descripcion:</label>
+                                                    <textarea rows="10" cols="10" class="form-control txtDescripcion" placeholder="Descripcion del cuestionario" style="height: 10rem;"></textarea>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">´
+                                                        <label for="intentos">N. intentos</label>
+                                                        <select class="form-control txtIntentos">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                        </select>
+                                                    </div>
+                                                </div>      
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label for="cliente">Tipo cuestionario:</label>
+                                                        <select  class="form-control txtTipo">
+                                                            <?php foreach($tipos as $tipo):?>
+                                                                <option value="<?=$tipo->id_tipo_cuestionario?>"><?=$tipo->tipo_cuestionario?></option>
+                                                            <?php endforeach;?>
+                                                        </select>
+                                                    </div>
+                                                </div>      
                                             </div> 
                                         </div>
                                     </div>

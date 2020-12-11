@@ -1,6 +1,15 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 <div class="content">
     <div class="container">
+        <div class="row">
+                <div class="col-sm-12">
+                    <ol class="breadcrumb pull-right">
+                        <li><a href="<?php echo base_url(); ?>">Panel principal</a></li>
+                        <li><a href="<?php echo base_url(); ?>mis-candidatos/ver-candidatos">Candidatos</a></li>
+                        <li>Mis postulaciones</li>
+                    </ol>
+                </div>
+            </div>
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Mis postulaciones</h3>

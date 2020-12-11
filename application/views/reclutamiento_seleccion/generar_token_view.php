@@ -50,6 +50,9 @@
                                                         <td nowrap><?php echo $token->candidato; ?></td>
                                                         <td nowrap><?php echo $token->status; ?></td>
                                                         <td nowrap><?php echo $token->fecha_alta; ?></td>
+                                                        <td>
+                                                            <button class="btn btn-outline-primary btn-sm btnEnviarToken">Enviar token</button>
+                                                        </td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             <?php else: ?>

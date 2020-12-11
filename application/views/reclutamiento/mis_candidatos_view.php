@@ -21,8 +21,8 @@
                                     <td><?=$item->rfc?></td>
                                     <td><?=$item->correo_electronico?></td>
                                     <td>
-                                        <a href="javascript:void(0);" data-hash="<?=$item->id_persona_entidad?>" title="Dar seguimiento" class="btn btn-primary btn-detalle">
-                                            <i class="fa fa-eye"></i>
+                                        <a href="javascript:void(0);" data-hash="<?=$item->id_persona_entidad?>" title="Dar seguimiento" class="btn btn-outline-primary btn-detalle">
+                                            <i class="fa fa-eye"></i> Mis postulaciones
                                         </a>
                                     </td>
                                 </tr>

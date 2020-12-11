@@ -56,4 +56,13 @@ class ReclutamientoSeleccion extends MY_Controller {
         
         $this->layoutPanel($la_dataView);
     }    
+
+    public function crearToken(){
+        
+        $this-> _apiConfig([
+            'methods' => ['POST'],
+            'requireAuthorization' => true
+        ]);
+
+    }
 }

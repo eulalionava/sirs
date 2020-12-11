@@ -151,4 +151,52 @@ class Cuestionarios_model extends CI_Model {
         return 1;
     } 
 
+    /**
+     * newCuestionario
+     * Alta nuevo cuestionario
+     */
+    public function newCuestionario($dataIn, &$arg_mensaje){
+        try {
+            $la_data = array(
+                "id_cliente"                =>intval($dataIn['cliente']),
+                "titulo_cuestionario"       =>$dataIn['cuestionario'],
+                "descripcion_cuestionario"  =>$dataIn['descripcion'],
+                "intentos"                  =>intval($dataIn['intentos']),
+                "estatus"                   =>1,
+                "id_tipo_cuestionario"      =>intval($dataIn['tipo']),
+                "fecha_alta"                =>date("Y-m-d H:i:s"),
+                "id_usuario_alta"           =>$this->id_persona_entidad,
+            );
+
+            $this->db->insert("cuestionarios",$la_data);
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'newCuestionario method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    
+    public function borrarCuestionario($id_cuestionario, &$arg_mensaje){
+        try {
+            $la_update = array(
+                "estatus"   => 2
+            );
+
+            $la_where = array(
+                "id_cuestionario" => $id_cuestionario
+            );
+
+            $this->db->update("cuestionarios",$la_update,$la_where);
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'borrarCuestionario method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
 }

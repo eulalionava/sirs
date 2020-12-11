@@ -43,7 +43,7 @@ class ReclutamientoSeleccion_model extends CI_Model {
                                 INNER JOIN personas_entidades
                                     ON(personas_entidades.id_persona_entidad  = tokens.id_persona_asigna)
                             WHERE 
-                                ( 1 = 1) ".$ls_where." ORDER BY tokens.id_token  DESC ";
+                                tokens.status = 1 ORDER BY tokens.id_token  DESC ";
             $statement = $this->db->query($ls_query, $la_where);
             if ($statement) {
                 $arg_dataOut = $statement->result();

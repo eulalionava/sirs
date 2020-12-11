@@ -2,7 +2,7 @@
 <div class="content">
     <div class="container">
         <div class="panel panel-primary">
-            <div class="panel-heading">
+            <div class="panel-heading" style="background-color:#05274c;">
                 <h3 class="panel-title">Vacantes</h3>
             </div>
             <div class="panel-body">
@@ -49,11 +49,15 @@
                             <div class="modal fade" id="modal<?=$vacante->id_vacante?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Información vacante</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
+                                        <div class="modal-header" style="box-shadow: 0px 5px 5px 2px #191863;padding-bottom:3rem;padding-top: 1rem;">
+                                            <div class="col-md-10 col-sm-10">
+                                                <h5 class="modal-title" id="exampleModalLabel">Información vacante</h5>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
                                         </div>
                                         <div class="modal-body">
                                             <div class="row">
@@ -100,11 +104,15 @@
                             <div class="modal fade" id="modalEdit<?=$vacante->id_vacante?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content ">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="exampleModalLabel">Editar vacante</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
+                                    <div class="modal-header" style="box-shadow: 0px 5px 5px 2px #191863;padding-bottom:3rem;padding-top: 1rem;">
+                                        <div class="col-md-10 col-sm-10">
+                                            <h4 class="modal-title" id="exampleModalLabel">Editar vacante</h4>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">

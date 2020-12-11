@@ -126,6 +126,9 @@ $route['mis-candidatos/segimiento-vacante']         = "Reclutamiento/segimientoV
 $route['mis-candidatos/guardar-segimiento']         = "Reclutamiento/guardarSegimiento";
 
 
+$route['mis-candidatos/ver-tokes']                  = "ReclutamientoSeleccion/generarTokens";
+
+
 /*************************  ADMIN USUARIOS ****************************************** */
 $route['admin-usuarios/ver-usuarios']       = "AdminUsuarios/verUsuarios";
 $route['admin-usuarios/nuevo-usuario']      = "AdminUsuarios/nuevoUsuario";
@@ -155,4 +158,9 @@ $route['catalogo-general/editar-documento'] = "Documentos/editarDocumento";
 
 /************************************* CUESTIONARIOS ***************************************** */
 $route['catalogo-general/tipo-cuestionario'] = "Cuestionarios/cuestionarios";
-$route['catalogo-general/edit-cuestionario'] = "Cuestionarios/editarCestionario";
+$route['catalogo-general/edit-cuestionario'] = "Cuestionarios/editarCuestionario";
+$route['catalogo-general/nuevo-cuestionario'] = "Cuestionarios/nuevoCuestionario";
+$route['catalogo-general/delete-cuestionario'] = "Cuestionarios/eliminarCuestionario";
+
+/**************************************** TOKENS ********************************************* */
+$route['mis-candidatos/generar-token'] = "ReclutamientoSeleccion/crearToken";

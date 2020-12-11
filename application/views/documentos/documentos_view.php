@@ -2,7 +2,7 @@
 <div class="content">
     <div class="container">
         <div class="panel panel-primary">
-            <div class="panel-heading">
+            <div class="panel-heading" style="background-color:#05274c;">
                 <h3 class="panel-title">DOCUMENTOS</h3>
             </div>
             <div class="panel-body">
