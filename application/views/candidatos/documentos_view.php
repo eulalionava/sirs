@@ -123,49 +123,27 @@
             </div>
         
             <div class="row documentos_vacante">
-                <?php $faltante= false;?>
                  <?php foreach($detalle_documentos as $documento): ?>
-                    <?php if($documento->ruta_archivo != null):?>
-                        <?php $faltante = true;?>
-                        <div class="col-md-3 text-center" data-id-documento="<?php echo $documento->id_documento; ?>">
-                            <label class="subir_documento">
-                                <div class="panel panel-border panel-purple m-b-0">                            
-                                    <div class="panel-body text-center">                                        
-                                        <h2><i class="fa fa-check-circle"></i></h2>
-                                        <small><?php echo $documento->nombre_doc; ?></small>
-                                    </div>
+                    <div class="col-md-3 text-center" data-id-documento="<?php echo $documento->id_documento; ?>">
+                        <label class="subir_documento">
+                            <div class="panel panel-border panel-purple m-b-0">                            
+                                <div class="panel-body text-center">                                        
+                                    <h2><i class="fa fa-file-picture-o"></i></h2>
+                                    <small><?php echo $documento->nombre_doc; ?></small>
                                 </div>
-                            </label>
-                            <a href="javascript:void(0);" class="btn btn-success waves-effect waves-light btn-xs m-b-5 ddc" data-ic="0" id="df_<?php echo $documento->id_documento; ?>" target="_blank">Descargar</a>
-                        </div>
-                    <?php else:?>
-                        <div class="col-md-3 text-center" data-id-documento="<?php echo $documento->id_documento; ?>">
-                            <label class="subir_documento">
-                                <div class="panel panel-border panel-purple m-b-0">                            
-                                    <div class="panel-body text-center">                                        
-                                        <h2><i class="fa fa-file-picture-o"></i></h2>
-                                        <small><?php echo $documento->nombre_doc; ?></small>
-                                    </div>
-                                </div>
-                                <input type="file" name="subir_documento_<?php echo $documento->id_documento; ?>" id="subir_documento_<?php echo $documento->id_documento; ?>" data-idc="<?php echo $documento->id_documento; ?>" class="area_cargar_archivo" data-ic="0">
-                            </label>
-                            <a href="javascript:void(0);" class="btn btn-warning waves-effect waves-light btn-xs m-b-5 ddc">Faltante</a>
-                        </div>
-                    <?php endif;?>
+                            </div>
+                            <input type="file" name="subir_documento_<?php echo $documento->id_documento; ?>" id="subir_documento_<?php echo $documento->id_documento; ?>" data-idc="<?php echo $documento->id_documento; ?>" class="area_cargar_archivo" data-ic="0">
+                        </label>
+                        <a href="javascript:void(0);" class="btn btn-warning waves-effect waves-light btn-xs m-b-5 ddc">Documento</a>
+                    </div>
                 <?php endforeach; ?>
             </div>
         
             <div class="panel panel-border panel-purple">
                 <div class="panel-footer text-center">
-                        <?php if($faltante):?>
-                            <button type="button" class="btn btn-success btn-custom waves-effect waves-light m-b-5">
-                                <i class="fa fa-check-circle"></i> documentos cargados
-                            </button>
-                        <?php else:?>
-                            <button type="button" class="btn btn-purple btn-custom waves-effect waves-light m-b-5 btn_cargar_documentos" data-la="documentos_vacante">
-                                <i class="fa fa-check-circle"></i> Cargar documentos
-                            </button>
-                        <?php endif;?>
+                    <button type="button" class="btn btn-purple btn-custom waves-effect waves-light m-b-5 btn_cargar_documentos" data-la="documentos_vacante">
+                        <i class="fa fa-check-circle"></i> Cargar documentos
+                    </button>
                 </div>
             </div>
         <?php else: ?>

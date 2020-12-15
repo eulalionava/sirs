@@ -180,33 +180,6 @@ class InformacionCandidatos_model extends CI_Model {
         
         return 1;
     }
-
-    /**
-     * entrevistandoCandidato
-     * Verificacion ,si se encuentra en entrevista el entrevistador
-     */
-    public function entrevistandoCandidato($datos,$entrevistador,&$arg_data,&$arg_mensaje){
-        try {
-            
-            $ls_query = "SELECT *  FROM entrevista 
-                        WHERE id_usuario_entrevistador = $entrevistador 
-                        AND fecha_entrevista = '".$datos['fecha']."' ";
-
-            $statement = $this->db->query($ls_query);
-
-            if ($statement) {
-                $arg_data = $statement->result();
-            } else {
-                return -1;
-            }
-
-        } catch (Exception $exc) {
-            $arg_mensaje = 'entrevistandoCandidato method does not work. Exception: ' . $exc->getTraceAsString();
-            return -1;
-        }
-        
-        return 1;
-    }
     
     /**
      * consultarDocumentoDescarga

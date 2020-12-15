@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="button-group">
-                                            <button class="btn btn-success btnSeguimientoVacante" title="Dar seguimiento" data-hash="<?=$vacante->id_vacante?>" data-us="<?=$vacante->id_persona_entidad?>">
+                                            <button class="btn btn-success btnSeguimientoVacante" title="Dar seguimiento" data-hash="<?=$vacante->id_persona_vacante?>">
                                                 <i class='fa fa-check'></i>
                                             </button>
                                             <button class="btn btn-primary btn-validar-cuestionario" title="Cuestionarios" data-hash="<?=$vacante->id_vacante?>" 
@@ -35,7 +35,7 @@
                                             </button>
 
                                             <button class="btn btn-warning btn-validar-documentos" title="Documentos" data-hash="<?=$vacante->id_vacante?>" data-us="<?=$vacante->id_persona_entidad?>">
-                                                <i class="fa fa-upload"></i>
+                                                <i class="fa fa-file"></i>
                                             </button>
                                         </div>
                                     </div>
