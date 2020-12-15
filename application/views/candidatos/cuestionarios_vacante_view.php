@@ -14,7 +14,6 @@
                 </ol>
             </div>
         </div>
-                
         <?php if(count($detalle_vacante) > 0): ?>
             <?php 
                 $li_id_vacante_diferente = 0; 

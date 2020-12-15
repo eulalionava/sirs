@@ -40,7 +40,7 @@ class SolicitudEmpleo extends MY_Controller {
             $ls_mensaje = "";
                       
             $la_respuestas = $this->input->post('data')['respuestas'];
-            $id_vacante_cuestionartio = $this->input->post('id_vacante_cuestionario');
+            $id_vacante_cuestionario = $this->input->post('id_vacante_cuestionario');
             
             if(count($la_respuestas) == 0){
                 $la_return['mensaje'] = "Ocurrió un error inesperado: las repuestas no han sido recibidas.";
@@ -78,7 +78,7 @@ class SolicitudEmpleo extends MY_Controller {
             }
 
             //Guardar el estatus de cuestionario terminado
-            if($this->mCandidato->guardarStatusDeCuestionario($id_vacante_cuestionartio,$dataSalida,$arg_mensaje) < 0){
+            if($this->mCandidato->guardarStatusDeCuestionario($id_vacante_cuestionario,$dataSalida,$arg_mensaje) < 0){
                 $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde";
                 $la_return['return'] = -1;
                 return;

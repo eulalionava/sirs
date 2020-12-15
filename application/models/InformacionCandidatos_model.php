@@ -283,6 +283,7 @@ class InformacionCandidatos_model extends CI_Model {
                          WHERE
                             (id_pregunta = ?)
                             AND(id_usuario = ?)"; 
+
             $statement = $this->db->query($ls_query, $la_where);
 
             if ($statement) {
@@ -680,6 +681,34 @@ class InformacionCandidatos_model extends CI_Model {
             }
         } catch (Exception $exc) {
             $arg_mensaje = 'obtnerInformacionUsuario method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    /**
+     * cuestionariosTerminado
+     * Verifica si ha terminado los cuestionarios con sus vacantes relacionadas
+     */
+    public function cuestionariosTerminado($arg_dataIn, &$arg_dataOut, &$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT * FROM personas_vacantes pv
+                            INNER JOIN vacantes_cuestionarios vc 
+                                ON pv.id_vacante = vc.id_vacante  
+                        WHERE pv.id_persona_entidad = '".$arg_dataIn['id_persona_entidad']."' 
+                        AND vc.estatus = 0; ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $arg_dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+        } catch (Exception $exc) {
+            $arg_mensaje = 'cuestionariosTerminado method does not work. Exception: ' . $exc->getTraceAsString();
             return -1;
         }
         

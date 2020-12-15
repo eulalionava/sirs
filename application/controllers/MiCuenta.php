@@ -77,6 +77,7 @@ class MiCuenta extends MY_Controller {
             }
             
             $la_return['mensaje'] = "El cuestionario seleccionado ha sido completado.";
+            
         }catch(Exception $exc) {
             $ls_mensaje = '"finalizarProcesoSolicitud" controller does not work. Exception: ' . $exc->getTraceAsString();
             $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;

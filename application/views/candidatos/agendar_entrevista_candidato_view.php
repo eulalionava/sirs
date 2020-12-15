@@ -64,7 +64,8 @@
                     </div>                
                 </div>
             </div>
-        
+        <?php if(count($cuestionarios_finalizado) == 0):?>
+
             <?php if(count($data_horarios) > 0): ?>
                 <?php $ls_fecha_diferente = ""; ?>
                 <?php foreach($data_horarios as $fecha): ?>
@@ -117,6 +118,15 @@
                     </div>
                 </div>                
             <?php endif; ?>
+
+        <?php else:?>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger">Necesitas finalizar tus cuestionarios, para poder agendar una entrevista</div>
+                </div>
+            </div>  
+        <?php endif;?>
+
         <?php endif; ?>        
     </div>
 </div>

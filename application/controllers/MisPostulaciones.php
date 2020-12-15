@@ -70,44 +70,34 @@ class MisPostulaciones extends MY_Controller {
         return 1;
     }
     
-    public function agendarEntrevista(){        
+    public function agendarEntrevista(){
+
         $la_dataInEntrevista = array(
             "id_persona_entidad" => $this->id_persona_entidad,
             "fecha_entrevista"   => date("Y-m-d")
         );
 
-        $la_dataEntrevistadores = array();
-        if($this->mCandidato->entrevitadorsActivos($la_dataEntrevistadores, $ls_mensaje) < 0){
-            echo $ls_mensaje;
-        }
-
         //verifica si tiene entrevista pendiente
-        $la_dataEntrevista = array();
         if($this->mCandidato->obtenerEntrevistaCandidato($la_dataInEntrevista, $la_dataEntrevista, $ls_mensaje) < 0){
             echo $ls_mensaje;
         }
 
-        
-        $la_dataIn = array(
-            "id_persona_entidad" => $this->id_persona_entidad
-        );
-        
-        $la_dataOut = array();
+        if($this->mCandidato->cuestionariosTerminado($la_dataInEntrevista, $cuestionarios, $ls_mensaje) < 0){
+            echo $ls_mensaje;
+        }
+
+
         if(count($la_dataEntrevista) == 0){
-            if($this->mCandidato->obtenerHorariosEntrevista($la_dataIn, $la_dataOut, $ls_mensaje) < 0){
+
+            if($this->mCandidato->obtenerHorariosEntrevista($la_dataInEntrevista, $la_dataOut, $ls_mensaje) < 0){
                 echo $ls_mensaje;
             }
         }
-
-        //Manda correo si no hay horarios
-        if( count($la_dataOut) == 0){
-            
-        }
-        
         
         $la_dataView = array(
+            "data_entrevista" => $la_dataEntrevista,
             "data_horarios" => $la_dataOut,
-            "data_entrevista" => $la_dataEntrevista
+            "cuestionarios_finalizado"=>$cuestionarios
         );
 
         $ls_vistaPanelGeneral = $this->load->view('candidatos/agendar_entrevista_candidato_view', $la_dataView, true);
@@ -490,6 +480,7 @@ class MisPostulaciones extends MY_Controller {
         );        
         $this->layoutPanel($la_dataView);
     } 
+    
     /**
      * notificacionEntrevistas
      * Funcion que verifica si hay horarios de entrevistas
