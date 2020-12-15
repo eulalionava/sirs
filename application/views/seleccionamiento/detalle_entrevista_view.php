@@ -36,26 +36,20 @@
                                     <img src="<?php echo base_url($item->ruta_foto) ?>" class="img-responsive center-block img-circle">
                                 </div>
                                 <div class="panel-body">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td><b>Nombre:</b></td><td><?=$item->nombres.' '.$item->apellido_paterno.' '.$item->apellido_materno?></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>RFC:</b></td><td><?=$item->rfc?></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Coreo Electronico:</b></td><td><?=$item->correo_electronico?></td>
-                                            </tr>
-                                            <?php if($item->descripcion_entrevista != null || $item->descripcion_entrevista != ""):?>
-                                            <tr>
-                                                <td><b>Comentario:</b></td><td><?=$item->descripcion_entrevista?></td>
-                                            </tr>
-                                            <?php endif; ?>
-                                        </tbody>
-                                    </table>
+
+                                    <p><strong>Nombre:</strong> <small><?=$item->nombres.' '.$item->apellido_paterno.' '.$item->apellido_materno?></small></p>
+                                    <p><strong>RFC:</strong> <small><?=$item->rfc?></small></p>
+                                    <p><strong>Coreo Electronico:</strong> <small><?=$item->correo_electronico?></small></p>
+
+                                    <?php if($item->descripcion_entrevista != null || $item->descripcion_entrevista != ""):?>
+                                        <p><strong>Comentario:</strong></p>
+                                        <textarea name="" id="" cols="30" rows="10">
+                                            <?=$item->descripcion_entrevista?>
+                                        </textarea>
+                                    <?php endif; ?>
+                                    <hr>    
                                     <?php if($item->descripcion_entrevista == null || $item->descripcion_entrevista == ""):?>
-                                        <input type="button" class="btn btn-default btn-sm" value="Reliazar comentario" id="btnHacer">
+                                        <input type="button" class="btn btn-primary btn-sm" value="Reliazar comentario" id="btnHacer">
                                     <?php endif; ?>
                                     <hr>
                                     <div class="comentario panelComentario" style="display:none;">
@@ -65,7 +59,7 @@
                                         </div>
                                         <div class="form-group">
                                             <a href="javascript:void(0);" class="btn btn-success btnCometario" data-hash="<?=$item->id_entrevista?>">
-                                                Aceptar
+                                                Comentar
                                             </a>
                                         </div>
 
@@ -73,8 +67,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 col-sm-2">
+                        <div class="col-md-6 col-sm-6">
                             <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h5>Horario</h5>
+                                </div>
                                 <div class="panel-body" style="text-aling:center;">
                                     <p><i class="fa fa-clock-o fa-5x"></i></p>
                                     <p><?=$item->hora_entrevista?></p>

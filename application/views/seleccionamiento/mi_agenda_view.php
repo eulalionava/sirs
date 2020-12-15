@@ -25,42 +25,28 @@
                             <th>Candidato</th>
                         </thead>
                         <tbody>
-                            <?php
-                                foreach($data as $item){
-                                    $filtro = explode('-',$item->fecha_entrevista);
-                                    ?>
-                                        <tr>
-                                            <td style="display:none;"><?=$item->id_entrevista?></td>
-                                            <td><?=formatofecha($filtro[0],$filtro[1],$filtro[2])?></td>
-                                            <td><?=$item->hora_entrevista?> hrs</td>
-                                            <td>
-                                                <?php
-                                                    if($item->id_persona_entidad != 0){
-                                                        ?>
-                                                            <i class="fa fa-check fa-2x"></i>
-                                                        <?php
-                                                    }else{
-                                                        ?>
-                                                            <i class="fa fa-times fa-2x"></i>
-                                                        <?php
-                                                    }
-                                                ?>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                    if($item->id_persona_entidad != 0){
-                                                        ?>
-                                                            <a href="javascript:void(0);"class="btn btn-primary detalle" data-hash="<?=$item->id_entrevista?>">
-                                                                <i class="fa fa-eye"></i>
-                                                            </a>
-                                                        <?php
-                                                    }
-                                                ?>
-                                            </td>
-                                        </tr>
-                                    <?php
-                                }
-                            ?>
+                            <?php foreach($data as $item):?>
+                            <?php $filtro = explode('-',$item->fecha_entrevista);?>
+                                <tr>
+                                    <td style="display:none;"><?=$item->id_entrevista?></td>
+                                    <td><?=formatofecha($filtro[0],$filtro[1],$filtro[2])?></td>
+                                    <td><?=$item->hora_entrevista?> hrs</td>
+                                    <td>
+                                        <?php if($item->id_persona_entidad != 0):?>
+                                            <i class="fa fa-check fa-2x"></i>
+                                        <?php else:?>
+                                            <i class="fa fa-times fa-2x"></i>
+                                        <?php endif;?>
+                                    </td>
+                                    <td>
+                                        <?php if($item->id_persona_entidad != 0):?>
+                                            <a href="javascript:void(0);"class="btn btn-primary detalle" data-hash="<?=$item->id_entrevista?>">
+                                                <i class="fa fa-eye"></i> Ver
+                                            </a>
+                                        <?php endif;?>
+                                    </td>
+                                </tr>
+                            <?php endforeach;?>
                             <tr>
                             </tr>
                         </tbody>
