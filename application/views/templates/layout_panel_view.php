@@ -51,7 +51,6 @@
         </script>
 
         <!-- jQuery  -->
-        <script src="http://momentjs.com/downloads/moment.min.js"></script>
         <script src="<?php echo base_url(); ?>dist/js/jquery.min.js"></script>
         <script src="<?php echo base_url(); ?>dist/js/bootstrap.min.js"></script>
 

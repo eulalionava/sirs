@@ -1,5 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once(APPPATH.'src/Exception.php');
+require_once(APPPATH.'src/PHPMailer.php');
+require_once(APPPATH.'src/SMTP.php');
 
 class MisPostulaciones extends MY_Controller {    
     public function __construct(){
@@ -94,6 +97,12 @@ class MisPostulaciones extends MY_Controller {
             }
         }
         
+        // if(count($cuestionarios) == 0){
+            if(count($la_dataOut) > 0){
+               $this->enviar_correo("delianavam@gmail.com",'delianavam@gmail.com');
+            }
+        // }
+
         $la_dataView = array(
             "data_entrevista" => $la_dataEntrevista,
             "data_horarios" => $la_dataOut,
@@ -107,6 +116,30 @@ class MisPostulaciones extends MY_Controller {
         );        
         $this->layoutPanel($la_dataView);
         
+    }
+
+    //Funcion para enviar correos
+    public function enviar_correo($From,$To){
+        $mail=new PHPMailer();
+        $mail->CharSet = 'UTF-8';
+
+        $body = 'Cuerpo del correo de prueba';
+
+        $mail->SMTPDebug  = 0;
+        $mail->IsSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'delianavam@gmail.com';
+        $mail->Password   = '141993.ecn/*';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+
+        $mail->SetFrom($From, "Eulalio");
+        $mail->AddAddress($To, 'Eulalio');
+
+        $mail->Subject    = 'No hay horarios disponibles';
+        $mail->Body = "Un candidato consulto los horarios disponibles, para agendar una entrevista favor de verificar";
+        $mail->send();
     }
     
     public function descargarDocumento($params = array()){

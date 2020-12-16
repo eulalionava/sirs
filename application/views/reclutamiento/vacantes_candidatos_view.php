@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="button-group">
-                                            <button class="btn btn-success btnSeguimientoVacante" title="Dar seguimiento" data-hash="<?=$vacante->id_persona_vacante?>">
+                                            <button class="btn btn-success btnSeguimientoVacante" title="Dar seguimiento">
                                                 <i class='fa fa-check'></i>
                                             </button>
                                             <button class="btn btn-primary btn-validar-cuestionario" title="Cuestionarios" data-hash="<?=$vacante->id_vacante?>" 
