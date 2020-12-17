@@ -28,23 +28,23 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="nombres">Escriba su nombre: </label>
-                                        <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombre(s)">
+                                        <input type="text" class="form-control" value="<?=$informacion[0]->nombres?>" id="nombres" name="nombres" placeholder="Nombre(s)">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="apellido_paterno">Escriba su apellido paterno: </label>
-                                        <input type="text" class="form-control" id="apellido_paterno" name="apellido_paterno" placeholder="Apellido paterno">
+                                        <input type="text" class="form-control" id="apellido_paterno" value="<?=$informacion[0]->apellido_paterno?>" name="apellido_paterno" placeholder="Apellido paterno">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="apellido_materno">Escriba su apellido materno: </label>
-                                        <input type="text" class="form-control" id="apellido_materno" name="apellido_materno" placeholder="Apellido materno">
+                                        <input type="text" class="form-control" value="<?=$informacion[0]->apellido_materno?>" id="apellido_materno" name="apellido_materno" placeholder="Apellido materno">
                                     </div>
                                     
                                     <div class="form-group">
                                         <label for="genero_sexual">Género sexual: </label>
                                         <select class="form-control" id="genero_sexual" name="genero_sexual">
-                                            <option value="0">Sin definir</option>
+                                            <option value="<?=$informacion[0]->genero_sexual?>">Sin definir</option>
                                             <option value="1">Mujer</option>
                                             <option value="2">Hombre</option>
                                             <option value="3">Otro</option>
@@ -55,17 +55,17 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="rfc">Escriba su RFC con homoclave: </label>
-                                        <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC">
+                                        <input type="text" class="form-control" value="<?=$informacion[0]->rfc?>" id="rfc" name="rfc" placeholder="RFC">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="numero_telefono">Teléfono a 10 dígitos: </label>
-                                        <input type="text" class="form-control" id="numero_telefono" name="numero_telefono" placeholder="Número telefónico">
+                                        <input type="text" class="form-control" value="<?=$informacion[0]->numero_telefono?>" id="numero_telefono" name="numero_telefono" placeholder="Número telefónico">
                                     </div>
                                     
                                     <div class="form-group">
                                         <label for="correo_electronico">Correo electrónico: </label>
-                                        <input type="text" class="form-control" id="correo_electronico" name="correo_electronico" placeholder="Correo electrónico">
+                                        <input type="text" class="form-control" value="<?=$informacion[0]->correo_electronico?>" id="correo_electronico" name="correo_electronico" placeholder="Correo electrónico">
                                     </div>
                                     
                                     <label class="btn btn-primary btn-block">

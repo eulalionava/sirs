@@ -92,6 +92,8 @@ $route['mis-postulaciones/guardar-entrevista'] = 'MisPostulaciones/guardarEntrev
 $route['mi-cuenta'] = 'MiCuenta';
 $route['mi-cuenta/datos-personales'] = 'MiCuenta/datosPersonales';
 $route['mi-cuenta/cambiar-password'] = 'MiCuenta/cambiarPassword';
+$route['mi-cuenta/cambiar-datos']    = 'MiCuenta/cambiarDatosPersonales';
+$route['mi-cuenta/cambiar-pass']     = 'MiCuenta/passwordChange';
 
 
 /************RECLUTAMIENTO Y SELECCIÓN***************************/

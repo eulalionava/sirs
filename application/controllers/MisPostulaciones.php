@@ -97,11 +97,11 @@ class MisPostulaciones extends MY_Controller {
             }
         }
         
-        // if(count($cuestionarios) == 0){
-            if(count($la_dataOut) > 0){
+        if(count($cuestionarios) == 0){
+            if(count($la_dataOut) == 0){
                $this->enviar_correo("delianavam@gmail.com",'delianavam@gmail.com');
             }
-        // }
+        }
 
         $la_dataView = array(
             "data_entrevista" => $la_dataEntrevista,

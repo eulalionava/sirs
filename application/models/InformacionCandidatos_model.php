@@ -714,4 +714,99 @@ class InformacionCandidatos_model extends CI_Model {
         
         return 1;
     }
+
+    /**
+     * cuestionariosTerminado
+     * Verifica si ha terminado los cuestionarios con sus vacantes relacionadas
+     */
+    public function informacionPersonalCandidato($arg_dataIn, &$arg_dataOut, &$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT 
+                            pe.id_persona_entidad,
+                            usuarios.id_usuario,
+                            pe.nombres,
+                            pe.apellido_paterno,
+                            pe.apellido_materno,
+                            pe.rfc,
+                            pe.correo_electronico,
+                            pe.ruta_foto,
+                            pe.numero_telefono,
+                            pe.genero_sexual,
+                            usuarios.id_usuario,
+                            usuarios.usuario,
+                            usuarios.password
+                        FROM usuarios_personas_entidades upe 
+                            INNER JOIN usuarios 
+                                ON upe.id_usuario=usuarios.id_usuario
+                            INNER JOIN personas_entidades pe 
+                                ON upe.id_persona_entidad=pe.id_persona_entidad
+                        WHERE pe.id_persona_entidad = '".$arg_dataIn['id_persona_entidad']."';";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $arg_dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+        } catch (Exception $exc) {
+            $arg_mensaje = 'infirmacionPersonalCandidato method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    public function cambiarInformacionPersonal($arg_dataIn, &$arg_mensaje){
+
+        try {
+
+            $la_update = array(
+                "nombres"           =>$arg_dataIn['nombre'],
+                "apellido_paterno"  =>$arg_dataIn['apellido_paterno'],
+                "apellido_materno"  =>$arg_dataIn['apellido_materno'],
+                "rfc"               =>$arg_dataIn['rfc'],
+                "correo_electronico"=>$arg_dataIn['correo'],
+                "genero_sexual"     =>$arg_dataIn['sexo'],
+                "numero_telefono"   =>$arg_dataIn['numero'],
+            );
+
+            $la_where = array(
+                "id_persona_entidad"=>$arg_dataIn['id_persona_entidad']
+            );
+
+            $this->db->update("personas_entidades",$la_update,$la_where);
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'cambiarInformacionPersonal method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+        
+    }
+
+    public function cambiar_password($arg_dataIn, &$arg_mensaje){
+
+        try {
+
+            $la_update = array(
+                "password"   =>$arg_dataIn['nueva']
+            );
+
+            $la_where = array(
+                "id_usuario"=>$arg_dataIn['id_usuario']
+            );
+
+            $this->db->update("usuarios",$la_update,$la_where);
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'cambiar_password method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+        
+    }
 }

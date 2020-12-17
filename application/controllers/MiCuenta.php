@@ -137,17 +137,105 @@ class MiCuenta extends MY_Controller {
             "id_persona_entidad" => $this->id_persona_entidad
         );
         
-        if($this->mCandidato->obtenerEstructuraCompletaCandidato($la_dataIn, $la_dataCandidato, $arg_mensaje) < 0){
+        if($this->mCandidato->informacionPersonalCandidato($la_dataIn, $la_dataCandidato, $arg_mensaje) < 0){
             echo $arg_mensaje;
         }
         
         $la_dataView = array(
+            "informacion"=>$la_dataCandidato
         );
+        
         $ls_vistaPanelGeneral = $this->load->view('candidatos/datos_personales_candidato_view', $la_dataView, true);
         $la_dataView = array(
             "view" => $ls_vistaPanelGeneral,
             "title" => "Mis datos personales"
         );        
+        
         $this->layoutPanel($la_dataView);
     }
+
+    public function cambiarDatosPersonales(){
+        try{
+            $la_return = array();
+            $la_return['mensaje'] = "";
+            $la_return['return'] = 1;
+                
+            $la_dataIn = array(
+                "id_persona_entidad" =>$this->id_persona_entidad,
+                "nombre"             =>$this->input->post('data')['nombre'],
+                "apellido_paterno"   =>$this->input->post('data')['apellido_p'],
+                "apellido_materno"   =>$this->input->post('data')['apellido_m'],
+                "sexo"               =>$this->input->post('data')['sexo'],
+                "rfc"                =>$this->input->post('data')['rfc'],
+                "numero"             =>$this->input->post('data')['numero'],
+                "correo"             =>$this->input->post('data')['correo'],
+            );
+            
+            if($this->mCandidato->cambiarInformacionPersonal($la_dataIn, $arg_mensaje) < 0){
+                echo $arg_mensaje;
+            }
+            
+        }catch(Exception $exc) {
+            $ls_mensaje = '"cambiarDatosPersonales" controller does not work. Exception: ' . $exc->getTraceAsString();
+            $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
+            $la_return['return'] = -1;
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($la_return);
+        }
+        
+        return 1;
+    }
+
+    public function passwordChange(){
+        try{
+            $la_return = array();
+            $la_return['mensaje'] = "";
+            $la_return['return'] = 1;
+                
+            $la_data = array(
+                "id_persona_entidad" =>$this->id_persona_entidad,
+                "anterior"           =>md5($this->input->post('data')['anterior']),
+                "nueva"              =>md5($this->input->post('data')['nueva']),
+                "repetir"            =>md5($this->input->post('data')['repetir'])
+            );
+
+            if($this->mCandidato->informacionPersonalCandidato($la_data, $la_dataCandidato, $arg_mensaje) < 0){
+                echo $arg_mensaje;
+            }
+
+            if( $la_data['anterior'] != $la_dataCandidato[0]->password){
+                $la_return['mensaje'] = "Tu contraseña anterior no coicide";
+                $la_return['return'] = -1;
+            }
+
+            if( $la_data['nueva'] != $la_data['repetir']){
+                $la_return['mensaje'] = "Tu contraseña nueva no coicide";
+                $la_return['return'] = -1;
+            }
+            
+            $la_dataIn = array(
+                "id_usuario" =>$la_dataCandidato[0]->id_usuario,
+                "nueva"              =>md5($this->input->post('data')['nueva']),
+            );
+            
+            if( $la_return['return'] > 0){
+                if($this->mCandidato->cambiar_password($la_dataIn, $arg_mensaje) < 0){
+                    echo $arg_mensaje;
+                }
+            }
+
+            
+        }catch(Exception $exc) {
+            $ls_mensaje = '"cambiarDatosPersonales" controller does not work. Exception: ' . $exc->getTraceAsString();
+            $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;
+            $la_return['return'] = -1;
+        }finally{
+            header("Content-type: application/json");
+            echo json_encode($la_return);
+        }
+        
+        return 1;
+    }
+
 }
