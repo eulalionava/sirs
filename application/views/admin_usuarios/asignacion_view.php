@@ -36,13 +36,13 @@
                                 <td><?=$candidato->numero_telefono?></td>
                                 <td>
                                     <div class="input-group">
-                                        <button class="btn btn-warning btnASignarDocumentos" data-hash="<?=$candidato->id_persona_entidad?>" data-toggle="modal" 
+                                        <!-- <button class="btn btn-warning btnASignarDocumentos" data-hash="<?=$candidato->id_persona_entidad?>" data-toggle="modal" 
                                         data-target="#docs<?=$candidato->id_persona_entidad?>" title="Asignar documentos">
                                             <i class="fa fa-file"></i>
-                                        </button>
+                                        </button> -->
                                         <button class="btn btn-secondary" data-hash="<?=$candidato->id_persona_entidad?>" data-toggle="modal" 
                                         data-target="#modal<?=$candidato->id_persona_entidad?>" title="Asignar vacante">
-                                            <i class="fa fa-arrow-right"></i>
+                                            <i class="fa fa-arrow-right"></i>vacante
                                         </button>
                                     </div>
                                 </td>
@@ -59,6 +59,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
+                                            <label>Vacantes:</label>
                                             <select class="form-control txtvacante<?=$candidato->id_persona_entidad?>" style="height:5rem;">
                                                 <?php foreach($vacantes as $vacante):?>
                                                     <option value="<?=$vacante->id_vacante?>"><?=$vacante->vacante?></option>
@@ -66,6 +67,7 @@
                                             </select>
                                         </div>
                                         <div class="panel-footer">
+                                            <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                             <button class="btn btn-primary asignarVacante" data-hash="<?=$candidato->id_persona_entidad?>"><b>Asignar vacante</b></button>
                                         </div>
                                     </div>

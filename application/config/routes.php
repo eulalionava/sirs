@@ -170,3 +170,8 @@ $route['catalogo-general/nuevo-tipo-archivo'] = "Archivos/nuevoTipoArchivo";
 /**************************************** TOKENS ********************************************* */
 $route['mis-candidatos/ver-tokes']                      = "ReclutamientoSeleccion/generarTokens";
 $route['miscandidatos/generartoken']                    = "ReclutamientoSeleccion/crearToken";
+
+
+/**************************************** DOCUMENTOS CAMPAÑAS ***************************************/
+$route['admon-clientes/campana-documentos'] = "Documentos_campanas/getDocumentosCampanas";
+$route['admon-clientes/guardar-campana-documentos'] = "Documentos_campanas/guardarDocumentosCampana";

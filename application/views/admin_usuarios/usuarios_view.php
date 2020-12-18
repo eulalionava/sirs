@@ -8,7 +8,7 @@
             <div class="panel-body">
                 <div class="form-group" style="float:right">
                     <button class="btn btn-primary btnAsignarDocs">
-                        <b>Asignar documentos</b>
+                        <b>Asignar vacante</b>
                     </button>
                 <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
                     <b>Nuevo usuario</b>
@@ -275,72 +275,84 @@
                         <div class="modal-body">
                             <div class="row">
                                 <form name="formulario">
-                                    <div class="col-md-12">
-                                        <label for="">Datos personales</label>
-                                    </div>
-                                    <hr>
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <input type="text" placeholder="Nombre" class="form-control txtNombre txtcaja" />
+                                    <div class="col-md-6 col-sm-12">    
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <h5 class="panel-title">Datos personales</h5>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input type="text" placeholder="Nombre" class="form-control txtNombre txtcaja" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group" class="txtcampoerror">
+                                                        <input type="text" placeholder="Apellido paterno" class="form-control txtAP txt_caja" >
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input type="text" placeholder="Apellido materno" class="form-control txtAM txt_caja">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input type="text" placeholder="rfc" class="form-control txtrfc txt_caja" maxLenght="13">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <select class="form-control txtSexo">
+                                                            <option value="0">Sexo</option>
+                                                            <option value="1">Masculino</option>
+                                                            <option value="2">Femenino</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group" class="txtcampoerror">
-                                            <input type="text" placeholder="Apellido paterno" class="form-control txtAP txt_caja" >
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <h5 class="panel-title">Datos de ubicacion</h5>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input type="email" placeholder="Correo Electronico" class="form-control txtCorreo txt_caja">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input type="number" placeholder="Numero de telefono" class="form-control txtNumero txt_caja">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label for="">Tipo de acceso</label>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <select name="" id="" class="form-control txtTipo">
+                                                            <option value="0">Tipo Acceso</option>
+                                                            <option value="1">Administrador</option>
+                                                            <option value="2">Reclutador</option>
+                                                            <option value="3">Seleccionador</option>
+                                                            <option value="4">Cliente</option>
+                                                            <option value="5">Candidato</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <input type="text" placeholder="Apellido materno" class="form-control txtAM txt_caja">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <input type="text" placeholder="rfc" class="form-control txtrfc txt_caja" maxLenght="13">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <input type="email" placeholder="Correo Electronico" class="form-control txtCorreo txt_caja">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <select class="form-control txtSexo">
-                                                <option value="0">Sexo</option>
-                                                <option value="1">Masculino</option>
-                                                <option value="2">Femenino</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <input type="number" placeholder="Numero de telefono" class="form-control txtNumero txt_caja">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label for="">Tipo de acceso</label>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <select name="" id="" class="form-control txtTipo">
-                                                <option value="0">Tipo Acceso</option>
-                                                <option value="1">Administrador</option>
-                                                <option value="2">Reclutador</option>
-                                                <option value="3">Seleccionador</option>
-                                                <option value="4">Cliente</option>
-                                                <option value="5">Candidato</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-
                                 </form>
                             </div>
                         </div>
                         <div class="modal-footer mifooter">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary nuevoUsuario">Guardar</button>
+                            <button type="button" class="btn btn-success nuevoUsuario">Guardar</button>
                         </div>
                         </div>
                     </div>

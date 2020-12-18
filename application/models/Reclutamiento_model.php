@@ -391,7 +391,7 @@ class Reclutamiento_model extends CI_Model {
         return 1;
     }
 
-    public function segimiento($dataIn,&$dataOut,&$arg_mensaje){
+    public function segimientoModel($dataIn,&$dataOut,&$arg_mensaje){
         try{
 
             $ls_query = "SELECT 

@@ -30,6 +30,9 @@
                                 <?php
                             }
                         ?>
+                        <a href="<?php echo base_url(); ?>reclutamiento-general/agendar-horario">                        
+                            <button class="btn btn-warning">agendar horarios</button>
+                        </a>
                     </tbody>
                 </table>
             <?php

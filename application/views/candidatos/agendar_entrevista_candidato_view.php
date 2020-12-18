@@ -115,7 +115,7 @@
             <?php else: ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="alert alert-danger">No se encontraron resultados</div>
+                        <div class="alert alert-danger">No se encontraron resultados de horarios disponibles</div>
                     </div>
                 </div>                
             <?php endif; ?>

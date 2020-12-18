@@ -377,7 +377,7 @@ class Reclutamiento extends MY_Controller {
                 "id_persona_vacante" => $this->input->post('persona_vacante')
             );
 
-            if($this->modelRecluta->segimiento($la_dataIn,$dataOut,$mensage) < 0){
+            if($this->modelRecluta->segimientoModel($la_dataIn,$dataOut,$mensage) < 0){
                 $respuesta['ok']        = false;
                 $respuesta['mensaje']   = $mensage;
             }

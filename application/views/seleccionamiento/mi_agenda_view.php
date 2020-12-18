@@ -17,6 +17,7 @@
                 <h3 class="panel-title">Mi agenda de entrevistas</h3>
             </div>
             <div class="panel-body">
+                <?php if(count($data) > 0):?>
                 <div class="table-responsive" id="entrevistas">
                     <table class="table table-hover">
                         <thead>
@@ -25,33 +26,36 @@
                             <th>Candidato</th>
                         </thead>
                         <tbody>
-                            <?php foreach($data as $item):?>
-                            <?php $filtro = explode('-',$item->fecha_entrevista);?>
+                                <?php foreach($data as $item):?>
+                                <?php $filtro = explode('-',$item->fecha_entrevista);?>
+                                    <tr>
+                                        <td style="display:none;"><?=$item->id_entrevista?></td>
+                                        <td><?=formatofecha($filtro[0],$filtro[1],$filtro[2])?></td>
+                                        <td><?=$item->hora_entrevista?> hrs</td>
+                                        <td>
+                                            <?php if($item->id_persona_entidad != 0):?>
+                                                <i class="fa fa-check fa-2x"></i>
+                                            <?php else:?>
+                                                <i class="fa fa-times fa-2x"></i>
+                                            <?php endif;?>
+                                        </td>
+                                        <td>
+                                            <?php if($item->id_persona_entidad != 0):?>
+                                                <a href="javascript:void(0);"class="btn btn-primary detalle" data-hash="<?=$item->id_entrevista?>">
+                                                    <i class="fa fa-eye"></i> Ver
+                                                </a>
+                                            <?php endif;?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach;?>
                                 <tr>
-                                    <td style="display:none;"><?=$item->id_entrevista?></td>
-                                    <td><?=formatofecha($filtro[0],$filtro[1],$filtro[2])?></td>
-                                    <td><?=$item->hora_entrevista?> hrs</td>
-                                    <td>
-                                        <?php if($item->id_persona_entidad != 0):?>
-                                            <i class="fa fa-check fa-2x"></i>
-                                        <?php else:?>
-                                            <i class="fa fa-times fa-2x"></i>
-                                        <?php endif;?>
-                                    </td>
-                                    <td>
-                                        <?php if($item->id_persona_entidad != 0):?>
-                                            <a href="javascript:void(0);"class="btn btn-primary detalle" data-hash="<?=$item->id_entrevista?>">
-                                                <i class="fa fa-eye"></i> Ver
-                                            </a>
-                                        <?php endif;?>
-                                    </td>
                                 </tr>
-                            <?php endforeach;?>
-                            <tr>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
+                <?php else:?>
+                    <div class="alert alert-danger">No se encontraron resultados <strong>Agenda vacia</strong> </div>
+                <?php endif;?>
             </div>
         </div>
     </div>

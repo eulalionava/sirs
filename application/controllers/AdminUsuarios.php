@@ -182,22 +182,26 @@ class AdminUsuarios extends MY_Controller {
                 "id_persona"=>$this->input->post('data')['id_persona'],
                 "id_vacante"=>$this->input->post('data')['vacante'],
             );
+
             $respuesta['id_persona']    = $this->input->post("persona");
+
             // personas entidades
             if($this->modelAdmin->getPersonaVacante($la_data,$dataOut, $arg_mensaje) < 0){
                 $respuesta['ok'] = false;
             }
 
-            if(count($dataOut) < 0){
+            if(count($dataOut) > 0){
                 $respuesta['asigna'] = true;
+
             }else{
                 if($this->modelAdmin->newPersonaVacante($la_data,$arg_mensaje) < 0){
                     $respuesta['ok'] = false;
                 }
+
             }
 
         }catch(Exception $e){
-            $arg_mensaje = '"entrevistaDetalle" controller does not work. Exception: ' . $e->getTraceAsString();
+            $arg_mensaje = '"vacanteCandidato" controller does not work. Exception: ' . $e->getTraceAsString();
             $respuesta['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$arg_mensaje;
             $respuesta['ok'] = false;
 

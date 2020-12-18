@@ -4,7 +4,7 @@
     <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Agenda de horarios de entrevista</h3>
+                <h3 class="panel-title">Agenda de horarios para entrevistas</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -16,11 +16,11 @@
 
                         <div class="col-md-12 col-sm-12" style="margin-bottom:2rem;margin-top:2rem;">
                             <div class="col-md-2">
-                                <input type="radio" name="agenda" value="1" class="agendaManual">
+                                <input type="radio" name="agenda" value="1" checked class="agendaManual" style="width:20px;height: 20px;">
                                 <label for="agenda">Manual</label>
                             </div>
                             <div class="col-md-2">
-                                <input type="radio" name="agenda" value="2" class="agendaAuto">
+                                <input type="radio" name="agenda" value="2" class="agendaAuto" style="width:20px;height: 20px;">
                                 <label for="agenda">Automatico</label>
                             </div>
                         </div>
