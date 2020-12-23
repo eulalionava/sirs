@@ -47,7 +47,7 @@
                                 <div class="col-md-4 text-center">
                                     <button class="btn btn-icon waves-effect waves-light btn-purple m-b-5 btn_nach_detalle" title="Ver vacante"> <i class="fa fa-eye"></i> </button>
                                     
-                                    <button class="btn btn-icon waves-effect waves-light btn-success m-b-5 btn_nach_continuar" title="Ver cuestionarios"> <i class="fa fa-question-circle"></i> </button>
+                                    <button class="btn btn-icon waves-effect waves-light btn-success m-b-5 btn_nach_continuar" title="Ver cuestionarios" data-hash="<?=$vacante->id_vacante?>"> <i class="fa fa-question-circle"></i> </button>
                                     
                                     <button class="btn btn-icon waves-effect waves-light btn-warning m-b-5 btn_nach_docs" title="Subir documentación"> <i class="fa fa-upload"></i> </button>                                    
                                 </div>                                

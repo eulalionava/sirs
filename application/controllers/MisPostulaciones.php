@@ -361,15 +361,31 @@ class MisPostulaciones extends MY_Controller {
                 "id_persona_entidad" => $this->id_persona_entidad,
                 "id_vacante_md5" => $this->input->post('data')['hash']
             );
+
             $la_dataOut = array();
             if($this->mCandidato->obtenerDocumentos($la_dataIn, $la_dataOut, $ls_mensaje) < 0){
                 $la_return['mensaje'] = $ls_mensaje;
                 $la_return['return'] = -1;
                 return;
             }
+            $documentos_cargados = [];
+            if($this->mCandidato->getDocumentosCargadosCandidato($la_dataIn, $la_dataDocs, $ls_mensaje) < 0){
+                $la_return['mensaje'] = $ls_mensaje;
+                $la_return['return'] = -1;
+                return;
+            }
+
+            if(count($la_dataDocs) > 0){
+                foreach($la_dataDocs as $docs){
+                    $documentos_cargados[$docs->id_documento]  = array("archivo"=>$docs->nombre_archivo,"ruta"=>$docs->ruta_archivo);
+                }
+            }
+
+
 
             $la_dataView = array(
-                "detalle_documentos" => $la_dataOut
+                "detalle_documentos" => $la_dataOut,
+                "documentos_cargados" => $documentos_cargados
             );
 
             $ls_detalleVacante = $this->load->view('candidatos/documentos_view', $la_dataView, true);
@@ -430,8 +446,10 @@ class MisPostulaciones extends MY_Controller {
             
             $la_dataIn = array(
                 "id_usuario" => $this->id_persona_entidad,
-                "id_vacante_md5" => $this->input->post('data')['hash']
+                "id_vacante_md5" => $this->input->post('data')['hash'],
+                "id_vacante" => $this->input->post('data')['id_vacante']
             );
+
             $la_dataOut = array();
             if($this->mCandidato->obtenerCuestionariosVacante($la_dataIn, $la_dataOut, $ls_mensaje) < 0){
                 $la_return['mensaje'] = $ls_mensaje;
@@ -439,9 +457,44 @@ class MisPostulaciones extends MY_Controller {
                 return;
             }
 
+            $cuestionarios = [];
+
+            if(count($la_dataOut) > 0){
+
+                foreach($la_dataOut as $cuestionario){
+
+                    if($this->mCandidato->getRespuestasCandidatoVacante($cuestionario->id_cuestionario,$la_dataIn, $la_dataResp, $ls_mensaje) < 0){
+                        $la_return['mensaje'] = $ls_mensaje;
+                        $la_return['return'] = -1;
+                        return;
+                    }
+                    
+                    if(count($la_dataResp) > 0){
+
+                        $totalPreguntas = 0;
+                        $total          = 0;
+    
+                        foreach($la_dataResp as $respuesta){
+                            $totalPreguntas+= 1;
+                            $total+= $respuesta->valor;
+                        }
+
+                        $cuestionarios[$cuestionario->id_cuestionario] = array("totalpreguntas"=>$totalPreguntas,"total"=>$total);
+
+                    }
+
+
+                }
+            }
+
             $la_dataView = array(
-                "detalle_vacante" => $la_dataOut
+
+                "detalle_vacante" => $la_dataOut,
+                "cuestionarios"   => $cuestionarios
+
             );
+
+
 
             $ls_detalleVacante = $this->load->view('candidatos/cuestionarios_vacante_view', $la_dataView, true);
             $la_return['contenido'] = $ls_detalleVacante;

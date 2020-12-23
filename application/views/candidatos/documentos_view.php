@@ -31,7 +31,20 @@
         </div>
         
         <div class="row documentos_candidato">
+            <?php if(array_key_exists(0,$documentos_cargados)):?>
             <div class="col-md-3 text-center">
+                <label class="subir_documento">
+                    <div class="panel panel-border panel-purple m-b-0">                            
+                        <div class="panel-body text-center">                                        
+                            <h2><i class="fa fa-file-pdf-o"></i></h2>
+                            <small>Cargar CV</small>
+                        </div>
+                    </div>
+                </label>
+                <a href="javascript:void(0);" class="btn btn-success waves-effect waves-light btn-xs m-b-5 ddc">Cargado</a>
+            </div>
+            <?php else:?>
+                <div class="col-md-3 text-center">
                 <label class="subir_documento">
                     <div class="panel panel-border panel-purple m-b-0">                            
                         <div class="panel-body text-center">                                        
@@ -41,16 +54,22 @@
                     </div>
                     <input type="file" name="subir_documento_0" id="subir_documento_0" class="area_cargar_archivo" data-ic="0">
                 </label>
-                
                 <a href="javascript:void(0);" class="btn btn-warning waves-effect waves-light btn-xs m-b-5 ddc" download data-ic="0" id="df_0" target="_blank">Descargar</a>
             </div>
+            <?php endif;?>
         </div>
         
         <div class="panel panel-border panel-purple">
             <div class="panel-footer text-center">
+                <?php if(!array_key_exists(0,$documentos_cargados)):?>
                 <button type="button" class="btn btn-purple btn-custom waves-effect waves-light m-b-5 btn_cargar_documentos" data-la="documentos_candidato" data-idc="0">
                     <i class="fa fa-check-circle"></i> Cargar currículum
                 </button>
+                <?php else:?>
+                    <button type="button" class="btn btn-success btn-custom waves-effect waves-light m-b-5">
+                        <i class="fa fa-check-circle"></i> CV cargado
+                    </button>
+                <?php endif;?>
             </div>
         </div>
 
@@ -124,18 +143,33 @@
         
             <div class="row documentos_vacante">
                  <?php foreach($detalle_documentos as $documento): ?>
-                    <div class="col-md-3 text-center" data-id-documento="<?php echo $documento->id_documento; ?>">
-                        <label class="subir_documento">
-                            <div class="panel panel-border panel-purple m-b-0">                            
-                                <div class="panel-body text-center">                                        
-                                    <h2><i class="fa fa-file-picture-o"></i></h2>
-                                    <small><?php echo $documento->nombre_doc; ?></small>
+                    <?php if(array_key_exists($documento->id_documento,$documentos_cargados)):?>
+                        <div class="col-md-3 text-center" data-id-documento="<?php echo $documento->id_documento; ?>">
+                            <label class="subir_documento">
+                                <div class="panel panel-border panel-purple m-b-0">                            
+                                    <div class="panel-body text-center">                                        
+                                        <h2><i class="fa fa-file-picture-o"></i></h2>
+                                        <small><?php echo $documento->nombre_doc; ?></small>
+                                    </div>
+                                    <i class="fa fa-check-circle"></i>
                                 </div>
-                            </div>
-                            <input type="file" name="subir_documento_<?php echo $documento->id_documento; ?>" id="subir_documento_<?php echo $documento->id_documento; ?>" data-idc="<?php echo $documento->id_documento; ?>" class="area_cargar_archivo" data-ic="0">
-                        </label>
-                        <a href="javascript:void(0);" class="btn btn-warning waves-effect waves-light btn-xs m-b-5 ddc">Documento</a>
-                    </div>
+                            </label>
+                            <a href="javascript:void(0);" class="btn btn-success waves-effect waves-light btn-xs m-b-5 ddc">Cargado</a>
+                        </div>
+                    <?php else:?>
+                        <div class="col-md-3 text-center" data-id-documento="<?php echo $documento->id_documento; ?>">
+                            <label class="subir_documento">
+                                <div class="panel panel-border panel-purple m-b-0">                            
+                                    <div class="panel-body text-center">                                        
+                                        <h2><i class="fa fa-file-picture-o"></i></h2>
+                                        <small><?php echo $documento->nombre_doc; ?></small>
+                                    </div>
+                                </div>
+                                <input type="file" name="subir_documento_<?php echo $documento->id_documento; ?>" id="subir_documento_<?php echo $documento->id_documento; ?>" data-idc="<?php echo $documento->id_documento; ?>" class="area_cargar_archivo" data-ic="0">
+                            </label>
+                            <a href="javascript:void(0);" class="btn btn-warning waves-effect waves-light btn-xs m-b-5 ddc">Documento</a>
+                        </div>
+                    <?php endif;?>
                 <?php endforeach; ?>
             </div>
         

@@ -39,6 +39,7 @@
                         
                         <div class="row">
                             <?php foreach($detalle_vacante as $cuestionario): ?>
+                                
                                 <?php if($cuestionario->id_vacante == $vacante->id_vacante): ?>
                                     <div class="col-md-4" data-hash="<?php echo md5($cuestionario->id_cuestionario); ?>">
                                         <div class="panel panel-default panel-fill">
@@ -51,14 +52,24 @@
                                                 <p><?php echo $cuestionario->descripcion_cuestionario; ?></p>
                                             </div>
                                             <div class="panel-footer">
+
                                                 <?php if($cuestionario->cantidad_intentos < $cuestionario->intentos): ?>
-                                                    <button class="btn btn-purple btn-custom waves-effect waves-light m-b-5 btn_nach_cuestionario" data-hash="<?=$cuestionario->id_vacante_cuestionario?>" data-vt="<?=$vacante->id_vacante?>">
+                                                    <button class="btn btn-purple btn-custom waves-effect waves-light m-b-5 btn_nach_cuestionario" data-hash="<?=$cuestionario->id_vacante_cuestionario?>" data-vt="<?=$vacante->id_vacante?>" data-ct="<?=$vacante->id_cuestionario?>">
                                                         <i class="fa fa-rocket"></i> <span>Contestar</span> 
                                                     </button>
                                                 <?php else: ?>
+                                                    <div style="margin-bottom:2rem;">
+                                                        <strong>Puntos:</strong> <p><?=$cuestionarios[$cuestionario->id_cuestionario]['total']?></p>
+                                                        <?php if( ($cuestionarios[$cuestionario->id_cuestionario]['totalpreguntas'] * 100) == $cuestionarios[$cuestionario->id_cuestionario]['total']):?>
+                                                            <span class="badge badge-success">Aprovado</span>
+                                                        <?php else:?>
+                                                            <span class="badge badge-danger">No Aprovado</span>
+                                                        <?php endif;?>
+                                                    </div>
                                                     <button class="btn btn-success btn-custom waves-effect waves-light m-b-5">
                                                         <i class="fa fa-rocket"></i> <span>Terminado</span> 
                                                     </button>
+
                                                 <?php endif; ?>
                                                 <small class="pull-right">
                                                    <b>Intentos: </b> <?php echo (($cuestionario->cantidad_intentos == "")?0:$cuestionario->cantidad_intentos); ?> de <?php echo $cuestionario->intentos; ?>

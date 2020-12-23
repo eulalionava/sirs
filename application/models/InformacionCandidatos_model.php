@@ -314,6 +314,55 @@ class InformacionCandidatos_model extends CI_Model {
         return 1;
     }
 
+
+    public function getRespuestasCandidatoVacante($idCuestionario,$arg_dataIn, &$arg_dataOut, &$arg_mensaje){
+        try {
+
+            $ls_query = "SELECT 
+                                personas_entidades.id_persona_entidad,
+                                CONCAT(personas_entidades.nombres,' ',personas_entidades.apellido_paterno,' ',personas_entidades.apellido_materno) as nombre_completo,
+                                personas_vacantes.id_vacante,
+                                vacantes_cuestionarios.id_cuestionario,
+                                cuestionarios.titulo_cuestionario,
+                                preguntas.id_pregunta,
+                                preguntas.pregunta,
+                                respuestas.id_respuesta,
+                                respuestas.respuesta,
+                                claves.opcion,
+                                claves.valor
+                        FROM personas_vacantes
+                            INNER JOIN personas_entidades 
+                                ON personas_vacantes.id_persona_entidad=personas_entidades.id_persona_entidad
+                            INNER JOIN vacantes_cuestionarios 
+                                ON personas_vacantes.id_vacante = vacantes_cuestionarios.id_vacante
+                            INNER JOIN cuestionarios 
+                                ON cuestionarios.id_cuestionario = vacantes_cuestionarios.id_cuestionario 
+                            JOIN preguntas 
+                                ON preguntas.id_cuestionario = cuestionarios.id_cuestionario
+                            JOIN claves 
+                                ON claves.id_pregunta=preguntas.id_pregunta
+                            JOIN respuestas 
+                                ON respuestas.id_pregunta = preguntas.id_pregunta
+                        WHERE personas_vacantes.id_vacante = ".$arg_dataIn['id_vacante']."
+                        AND  cuestionarios.id_cuestionario = $idCuestionario 
+                        AND personas_entidades.id_persona_entidad = ".$arg_dataIn['id_usuario']."
+                        GROUP BY respuestas.id_pregunta;"; 
+            
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $arg_dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+        } catch (Exception $exc) {
+            $arg_mensaje = 'getRespuestasCandidatoVacante method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
     /**
      * guardarStatusDeCuestionario
      * Se guarda el estatus del cuestionario por vacante
@@ -381,6 +430,35 @@ class InformacionCandidatos_model extends CI_Model {
             }
         } catch (Exception $exc) {
             $arg_mensaje = 'obtenerDocumentos method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
+    /**
+     * getDocumentosCargadosCandidato
+     * Se obtienen los documentos que han sido cargados por el candidato.
+     * @param Array  $arg_dataIn parámetros para condicionar consultas.
+     * @param String $arg_dataOut parámetro de salida para retornar datos.
+     * @param String $arg_mensaje
+     * @return int 
+     */
+
+    public function getDocumentosCargadosCandidato($arg_dataIn, &$arg_dataOut, &$arg_mensaje){
+        try {
+            
+            $ls_query = "SELECT * FROM documentos_candidatos WHERE id_candidato = '".$arg_dataIn['id_persona_entidad']."'; ";
+
+            $statement = $this->db->query($ls_query);
+
+            if ($statement) {
+                $arg_dataOut = $statement->result();
+            } else {
+                return -1;
+            }
+        } catch (Exception $exc) {
+            $arg_mensaje = 'getDocumentosCargadosCandidato method does not work. Exception: ' . $exc->getTraceAsString();
             return -1;
         }
         
