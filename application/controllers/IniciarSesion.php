@@ -127,6 +127,7 @@ class IniciarSesion extends CI_Controller {
             $this->session->set_userdata($la_dataSession);
 
             $la_notificacion = [
+                "acceso" => 0
                 "notificacion" => false,
                 "mensaje"      => ""
             ];

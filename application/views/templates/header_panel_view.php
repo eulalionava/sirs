@@ -218,4 +218,6 @@
             <!-- ============================================================== -->                      
             <div class="content-page" style="background: #fbfbfb !important;" id="content_page">
                 <!-- Start content -->
-                <?php echo $content; ?>
+            <?php echo $content; ?>
+
+            
