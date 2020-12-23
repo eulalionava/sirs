@@ -126,6 +126,13 @@ class IniciarSesion extends CI_Controller {
             $la_return['login'] = true;
             $this->session->set_userdata($la_dataSession);
 
+            $la_notificacion = [
+                "notificacion" => false,
+                "mensaje"      => ""
+            ];
+
+            $this->session->set_userdata($la_notificacion);
+
         }catch(Exception $exc) {
             $ls_mensaje = '"procesarSesion" controller does not work. Exception: ' . $exc->getTraceAsString();
             $la_return['mensaje'] = "Ocurrió un error inesperado, inténtelo más tarde: ".$ls_mensaje;

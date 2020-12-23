@@ -436,6 +436,38 @@ class InformacionCandidatos_model extends CI_Model {
         return 1;
     }
 
+    public function guardarDocumentosCandidato($arg_dataIn, &$arg_dataOut, &$arg_mensaje){
+        try {
+            
+            if($arg_dataIn['solicitud'] == 0){
+                $la_data = array(
+                    "id_documento"=>$arg_dataIn['id_documento'],
+                    "id_candidato"=>$arg_dataIn['id_candidato'],
+                    "nombre_archivo"=>$arg_dataIn['nombre_archivo'],
+                    "ruta_archivo"=>$arg_dataIn['ruta_archivo']
+                );
+
+                $this->db->insert("documentos_candidatos",$la_data);
+
+            }else{
+
+                $la_data = array(
+                    "id_cliente"=>$arg_dataIn['id_cliente'],
+                    "id_persona_entidad"=>$arg_dataIn['id_persona_entidad'],
+                    "solicitud_empleo"=>$arg_dataIn['solicitud_empleo']
+                );
+
+                $this->db->insert("solicitud_empleo",$la_data);
+            }
+
+        } catch (Exception $exc) {
+            $arg_mensaje = 'guardarDocumentosCandidato method does not work. Exception: ' . $exc->getTraceAsString();
+            return -1;
+        }
+        
+        return 1;
+    }
+
     /**
      * getDocumentosCargadosCandidato
      * Se obtienen los documentos que han sido cargados por el candidato.
